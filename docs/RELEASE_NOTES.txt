@@ -1,0 +1,45 @@
+Version 0.1
+	Initial release.
+	
+Version 0.2
+	Changed type of gallery and image descriptions to "text".
+    Modified gallery page to allow description to contain HTML.
+    Added configuration file templates to simplify builds for various deployment 
+    environments.
+    
+Version 0.3
+	Added editing index page
+	Added thumbnail generator
+
+Version 0.4
+    Fixed all pages to show private galleries and images only if editing
+    Improved date formatting
+    Added "x of y" to image info box
+    Added message to keywordImages.jsp to notify user when no images match.
+    Added string trimming to editGallery and editImage
+
+Version 0.5
+    Made editImage description textarea resize automatically as needed.
+    Added onbeforeunload handler to editImage to check for dirty form
+    Added edit link to imagePage.jsp
+    Added edit link to gallery.jsp
+    Removed organize button from editGalleries; added Edit Gallery Info link to
+    organizeGallerySelector
+    Added dirty check to editGallery.jsp
+
+Version 0.6
+	Fixed missing breadcrumb parameters bug in imageFileBrowser.jsp
+    Added location to gallery selector thumbnail titles
+    Fixed update code in gallery selector that is called when an image is deleted
+
+Version 0.7
+    Serialized access to image scaler to combat OutOfMemory errors encountered in 
+    production deployment
+    Modified galleries page layout - fixed layout at five galleries per row
+    Added posted-in dates to dateIndex.jsp
+
+Version 0.8
+	Added paging of for large sets of images
+    Implemented view-by-date functionality
+
+    

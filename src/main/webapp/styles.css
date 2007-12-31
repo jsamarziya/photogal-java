@@ -1,0 +1,241 @@
+@CHARSET "ISO-8859-1";
+
+html {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: black;
+}
+
+.title {
+	font-size: 20pt;
+	margin-bottom: 10px;
+}
+
+.heading {
+	font-size: 12pt;
+	font-weight: bold;
+	margin-bottom: 12px;
+}
+
+.greenText,.navlink,.navlinkSelected {
+	color: #48a944;
+}
+
+a:link {
+	color: #48a944;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #48a944;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.smallText {
+	font-size: 7pt;
+}
+
+div.thumbnailGroup {
+	
+}
+
+div.gallery,div.galleryPrivate {
+	width: 110px;
+	height: 110px;
+	overflow: hidden;
+	text-align: center;
+	border-style: solid double double solid;
+	border-width: 1px 3px 5px 1px;
+	border-color: #cccccc;
+	background: #ffffff;
+}
+
+img.thumbnail {
+	border: none;
+}
+
+a.galleryTitle {
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+div.galleryTitle {
+	margin-top: 5px;
+}
+
+div.galleryDiv {
+	float: left;
+	margin-right: 40px;
+	margin-bottom: 40px;
+	width: 110px;
+}
+
+tr.galleryRow {
+	
+}
+
+td.galleryCell {
+	text-align: left;
+	vertical-align: top;
+	padding-right: 40px;
+	padding-bottom: 40px;
+	width: 110px;
+}
+
+div.thumbnail, div.thumbnailFloat {
+	width: 110px;
+	height: 110px;
+	overflow: hidden;
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #cccccc;
+	margin-right: 4px;
+	background: #ffffff;
+}
+
+div.thumbnailFloat {
+	margin-bottom: 4px;
+	position: relative;
+	float: left;
+}
+
+td.thumbnail {
+	text-align: left;
+	vertical-align: top;
+	padding-bottom: 4px;
+}
+
+div.galleryDescription {
+	margin-top: 20px;
+}
+
+div.imageDescription {
+	margin-top: 10px;
+	width: 500px;
+}
+
+div.imageInfoBox {
+	width: 150px;
+	background: #f0f0f0;
+	border: 1px solid #a0a0a0;
+	padding: 0px 6px 6px 6px;
+	font-size: 9px;
+}
+
+div.imageInfoTitle {
+	padding-top: 6px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+div.imageInfo {
+	padding-top: 6px;
+	clear: both;
+}
+
+div.imageInfoIndented {
+	padding-left: 10px;
+}
+
+.imagePosition {
+	font-style: italic;
+	color: #888888;
+}
+
+div.galleryInfo {
+	padding-top: 6px;
+	clear: both;
+	font-size: 9px;
+}
+
+.imageNavigator {
+	
+}
+
+.imageNavigatorDisabled {
+	color: #bbbbbb;
+}
+
+a.imageSize {
+	
+}
+
+a.imageSizeSelected {
+	font-weight: bold;
+}
+
+a.imageSizeSelected:hover {
+	text-decoration: none;
+	cursor: default;
+}
+
+#loginDialog {
+	margin-left: 100px;
+	width: 300px;
+	border: 1px solid #40a340;
+	background: #e8ede8;
+	padding: 20px;
+}
+
+#pgHeader {
+	width: 100%;
+	height: 35px;
+	margin-bottom: 30px;
+	border: 1px solid #40a340;
+	background: #e8ede8;
+}
+
+#pgFooter {
+	width: 90%;
+	margin-top: 50px;
+	padding-top: 5px;
+	border-top: 1px solid #e8ede8;
+}
+
+#appVersion {
+	font-size: 7pt;
+	font-style: italic;
+	color: #888888;
+}
+
+#navbar {
+	float: right;
+	height: 20px;
+	margin-top: 8px;
+	margin-right: 4px;
+}
+
+.navlink,.navlinkSelected {
+	float: left;
+	padding: 1px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+.navlink {
+	border: solid 1px #e8ede8;
+}
+
+.navlinkSelected {
+	border: solid 1px #40a340;
+	background: #d1edd1;
+}
+
+.keywordGroup {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+#bodyContent {
+	position: relative;
+}
+
+div.pager {
+	margin-top: 30px;
+	font-size: 10px;
+}

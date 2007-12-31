@@ -1,0 +1,106 @@
+FUTURE
+------------------
+add scrolling to gallery selector when reordering photos
+
+add total image count to showImagesByDate page
+
+fix up dateIndex.jsp to show message if no dates found
+
+add paging for galleries
+
+put scaled image calculator in context instead on each controller?
+
+troubleshoot editGalleries.jsp IE7 scripting bug
+
+fix file browser title (IE7)
+
+set width/height of img in editImage to keep layout steady as page loads?
+	if you do this, you have to set width and height every time you change image size
+
+set onmouseover status messages for links
+
+javascript unit testing (crosscheck looks promising)
+
+mark unused images somehow? (to keep them from showing up in the file listings)
+	maybe a special keyword?
+	
+do string length checking in input forms to prevent db errors (form validation I think)
+
+export/import via XML?
+
+replace navbar with quick link popup menu
+
+make edit link in header (with a popup menu)
+
+preview link for image in editImage and gallery in editGallery?
+
+add create war target to buildfile
+
+generalize gallery editing into file management paradigm?
+
+keyboard shortcuts?
+
+add button to editImage: "save and go to next" (when adding)
+
+set outline instead of border on active form element (?)
+
+change form colors to match green scheme
+
+list keywords for all images in gallery somehow?
+
+modify editImage to allow updating the location of the image file (?)
+
+fix problem with "hideObjects/showObjects not found" js error in organizeGallery
+	I think this is the mouseOver handlers calling code that hasn't been loaded yet?
+	
+optimize hibernate config
+	second level cache?
+	
+default titles for images in gallery.jsp and imagePage.jsp
+
+add code for setting default image size (cookie) (imagePage)
+
+lat/long info, link to google maps, geotagging
+	http://labs.sumaato.net/tools/flickr_geocode_bookmarklet/
+	
+keyword selector popup or autocomplete in editImage
+
+fix calendar date parsing - "03" gets interpreted as "0003" not "2003"
+
+write code for generating cached images for all photos
+
+disable selecting content in pages with drag&drop?
+
+edit keyword function (rename, delete)
+
+put "Loading Image" placeholder in EditImage, imagePage
+
+put gallery selector and file browser in tabbed frame? IFRAMEs?
+
+scroll selector to new image when adding image?
+
+add keywords to gallery? or	add helper to add keywords to all images in a gallery?
+
+IE testing
+
+add image descriptor field for camera type?  or link to EXIF data?
+
+add support for other image types (GIF, PNG)
+
+slideshow
+
+search
+
+cropping/rotation tool?
+
+add uncertanity flag ("?") to CalendarDate?
+
+use application server datasource for db connections?
+
+add "also contained in" gallery list to image page
+
+fix items marked with TODO tag
+
+unit testing for Hibernate-related code
+
+footer link to project page
