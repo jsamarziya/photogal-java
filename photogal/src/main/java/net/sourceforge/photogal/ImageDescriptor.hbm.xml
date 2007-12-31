@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.sourceforge.photogal.ImageDescriptor" table="IMAGES">
+		<id name="id" column="IMAGE_ID">
+			<generator class="native" />
+		</id>
+		<timestamp name="lastModified" column="LAST_MODIFIED" />
+		<property name="location" not-null="true" />
+		<property name="width" not-null="true" />
+		<property name="height" not-null="true" />
+		<property name="title" />
+		<property name="description" type="text" />
+		<property name="creationDate" column="CREATION_DATE"
+			type="timestamp" not-null="true" />
+		<property name="public">
+			<formula>
+				(SELECT count(*) > 0 FROM GALLERIES gallery,
+				GALLERY_IMAGES gi WHERE gallery.public = 1 and
+				gallery.GALLERY_ID = gi.GALLERY_ID and IMAGE_ID =
+				gi.IMAGE_ID)
+			</formula>
+		</property>
+		<component name="imageCreationDate">
+			<property name="day" column="CREATION_DAY" />
+			<property name="month" column="CREATION_MONTH" />
+			<property name="year" column="CREATION_YEAR" />
+		</component>
+		<list name="keywords" table="IMAGE_KEYWORDS" access="field">
+			<key column="IMAGE_ID" not-null="true" />
+			<list-index column="KEYWORD_INDEX" />
+			<element column="KEYWORD" type="string" />
+		</list>
+		<set name="galleries" table="GALLERY_IMAGES" access="field"
+			inverse="true">
+			<key column="IMAGE_ID" not-null="true" />
+			<many-to-many column="GALLERY_ID"
+				class="net.sourceforge.photogal.Gallery" />
+		</set>
+	</class>
+	<query name="getPublicKeywords">
+		select elements(descriptor.keywords) from ImageDescriptor
+		descriptor where descriptor.public = true
+	</query>
+	<query name="getAllKeywords">
+		select elements(descriptor.keywords) from ImageDescriptor
+		descriptor
+	</query>
+	<query name="countPublicImagesByKeyword">
+		select count(*) from ImageDescriptor descriptor where :keyword
+		in elements(descriptor.keywords) and descriptor.public = true
+	</query>
+	<query name="countAllImagesByKeyword">
+		select count(*) from ImageDescriptor descriptor where :keyword
+		in elements(descriptor.keywords)
+	</query>
+	<query name="getPublicImagesByKeyword">
+		from ImageDescriptor descriptor where :keyword in
+		elements(descriptor.keywords) and descriptor.public = true order
+		by descriptor.id asc
+	</query>
+	<query name="getAllImagesByKeyword">
+		from ImageDescriptor descriptor where :keyword in
+		elements(descriptor.keywords) order by descriptor.id asc
+	</query>
+	<query name="getPublicImageCreationDates">
+		select descriptor.id, descriptor.imageCreationDate from
+		ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year is not null and
+		descriptor.public = true
+	</query>
+	<query name="getAllImageCreationDates">
+		select descriptor.id, descriptor.imageCreationDate from
+		ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year is not null
+	</query>
+	<query name="getPublicDescriptorCreationDates">
+		select descriptor.id, descriptor.creationDate from
+		ImageDescriptor descriptor where descriptor.public = true
+	</query>
+	<query name="getAllDescriptorCreationDates">
+		select descriptor.id, descriptor.creationDate from
+		ImageDescriptor descriptor
+	</query>
+
+
+	<query name="countPublicImagesByDateTaken">
+		select count(*) from ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year = :year and
+		(descriptor.imageCreationDate.month = :month or
+		(descriptor.imageCreationDate.month is null and :month is null))
+		and descriptor.public = true
+	</query>
+	<query name="countAllImagesByDateTaken">
+		select count(*) from ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year = :year and
+		(descriptor.imageCreationDate.month = :month or
+		(descriptor.imageCreationDate.month is null and :month is null))
+	</query>
+	<query name="getPublicImagesByDateTaken">
+		from ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year = :year and
+		(descriptor.imageCreationDate.month = :month or
+		(descriptor.imageCreationDate.month is null and :month is null))
+		and descriptor.public = true order by
+		descriptor.imageCreationDate.month asc,
+		descriptor.imageCreationDate.day asc, descriptor.id asc
+	</query>
+	<query name="getAllImagesByDateTaken">
+		from ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year = :year and
+		(descriptor.imageCreationDate.month = :month or
+		(descriptor.imageCreationDate.month is null and :month is null))
+		order by descriptor.imageCreationDate.month asc,
+		descriptor.imageCreationDate.day asc, descriptor.id asc
+	</query>
+
+	<query name="countPublicImagesByYearTaken">
+		select count(*) from ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year = :year and descriptor.public
+		= true
+	</query>
+	<query name="countAllImagesByYearTaken">
+		select count(*) from ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year = :year
+	</query>
+	<query name="getPublicImagesByYearTaken">
+		from ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year = :year and descriptor.public
+		= true order by descriptor.imageCreationDate.month asc,
+		descriptor.imageCreationDate.day asc, descriptor.id asc
+	</query>
+	<query name="getAllImagesByYearTaken">
+		from ImageDescriptor descriptor where
+		descriptor.imageCreationDate.year = :year order by
+		descriptor.imageCreationDate.month asc,
+		descriptor.imageCreationDate.day asc, descriptor.id asc
+	</query>
+
+	<query name="countPublicImagesByDatePosted">
+		select count(*) from ImageDescriptor descriptor where
+		descriptor.creationDate &gt;= :startDate and
+		descriptor.creationDate &lt; :endDate and descriptor.public =
+		true
+	</query>
+	<query name="countAllImagesByDatePosted">
+		select count(*) from ImageDescriptor descriptor where
+		descriptor.creationDate &gt;= :startDate and
+		descriptor.creationDate &lt; :endDate
+	</query>
+	<query name="getPublicImagesByDatePosted">
+		from ImageDescriptor descriptor where descriptor.creationDate
+		&gt;= :startDate and descriptor.creationDate &lt; :endDate and
+		descriptor.public = true order by descriptor.creationDate asc,
+		descriptor.id asc
+	</query>
+	<query name="getAllImagesByDatePosted">
+		from ImageDescriptor descriptor where descriptor.creationDate
+		&gt;= :startDate and descriptor.creationDate &lt; :endDate order
+		by descriptor.creationDate asc, descriptor.id asc
+	</query>
+</hibernate-mapping>

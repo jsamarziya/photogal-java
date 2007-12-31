@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="imageFileAccessManager"
+		class="org.sixcats.utils.FileAccessManager">
+		<property name="baseDirectory"
+			value="${imageFileBaseDirectory}" />
+	</bean>
+	<bean id="scaledImageCalculator"
+		class="net.sourceforge.photogal.image.ScaledImageCalculator">
+		<property name="maxSizes">
+			<map>
+				<entry key="t">
+					<value type="java.lang.Integer">
+						${scaledImage.maxSize.t}
+					</value>
+				</entry>
+				<entry key="s">
+					<value type="java.lang.Integer">
+						${scaledImage.maxSize.s}
+					</value>
+				</entry>
+				<entry key="m">
+					<value type="java.lang.Integer">
+						${scaledImage.maxSize.m}
+					</value>
+				</entry>
+				<entry key="l">
+					<value type="java.lang.Integer">
+						${scaledImage.maxSize.l}
+					</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="scaledImageCache"
+		class="net.sourceforge.photogal.image.SynchronizedScaledImageCache">
+		<property name="scaledImageCalculator"
+			ref="scaledImageCalculator" />
+		<property name="cacheDirectory"
+			value="${scaledImageCacheDirectory}" />
+	</bean>
+	<bean id="thumbnailGenerator"
+		class="net.sourceforge.photogal.image.ThumbnailGenerator">
+		<property name="fileAccessManager" ref="imageFileAccessManager" />
+		<property name="scaledImageCache" ref="scaledImageCache" />
+		<property name="throttleDelay" value="1000" />
+	</bean>
+	<bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location"
+			value="/WEB-INF/applicationContext.properties" />
+	</bean>
+</beans>

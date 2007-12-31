@@ -1,0 +1,7 @@
+to switch over to using MySQL:
+
+remove dependency on hsqldb.jar
+
+add dependency on mysql driver
+
+modify hibernate.cfg.xml

@@ -1,0 +1,40 @@
+@CHARSET "ISO-8859-1";
+
+div.zoomPopup {
+	position: absolute;
+	background: #eeeeee;
+	border-color: #000000;
+	border-style: solid;
+	border-width: 1px;
+	padding: 2px 0px 2px 0px;
+}
+
+span.divider {
+	border-left: 1px solid #cccccc;
+	width: 1px;
+}
+
+span.zoomButtonEnabled,span.zoomButtonDisabled,span.zoomButtonSelected,span.zoomButtonHover
+	{
+	margin: 4px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: black;
+	font-size: 8pt;
+	padding: 1px 2px 1px 2px;
+}
+
+span.zoomButtonEnabled {
+	
+}
+
+span.zoomButtonDisabled {
+	color: #cccccc;
+}
+
+span.zoomButtonSelected {
+	background: #ccccee;
+}
+
+span.zoomButtonHover {
+	text-decoration: underline;
+}
