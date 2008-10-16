@@ -87,7 +87,6 @@ public class Gallery implements Comparable<Gallery> {
         return creationDate;
     }
 
-    @SuppressWarnings("unused")
     private void setCreationDate(final Date creationDate) {
         this.creationDate = creationDate;
     }
