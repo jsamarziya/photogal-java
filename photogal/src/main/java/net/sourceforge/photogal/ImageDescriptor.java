@@ -249,7 +249,6 @@ public class ImageDescriptor {
         return creationDate;
     }
 
-    @SuppressWarnings("unused")
     private void setCreationDate(final Date creationDate) {
         this.creationDate = creationDate;
     }
@@ -258,7 +257,6 @@ public class ImageDescriptor {
         return isPublic;
     }
 
-    @SuppressWarnings("unused")
     private void setPublic(final boolean isPublic) {
         this.isPublic = isPublic;
     }
