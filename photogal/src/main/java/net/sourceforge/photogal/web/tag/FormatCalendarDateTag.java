@@ -22,10 +22,6 @@ import java.io.IOException;
 
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.el.ELException;
-import javax.servlet.jsp.el.ExpressionEvaluator;
-import javax.servlet.jsp.el.FunctionMapper;
-import javax.servlet.jsp.el.VariableResolver;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.sixcats.utils.CalendarDate;
@@ -34,10 +30,9 @@ import org.sixcats.utils.web.JspUtils;
 
 public class FormatCalendarDateTag extends SimpleTagSupport {
     private String pattern;
-    private String value;
+    private CalendarDate value;
     private String var;
     private String scope;
-    private CalendarDate date;
 
     public FormatCalendarDateTag() {
         setScope(JspUtils.PAGE_SCOPE);
@@ -51,19 +46,11 @@ public class FormatCalendarDateTag extends SimpleTagSupport {
         this.pattern = pattern;
     }
 
-    public CalendarDate getDate() {
-        return date;
-    }
-
-    private void setDate(CalendarDate date) {
-        this.date = date;
-    }
-
-    public String getValue() {
+    public CalendarDate getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(CalendarDate value) {
         this.value = value;
     }
 
@@ -86,14 +73,9 @@ public class FormatCalendarDateTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         final JspContext jspContext = getJspContext();
-        try {
-            evaluateExpressions();
-        } catch (ELException ex) {
-            throw new JspException(ex);
-        }
         String formatted = null;
         if (getValue() != null) {
-            formatted = getFormat().format(getDate());
+            formatted = getFormat().format(getValue());
         }
         if (getVar() == null) {
             if (formatted != null) {
@@ -110,35 +92,9 @@ public class FormatCalendarDateTag extends SimpleTagSupport {
     }
 
     private CalendarDateFormat getFormat() {
+        if (getPattern() == null) {
+            throw new IllegalArgumentException("pattern not set");
+        }
         return new CalendarDateFormat(getPattern());
-    }
-
-    private void evaluateExpressions() throws ELException {
-        final JspContext jspContext = getJspContext();
-        final ExpressionEvaluator expressionEvaluator = jspContext
-                .getExpressionEvaluator();
-        final VariableResolver variableResolver = jspContext
-                .getVariableResolver();
-        final FunctionMapper fMapper = null;
-        setPattern((String) expressionEvaluator.evaluate(getPattern(),
-                                                         String.class,
-                                                         variableResolver,
-                                                         fMapper));
-        setDate((CalendarDate) expressionEvaluator.evaluate(getValue(),
-                                                            CalendarDate.class,
-                                                            variableResolver,
-                                                            fMapper));
-        if (getScope() != null) {
-            setScope((String) expressionEvaluator.evaluate(getScope(),
-                                                           String.class,
-                                                           variableResolver,
-                                                           fMapper));
-        }
-        if (getVar() != null) {
-            setVar((String) expressionEvaluator.evaluate(getVar(),
-                                                         String.class,
-                                                         variableResolver,
-                                                         fMapper));
-        }
     }
 }
