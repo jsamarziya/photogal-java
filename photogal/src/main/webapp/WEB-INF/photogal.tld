@@ -100,14 +100,14 @@
 	</function>
 	<function>
 		<name>version</name>
-		<function-class>net.sourceforge.utils.Version</function-class>
+		<function-class>org.sixcats.utils.Version</function-class>
 		<function-signature>
 			java.lang.String getVersion()
 		</function-signature>
 	</function>
 	<function>
 		<name>deploymentEnvironment</name>
-		<function-class>net.sourceforge.utils.Version</function-class>
+		<function-class>org.sixcats.utils.Version</function-class>
 		<function-signature>
 			java.lang.String getDeploymentEnvironment()
 		</function-signature>
