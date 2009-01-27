@@ -21,14 +21,13 @@ package net.sourceforge.photogal.web;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-
 import net.sourceforge.photogal.image.ScaledImageCache;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.sixcats.utils.FileAccessManager;
 import org.sixcats.utils.Version;
 import org.sixcats.utils.hibernate.HibernateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -36,7 +35,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * A ServletContextListener that does some startup logging.
  */
 public class StartupLoggerListener implements ServletContextListener {
-    private final Log log = LogFactory.getLog(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     public void contextInitialized(ServletContextEvent event) {
         final ApplicationContext appContext = WebApplicationContextUtils
@@ -53,12 +52,13 @@ public class StartupLoggerListener implements ServletContextListener {
 
     private String getVersion() {
         return Version.getVersion() + " (" + Version.getDeploymentEnvironment()
-            + ")";
+                + ")";
     }
 
     private void logHibernateConfig() {
         log.info("Database: "
-            + HibernateUtil.getConfiguration().getProperty("connection.url"));
+                + HibernateUtil.getConfiguration()
+                        .getProperty("connection.url"));
     }
 
     private void logImageFileDirectory(final ApplicationContext context) {
@@ -66,9 +66,9 @@ public class StartupLoggerListener implements ServletContextListener {
             final FileAccessManager imageFileAccessManager = (FileAccessManager) context
                     .getBean("imageFileAccessManager");
             log.info("Image file base directory: "
-                + imageFileAccessManager.getBaseDirectory());
+                    + imageFileAccessManager.getBaseDirectory());
         } catch (Exception ex) {
-            log.error(ex);
+            log.error("error logging image file directory", ex);
         }
     }
 
@@ -77,9 +77,9 @@ public class StartupLoggerListener implements ServletContextListener {
             final ScaledImageCache scaledImageCache = (ScaledImageCache) context
                     .getBean("scaledImageCache");
             log.info("Scaled image cache directory: "
-                + scaledImageCache.getCacheDirectory());
+                    + scaledImageCache.getCacheDirectory());
         } catch (Exception ex) {
-            log.error(ex);
+            log.error("error logging scaled image cache directory", ex);
         }
     }
 }
