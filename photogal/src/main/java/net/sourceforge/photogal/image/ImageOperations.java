@@ -39,14 +39,15 @@ import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.ImageIcon;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.MetadataException;
 
 public class ImageOperations {
-    private static final Log log = LogFactory.getLog(ImageOperations.class);
+    private static final Logger log = LoggerFactory
+            .getLogger(ImageOperations.class);
     private static final float DEFAULT_SOFTEN_FACTOR = 0.01f;
 
     // The idea for this implementation came from
@@ -57,10 +58,9 @@ public class ImageOperations {
         }
 
         final BufferedImage retval = createCompatibleDestImage(image,
-                                                               scale_factor);
+                scale_factor);
         Image i = image.getScaledInstance(retval.getWidth(),
-                                          retval.getHeight(),
-                                          Image.SCALE_SMOOTH);
+                retval.getHeight(), Image.SCALE_SMOOTH);
         // This ensures that all the pixels in the image are loaded.
         i = new ImageIcon(i).getImage();
 
@@ -79,8 +79,10 @@ public class ImageOperations {
      * Resizes an image so that the height and width of the image do not exceed
      * the specified size.
      * 
-     * @param image the image
-     * @param maxSize the maximum allowed value for the height and width
+     * @param image
+     *            the image
+     * @param maxSize
+     *            the maximum allowed value for the height and width
      * @return the image, resized as necessary
      */
     public static BufferedImage limitSize(BufferedImage image, int maxSize) {
@@ -96,7 +98,7 @@ public class ImageOperations {
 
     public static BufferedImage smooth(final BufferedImage image) {
         float[] kernelData = { 1, 4, 7, 4, 1, 4, 16, 26, 16, 4, 7, 26, 41, 26,
-            7, 4, 16, 26, 16, 4, 1, 4, 7, 4, 1 };
+                7, 4, 16, 26, 16, 4, 1, 4, 7, 4, 1 };
         int total = 0;
         for (int i = 0; i < kernelData.length; i++) {
             total += kernelData[i];
@@ -116,7 +118,7 @@ public class ImageOperations {
     public static BufferedImage soften(final BufferedImage image,
             final float softenFactor) {
         float[] kernelData = { 0, softenFactor, 0, softenFactor,
-            1 - (softenFactor * 4), softenFactor, 0, softenFactor, 0 };
+                1 - (softenFactor * 4), softenFactor, 0, softenFactor, 0 };
         Kernel kernel = new Kernel(3, 3, kernelData);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
         return op.filter(image, createCompatibleDestImage(image));
@@ -124,7 +126,7 @@ public class ImageOperations {
 
     public static BufferedImage sharpen(final BufferedImage image) {
         float[] kernelData = { 0.0f, -1.0f, 0.0f, -1.0f, 5.f, -1.0f, 0.0f,
-            -1.0f, 0.0f };
+                -1.0f, 0.0f };
         Kernel kernel = new Kernel(3, 3, kernelData);
         ConvolveOp op = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
         return op.filter(image, createCompatibleDestImage(image));
@@ -133,14 +135,19 @@ public class ImageOperations {
     /**
      * Saves an image.
      * 
-     * @param image the image to save
-     * @param output an <code>Object</code> to be used as an output
-     * destination, such as a <code>File</code>, writable
-     * <code>RandomAccessFile</code>, or <code>OutputStream</code>
-     * @param writer the ImageWriter to use to write the image
-     * @param writeParam the write param to use when writing the image
+     * @param image
+     *            the image to save
+     * @param output
+     *            an <code>Object</code> to be used as an output destination,
+     *            such as a <code>File</code>, writable
+     *            <code>RandomAccessFile</code>, or <code>OutputStream</code>
+     * @param writer
+     *            the ImageWriter to use to write the image
+     * @param writeParam
+     *            the write param to use when writing the image
      * @throws IOException
-     * @throws IOException if an I/O error occurs
+     * @throws IOException
+     *             if an I/O error occurs
      */
     private static void saveImage(final BufferedImage image,
             final Object output, final ImageWriter writer,
@@ -165,11 +172,14 @@ public class ImageOperations {
     /**
      * Saves an image as a JPEG.
      * 
-     * @param image the image to save
-     * @param output an <code>Object</code> to be used as an output
-     * destination, such as a <code>File</code>, writable
-     * <code>RandomAccessFile</code>, or <code>OutputStream</code>
-     * @throws IOException if an I/O error occurs
+     * @param image
+     *            the image to save
+     * @param output
+     *            an <code>Object</code> to be used as an output destination,
+     *            such as a <code>File</code>, writable
+     *            <code>RandomAccessFile</code>, or <code>OutputStream</code>
+     * @throws IOException
+     *             if an I/O error occurs
      */
     public static void saveAsJPEG(final BufferedImage image, final Object output)
             throws IOException {
@@ -183,11 +193,14 @@ public class ImageOperations {
     /**
      * Saves an image as a PNG.
      * 
-     * @param image the image to save
-     * @param output an <code>Object</code> to be used as an output
-     * destination, such as a <code>File</code>, writable
-     * <code>RandomAccessFile</code>, or <code>OutputStream</code>
-     * @throws IOException if an I/O error occurs
+     * @param image
+     *            the image to save
+     * @param output
+     *            an <code>Object</code> to be used as an output destination,
+     *            such as a <code>File</code>, writable
+     *            <code>RandomAccessFile</code>, or <code>OutputStream</code>
+     * @throws IOException
+     *             if an I/O error occurs
      */
     public static void saveAsPNG(final BufferedImage image, final Object output)
             throws IOException {
@@ -199,7 +212,8 @@ public class ImageOperations {
     /**
      * Creates a destination image.
      * 
-     * @param source the BufferedImage to be transformed
+     * @param source
+     *            the BufferedImage to be transformed
      * @return the destination image
      */
     private static BufferedImage createCompatibleDestImage(BufferedImage source) {
@@ -209,8 +223,10 @@ public class ImageOperations {
     /**
      * Creates a destination image scaled to the appropriate size.
      * 
-     * @param source the BufferedImage to be transformed
-     * @param scale_factor the factor by which to size the destination image
+     * @param source
+     *            the BufferedImage to be transformed
+     * @param scale_factor
+     *            the factor by which to size the destination image
      * @return the destination image
      */
     private static BufferedImage createCompatibleDestImage(
@@ -218,7 +234,7 @@ public class ImageOperations {
         int scaledWidth = (int) (source.getWidth() * scale_factor);
         int scaledHeight = (int) (source.getHeight() * scale_factor);
         BufferedImage retval = new BufferedImage(scaledWidth, scaledHeight,
-                                                 source.getType());
+                source.getType());
         return retval;
     }
 
@@ -234,10 +250,12 @@ public class ImageOperations {
     /**
      * Returns true if the given file is a JPEG file.
      * 
-     * @param file the file
-     * @return <code>true</code> if the file is a JPEG file,
-     * <code>false</code> otherwise
-     * @throws IOException if an I/O error occurs
+     * @param file
+     *            the file
+     * @return <code>true</code> if the file is a JPEG file, <code>false</code>
+     *         otherwise
+     * @throws IOException
+     *             if an I/O error occurs
      */
     public static boolean isJPEG(final File file) throws IOException {
         boolean retval = false;
@@ -258,10 +276,12 @@ public class ImageOperations {
     /**
      * Returns true if the given file is an image file.
      * 
-     * @param file the file
+     * @param file
+     *            the file
      * @return <code>true</code> if the file is an image file,
-     * <code>false</code> otherwise
-     * @throws IOException if an I/O error occurs
+     *         <code>false</code> otherwise
+     * @throws IOException
+     *             if an I/O error occurs
      */
     public static boolean isImage(final File file) throws IOException {
         return isJPEG(file);
@@ -271,20 +291,22 @@ public class ImageOperations {
      * Returns a collection of the image files contained in the specified
      * directory.
      * 
-     * @param directory the directory
+     * @param directory
+     *            the directory
      * @return a collection of image files contained in the directory
-     * @throws IOException if an I/O error occurs
+     * @throws IOException
+     *             if an I/O error occurs
      */
     public static Collection<File> getImageFiles(File directory)
             throws IOException {
         ArrayList<File> retval = new ArrayList<File>();
         if (!directory.isDirectory()) {
             throw new IOException("Unable to list files: " + directory
-                + " is not a directory");
+                    + " is not a directory");
         }
         if (!directory.canRead()) {
             throw new IOException("Unable to list files: " + directory
-                + " not readable");
+                    + " not readable");
         }
         File[] files = directory.listFiles();
         if (files == null) {
@@ -301,9 +323,10 @@ public class ImageOperations {
     /**
      * Returns the date that the specified image was created.
      * 
-     * @param imageFile the file that contains the image
-     * @return the date the image was created, or <code>null</code> if the
-     * image creation date cannot be determined
+     * @param imageFile
+     *            the file that contains the image
+     * @return the date the image was created, or <code>null</code> if the image
+     *         creation date cannot be determined
      */
     public static Date getImageCreationDate(final File imageFile) {
         Date retval = null;

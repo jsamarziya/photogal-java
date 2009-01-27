@@ -26,12 +26,12 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.sixcats.utils.FileAccessManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ThumbnailGenerator implements Runnable {
-    private final Log log = LogFactory.getLog(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private ScaledImageCache cache;
     private FileAccessManager fileAccessManager;
@@ -105,18 +105,17 @@ public class ThumbnailGenerator implements Runnable {
         } catch (Exception ex) {
             log
                     .error(
-                           "Error occured while generating thumbnails, aborting",
-                           ex);
+                            "Error occured while generating thumbnails, aborting",
+                            ex);
         }
     }
 
     @SuppressWarnings("unchecked")
     private void generate() {
         int thumbnailsGenerated = 0;
-        Collection<File> images = FileUtils
-                .listFiles(new File(getFileAccessManager().getBaseDirectory()),
-                           imageWithoutThumbnailFileFilter,
-                           TrueFileFilter.INSTANCE);
+        Collection<File> images = FileUtils.listFiles(new File(
+                getFileAccessManager().getBaseDirectory()),
+                imageWithoutThumbnailFileFilter, TrueFileFilter.INSTANCE);
         log.info("found " + images.size() + " images to create thumbnails for");
         if (getThrottleDelay() > 0) {
             log.info("Waiting " + getThrottleDelay() + "ms between each");
@@ -131,7 +130,7 @@ public class ThumbnailGenerator implements Runnable {
                 }
             } catch (Exception ex) {
                 log.warn("error occured while creating thumbnail for " + file,
-                         ex);
+                        ex);
             }
         }
         log.info(thumbnailsGenerated + " thumbnails generated");
