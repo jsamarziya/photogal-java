@@ -31,21 +31,31 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.sixcats.utils.CalendarDate;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 /**
  * An object that contains information about an image.
  */
+@XStreamAlias("imageDescriptor")
 public class ImageDescriptor {
+    @XStreamAsAttribute()
     private Long id;
+    private Date creationDate;
+    private Date lastModified;
+    private String title;
+    private String description;
     private String location;
     private int width;
     private int height;
-    private String title;
-    private String description;
     private CalendarDate imageCreationDate;
-    private List<String> keywords;
-    private Date creationDate;
-    private Date lastModified;
+    @XStreamAsAttribute()
     private boolean isPublic;
+    @XStreamImplicit(itemFieldName = "keyword")
+    private List<String> keywords;
+    @XStreamOmitField
     private Set<Gallery> galleries;
 
     public ImageDescriptor() {
@@ -263,12 +273,11 @@ public class ImageDescriptor {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("id", getId()).append("title", getTitle()).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("id", getId())
+                .append("title", getTitle()).toString();
     }
 
     public Set<Gallery> getGalleries() {
-        return galleries == null ? null : Collections
-                .unmodifiableSet(galleries);
+        return galleries == null ? null : Collections.unmodifiableSet(galleries);
     }
 }

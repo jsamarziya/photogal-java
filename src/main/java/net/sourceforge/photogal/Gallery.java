@@ -23,22 +23,33 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import net.sourceforge.photogal.export.ListConverter;
+
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+
+@XStreamAlias("gallery")
 public class Gallery implements Comparable<Gallery> {
+    @XStreamAsAttribute()
     private Long id;
-    private List<ImageDescriptor> images;
+    private Date creationDate;
+    private Date lastModified;
     private String name;
     private String description;
-    private Date lastModified;
-    private Date creationDate;
-    private ImageDescriptor galleryImage;
+    @XStreamAsAttribute()
     private int orderIndex;
+    @XStreamAsAttribute()
     private boolean isPublic;
+    @XStreamConverter(ListConverter.class)
+    private List<ImageDescriptor> images;
+    private ImageDescriptor galleryImage;
 
     public Gallery() {
         images = new ArrayList<ImageDescriptor>();
@@ -90,7 +101,6 @@ public class Gallery implements Comparable<Gallery> {
     private void setCreationDate(final Date creationDate) {
         this.creationDate = creationDate;
     }
-
 
     public List<ImageDescriptor> getImages() {
         return images == null ? null : Collections.unmodifiableList(images);
@@ -172,32 +182,28 @@ public class Gallery implements Comparable<Gallery> {
         if (fromIndex == toIndex) {
             return;
         }
-        Validate.isTrue(fromIndex >= 0, "fromIndex cannot be negative: ",
-                        fromIndex);
+        Validate.isTrue(fromIndex >= 0, "fromIndex cannot be negative: ", fromIndex);
         Validate.isTrue(toIndex >= 0, "toIndex cannot be negative: ", toIndex);
         Validate.isTrue(fromIndex < getImageCount(),
-                        "fromIndex must be less than the image count: ",
-                        fromIndex);
-        Validate.isTrue(toIndex < getImageCount(),
-                        "toIndex must be less than the image count: ", toIndex);
+                "fromIndex must be less than the image count: ", fromIndex);
+        Validate.isTrue(toIndex < getImageCount(), "toIndex must be less than the image count: ",
+                toIndex);
         final ImageDescriptor descriptor = images.remove(fromIndex);
         images.add(toIndex, descriptor);
     }
 
     public boolean isGalleryImage(final ImageDescriptor descriptor) {
         final ImageDescriptor galleryImage = getGalleryImage();
-        return galleryImage != null
-            && ObjectUtils.equals(galleryImage.getId(), descriptor.getId());
+        return galleryImage != null && ObjectUtils.equals(galleryImage.getId(), descriptor.getId());
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("id", getId()).append("name", getName()).toString();
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("id", getId())
+                .append("name", getName()).toString();
     }
 
     public int compareTo(Gallery o) {
-        return new CompareToBuilder()
-                .append(getOrderIndex(), o.getOrderIndex()).toComparison();
+        return new CompareToBuilder().append(getOrderIndex(), o.getOrderIndex()).toComparison();
     }
 }
