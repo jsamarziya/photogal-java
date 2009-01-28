@@ -89,6 +89,19 @@ public class HibernateEntityManager {
         return retval;
     }
 
+    /**
+     * Returns the image descriptors, sorted by id.
+     * 
+     * @return the image descriptors contained in the database
+     */
+    @SuppressWarnings("unchecked")
+    public List<ImageDescriptor> getImageDescriptors() {
+        final Criteria criteria = getSession().createCriteria(
+                ImageDescriptor.class).addOrder(Order.asc("id"));
+        List<ImageDescriptor> retval = criteria.list();
+        return retval;
+    }
+
     public ImageDescriptor getImageDescriptor(final long imageId) {
         ImageDescriptor retval = (ImageDescriptor) getSession().createCriteria(
                 ImageDescriptor.class).add(Restrictions.eq("id", imageId))
