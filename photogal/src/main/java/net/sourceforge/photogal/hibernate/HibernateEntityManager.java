@@ -39,8 +39,12 @@ import org.sixcats.utils.hibernate.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HibernateEntityManager {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+/**
+ * An implementation of EntityManager that uses Hibernate to access the photogal
+ * data.
+ */
+public class HibernateEntityManager implements EntityManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(HibernateEntityManager.class);
 
     private static final HibernateEntityManager INSTANCE = new HibernateEntityManager();
 
@@ -55,12 +59,6 @@ public class HibernateEntityManager {
         return HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
-    /**
-     * Returns the galleries, sorted by orderIndex.
-     * 
-     * @param includePrivate if <code>true</code>, return private galleries too
-     * @return the galleries contained in the database
-     */
     @SuppressWarnings("unchecked")
     public List<Gallery> getGalleries(final boolean includePrivate) {
         final Criteria criteria = getSession().createCriteria(Gallery.class).addOrder(
@@ -72,11 +70,6 @@ public class HibernateEntityManager {
         return retval;
     }
 
-    /**
-     * Returns the number of galleries.
-     * 
-     * @return the number of galleries contained in the database
-     */
     public int getGalleryCount() {
         Integer retval = (Integer) getSession().createCriteria(Gallery.class).setProjection(
                 Projections.rowCount()).uniqueResult();
@@ -89,11 +82,6 @@ public class HibernateEntityManager {
         return retval;
     }
 
-    /**
-     * Returns the image descriptors, sorted by id.
-     * 
-     * @return the image descriptors contained in the database
-     */
     @SuppressWarnings("unchecked")
     public List<ImageDescriptor> getImageDescriptors() {
         final Criteria criteria = getSession().createCriteria(ImageDescriptor.class).addOrder(
@@ -108,13 +96,6 @@ public class HibernateEntityManager {
         return retval;
     }
 
-    /**
-     * Returns the image descriptor for the specified image file
-     * 
-     * @param location the location of the image file
-     * @return the descriptor for the specified image file, or <code>null</code>
-     *         if no such descriptor exists
-     */
     public ImageDescriptor getImageDescriptor(final String location) {
         ImageDescriptor retval = (ImageDescriptor) getSession().createCriteria(
                 ImageDescriptor.class).add(Restrictions.eq("location", location)).uniqueResult();
@@ -127,16 +108,10 @@ public class HibernateEntityManager {
         return retval > 0;
     }
 
-    /**
-     * Returns the number of galleries that contain the specified image.
-     * 
-     * @param imageId the id of the image
-     * @return the number of galleries that contain the specified image
-     */
     public int getImageGalleryCount(long imageId) {
         int retval = (Integer) getSession().getNamedQuery("getImageGalleryCount").setLong(
                 "imageId", imageId).uniqueResult();
-        log.debug("image " + imageId + " is contained in " + retval + " galleries");
+        LOGGER.debug("image " + imageId + " is contained in " + retval + " galleries");
         return retval;
     }
 
@@ -152,7 +127,7 @@ public class HibernateEntityManager {
         for (Gallery g : list) {
             final int oldIndex = g.getOrderIndex();
             final int newIndex = oldIndex - 1;
-            log.debug("moving gallery#" + g.getId() + " from " + oldIndex + " to " + newIndex);
+            LOGGER.debug("moving gallery#" + g.getId() + " from " + oldIndex + " to " + newIndex);
             g.setOrderIndex(newIndex);
         }
     }
@@ -160,7 +135,7 @@ public class HibernateEntityManager {
     private void deleteOrphanImages(final Gallery gallery) {
         for (ImageDescriptor descriptor : gallery.getImages()) {
             if (getImageGalleryCount(descriptor.getId()) <= 1) {
-                log.debug("image " + descriptor.getId() + " is now orphaned, deleting it");
+                LOGGER.debug("image " + descriptor.getId() + " is now orphaned, deleting it");
                 getSession().delete(descriptor);
             }
         }
@@ -186,11 +161,11 @@ public class HibernateEntityManager {
         for (Gallery g : list) {
             final int oldIndex = g.getOrderIndex();
             final int newIndex = oldIndex - 1;
-            log.debug("moving gallery#" + g.getId() + " from " + oldIndex + " to " + newIndex);
+            LOGGER.debug("moving gallery#" + g.getId() + " from " + oldIndex + " to " + newIndex);
             g.setOrderIndex(newIndex);
         }
-        log.debug("moving gallery#" + gallery.getId() + " from " + gallery.getOrderIndex() + " to "
-                + toIndex);
+        LOGGER.debug("moving gallery#" + gallery.getId() + " from " + gallery.getOrderIndex()
+                + " to " + toIndex);
         gallery.setOrderIndex(toIndex);
     }
 
@@ -204,22 +179,14 @@ public class HibernateEntityManager {
         for (Gallery g : list) {
             final int oldIndex = g.getOrderIndex();
             final int newIndex = oldIndex + 1;
-            log.debug("moving gallery#" + g.getId() + " from " + oldIndex + " to " + newIndex);
+            LOGGER.debug("moving gallery#" + g.getId() + " from " + oldIndex + " to " + newIndex);
             g.setOrderIndex(newIndex);
         }
-        log.debug("moving gallery#" + gallery.getId() + " from " + gallery.getOrderIndex() + " to "
-                + toIndex);
+        LOGGER.debug("moving gallery#" + gallery.getId() + " from " + gallery.getOrderIndex()
+                + " to " + toIndex);
         gallery.setOrderIndex(toIndex);
     }
 
-    /**
-     * Returns a mapping of keywords to occurence count.
-     * 
-     * @param includePrivate if <code>true</code>, return keywords for private
-     *            images too
-     * @return a map whose keys are keywords and whose values are the number of
-     *         images that are tagged with the keyword
-     */
     @SuppressWarnings("unchecked")
     public Map<String, Integer> getKeywords(boolean includePrivate) {
         final List<String> keywords = getSession().getNamedQuery(
@@ -248,11 +215,6 @@ public class HibernateEntityManager {
         return query;
     }
 
-    /**
-     * Returns a mapping of image descriptor ids to image creation dates.
-     * 
-     * @param includePrivate if <code>true</code>, include private images
-     */
     @SuppressWarnings("unchecked")
     public Map<Long, CalendarDate> getImageCreationDates(final boolean includePrivate) {
         Map<Long, CalendarDate> retval = new HashMap<Long, CalendarDate>();
@@ -264,11 +226,6 @@ public class HibernateEntityManager {
         return retval;
     }
 
-    /**
-     * Returns a mapping of image descriptor ids to descriptor creation dates.
-     * 
-     * @param includePrivate if <code>true</code>, include private images
-     */
     @SuppressWarnings("unchecked")
     public Map<Long, Date> getDescriptorCreationDates(boolean includePrivate) {
         Map<Long, Date> retval = new HashMap<Long, Date>();
@@ -281,14 +238,6 @@ public class HibernateEntityManager {
         return retval;
     }
 
-    /**
-     * Returns the number of images that were taken in the specified month and
-     * year.
-     * 
-     * @param year the year
-     * @param month the month
-     * @param includePrivate if true, include private images
-     */
     public int getImagesByDateTakenCount(int year, Integer month, boolean includePrivate) {
         Query query = getSession().getNamedQuery(
                 includePrivate ? "countAllImagesByDateTaken" : "countPublicImagesByDateTaken");
@@ -314,12 +263,6 @@ public class HibernateEntityManager {
         return query;
     }
 
-    /**
-     * Returns the number of images that were taken in the specified year.
-     * 
-     * @param year the year
-     * @param includePrivate if true, include private images
-     */
     public int getImagesByYearTakenCount(int year, boolean includePrivate) {
         Query query = getSession().getNamedQuery(
                 includePrivate ? "countAllImagesByYearTaken" : "countPublicImagesByYearTaken");
@@ -361,11 +304,6 @@ public class HibernateEntityManager {
         return query;
     }
 
-    /**
-     * Returns the data contained in the database.
-     * 
-     * @return the photogal data
-     */
     public PhotogalData getData() {
         final PhotogalData data = new PhotogalData();
         data.setExportDate(new Date());
