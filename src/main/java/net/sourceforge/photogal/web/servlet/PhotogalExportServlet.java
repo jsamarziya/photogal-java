@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.export.PhotogalData;
 import net.sourceforge.photogal.export.PhotogalExporter;
-import net.sourceforge.photogal.export.PhotogalExporterImpl;
+import net.sourceforge.photogal.export.XStreamPhotogalExporter;
 import net.sourceforge.photogal.hibernate.EntityManager;
 import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 
@@ -46,7 +46,7 @@ public class PhotogalExportServlet extends HttpServlet {
     private EntityManager entityManager;
 
     public PhotogalExportServlet() {
-        setExporter(PhotogalExporterImpl.getInstance());
+        setExporter(XStreamPhotogalExporter.getInstance());
         setEntityManager(HibernateEntityManager.getInstance());
     }
 
@@ -92,7 +92,7 @@ public class PhotogalExportServlet extends HttpServlet {
         final PhotogalData data = getEntityManager().getData();
         response.setContentType("text/xml");
         response.setCharacterEncoding("UTF-8");
-        getExporter().export(data, response.getWriter());
+        getExporter().exportData(data, response.getWriter());
         LOGGER.info("Exported data (" + data.getImageDescriptors().size() + " images, "
                 + data.getGalleries().size() + " galleries)");
     }

@@ -20,6 +20,7 @@
 package net.sourceforge.photogal.export;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 import java.util.Date;
 import java.util.List;
@@ -34,13 +35,16 @@ import org.hibernate.collection.PersistentSet;
 import com.thoughtworks.xstream.XStream;
 
 /**
- * The default implementation of the PhotogalExporter interface.
+ * An implementation of the PhotogalExporter interface that uses XStream for
+ * serialization.
  */
-public class PhotogalExporterImpl implements PhotogalExporter {
+public class XStreamPhotogalExporter implements PhotogalExporter, PhotogalImporter {
     private static final String EXPORT_VERSION_ID = "1.0";
-    private static final PhotogalExporterImpl INSTANCE = new PhotogalExporterImpl();
+    private static final Class<?>[] ANNOTATED_CLASSES = { PhotogalData.class, Gallery.class,
+            ImageDescriptor.class };
+    private static final XStreamPhotogalExporter INSTANCE = new XStreamPhotogalExporter();
 
-    private PhotogalExporterImpl() {
+    private XStreamPhotogalExporter() {
     }
 
     /**
@@ -48,17 +52,25 @@ public class PhotogalExporterImpl implements PhotogalExporter {
      * 
      * @return the PhotogalExporterImpl instance
      */
-    public static final PhotogalExporterImpl getInstance() {
+    public static final XStreamPhotogalExporter getInstance() {
         return INSTANCE;
     }
 
     @Override
-    public void export(PhotogalData data, Writer writer) throws IOException {
-        data.setExportDate(new Date());
+    public void exportData(PhotogalData data, Writer writer) throws IOException {
+        if (data.getExportDate() == null) {
+            data.setExportDate(new Date());
+        }
         data.setVersion(EXPORT_VERSION_ID);
         final XStream xstream = createXStream();
         writer.write("<?xml version='1.0'?>\n");
         xstream.toXML(data, writer);
+    }
+
+    @Override
+    public PhotogalData importData(Reader reader) throws IOException {
+        final XStream xstream = createXStream();
+        return (PhotogalData) xstream.fromXML(reader);
     }
 
     /**
@@ -66,10 +78,9 @@ public class PhotogalExporterImpl implements PhotogalExporter {
      * 
      * @return the XStream
      */
-    public static XStream createXStream() {
+    private XStream createXStream() {
         final XStream retval = new XStream();
-        retval.processAnnotations(new Class[] { PhotogalData.class, Gallery.class,
-                ImageDescriptor.class });
+        retval.processAnnotations(ANNOTATED_CLASSES);
         retval.registerConverter(CalendarDateConverter.getInstance());
         retval.addDefaultImplementation(PersistentList.class, List.class);
         retval.addDefaultImplementation(PersistentSet.class, Set.class);

@@ -20,18 +20,18 @@
 package net.sourceforge.photogal.export;
 
 import java.io.IOException;
-import java.io.Writer;
+import java.io.Reader;
 
 /**
- * An interface implemented by classes that can export Photogal data.
+ * An interface implemented by classes that can import Photogal data.
  */
-public interface PhotogalExporter {
+public interface PhotogalImporter {
     /**
-     * Exports the specifed photogal data.
+     * Imports the specifed photogal data.
      * 
-     * @param data the data to export
-     * @param writer the writer to write the exported data to
+     * @param reader the reader to read the data from
+     * @return the imported data
      * @throws IOException if an I/O error occurs
      */
-    public void exportData(PhotogalData data, Writer writer) throws IOException;
+    public PhotogalData importData(Reader reader) throws IOException;
 }
