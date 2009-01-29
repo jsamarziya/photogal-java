@@ -63,6 +63,8 @@ public class XStreamPhotogalExporter implements PhotogalExporter, PhotogalImport
         }
         data.setVersion(EXPORT_VERSION_ID);
         final XStream xstream = createXStream();
+        xstream.addDefaultImplementation(PersistentList.class, List.class);
+        xstream.addDefaultImplementation(PersistentSet.class, Set.class);
         writer.write("<?xml version='1.0'?>\n");
         xstream.toXML(data, writer);
     }
@@ -82,8 +84,6 @@ public class XStreamPhotogalExporter implements PhotogalExporter, PhotogalImport
         final XStream retval = new XStream();
         retval.processAnnotations(ANNOTATED_CLASSES);
         retval.registerConverter(CalendarDateConverter.getInstance());
-        retval.addDefaultImplementation(PersistentList.class, List.class);
-        retval.addDefaultImplementation(PersistentSet.class, Set.class);
         retval.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
         return retval;
     }
