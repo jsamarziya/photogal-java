@@ -38,6 +38,8 @@ public class PhotogalData {
     @XStreamAsAttribute
     @XStreamAlias("date")
     private Date exportDate;
+    @XStreamAsAttribute
+    private String version;
 
     /**
      * Creates a new PhotogalData.
@@ -98,5 +100,23 @@ public class PhotogalData {
      */
     public void setExportDate(Date exportDate) {
         this.exportDate = exportDate;
+    }
+
+    /**
+     * Returns the export version id.
+     * 
+     * @return the export version id
+     */
+    public String getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the export version id.
+     * 
+     * @param version the export version id
+     */
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

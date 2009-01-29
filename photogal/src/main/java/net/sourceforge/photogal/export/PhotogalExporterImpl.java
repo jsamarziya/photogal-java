@@ -40,6 +40,8 @@ import com.thoughtworks.xstream.XStream;
  * The default implementation of the PhotogalExporter interface.
  */
 public class PhotogalExporterImpl implements PhotogalExporter, InitializingBean {
+    private static final String EXPORT_VERSION_ID = "1.0";
+
     private HibernateEntityManager entityManager;
 
     /**
@@ -74,6 +76,7 @@ public class PhotogalExporterImpl implements PhotogalExporter, InitializingBean 
         final HibernateEntityManager entityManager = getEntityManager();
         final PhotogalData data = new PhotogalData();
         data.setExportDate(new Date());
+        data.setVersion(EXPORT_VERSION_ID);
         data.setImageDescriptors(entityManager.getImageDescriptors());
         data.setGalleries(entityManager.getGalleries(true));
         final XStream xstream = createXStream();
