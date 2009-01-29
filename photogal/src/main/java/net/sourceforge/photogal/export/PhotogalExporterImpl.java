@@ -27,74 +27,46 @@ import java.util.Set;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 
 import org.hibernate.collection.PersistentList;
 import org.hibernate.collection.PersistentSet;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.Assert;
 
 import com.thoughtworks.xstream.XStream;
 
 /**
  * The default implementation of the PhotogalExporter interface.
  */
-public class PhotogalExporterImpl implements PhotogalExporter, InitializingBean {
+public class PhotogalExporterImpl implements PhotogalExporter {
     private static final String EXPORT_VERSION_ID = "1.0";
+    private static final PhotogalExporterImpl INSTANCE = new PhotogalExporterImpl();
 
-    private HibernateEntityManager entityManager;
-
-    /**
-     * Creates a new PhotogalExporterImpl.
-     */
-    public PhotogalExporterImpl() {
-        super();
+    private PhotogalExporterImpl() {
     }
 
     /**
-     * Returns the HibernateEntityManager used by this class to access the
-     * database.
+     * Returns the singleton instance of this class.
      * 
-     * @return the entityManager
+     * @return the PhotogalExporterImpl instance
      */
-    public HibernateEntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    /**
-     * Sets the HibernateEntityManager used by this class to access the
-     * database.
-     * 
-     * @param entityManager the entityManager
-     */
-    public void setEntityManager(HibernateEntityManager entityManager) {
-        this.entityManager = entityManager;
+    public static final PhotogalExporterImpl getInstance() {
+        return INSTANCE;
     }
 
     @Override
-    public void export(Writer writer) throws IOException {
-        final HibernateEntityManager entityManager = getEntityManager();
-        final PhotogalData data = new PhotogalData();
+    public void export(PhotogalData data, Writer writer) throws IOException {
         data.setExportDate(new Date());
         data.setVersion(EXPORT_VERSION_ID);
-        data.setImageDescriptors(entityManager.getImageDescriptors());
-        data.setGalleries(entityManager.getGalleries(true));
         final XStream xstream = createXStream();
         writer.write("<?xml version='1.0'?>\n");
         xstream.toXML(data, writer);
     }
 
-    @Override
-    public void afterPropertiesSet() {
-        Assert.notNull(getEntityManager(), "an entityManager must be set");
-    }
-
     /**
-     * Creates the XStream facade used to convert the photogal data to XML.
+     * Creates an XStream facade used to serialize photogal data to XML.
      * 
      * @return the XStream
      */
-    private static XStream createXStream() {
+    public static XStream createXStream() {
         final XStream retval = new XStream();
         retval.processAnnotations(new Class[] { PhotogalData.class, Gallery.class,
                 ImageDescriptor.class });
