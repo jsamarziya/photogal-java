@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.photogal.export.PhotogalData;
 import net.sourceforge.photogal.export.PhotogalExporter;
 import net.sourceforge.photogal.export.PhotogalExporterImpl;
+import net.sourceforge.photogal.hibernate.EntityManager;
 import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class PhotogalExportServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(PhotogalExportServlet.class);
 
     private PhotogalExporter exporter;
-    private HibernateEntityManager entityManager;
+    private EntityManager entityManager;
 
     public PhotogalExportServlet() {
         setExporter(PhotogalExporterImpl.getInstance());
@@ -54,7 +55,7 @@ public class PhotogalExportServlet extends HttpServlet {
      * 
      * @return the entity manager
      */
-    public HibernateEntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return entityManager;
     }
 
@@ -63,7 +64,7 @@ public class PhotogalExportServlet extends HttpServlet {
      * 
      * @param entityManager the entity manager
      */
-    public void setEntityManager(HibernateEntityManager entityManager) {
+    public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
