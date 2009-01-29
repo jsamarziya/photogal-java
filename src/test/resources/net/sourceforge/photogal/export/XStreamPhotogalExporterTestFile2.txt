@@ -1,0 +1,838 @@
+<?xml version='1.0'?>
+<photogal-data date="2009-01-28 22:47:02.882 PST" version="1.0">
+  <imageDescriptors>
+    <imageDescriptor id="1" isPublic="true">
+      <creationDate class="sql-timestamp">2006-10-12 09:11:49.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 22:13:42.0</lastModified>
+      <title>foeihj</title>
+      <description>if there is a long description it will be wrapped so why do I care if there is a problem.</description>
+      <location>1155839109.jpg</location>
+      <width>352</width>
+      <height>288</height>
+      <imageCreationDate>04/05/0006</imageCreationDate>
+      <keyword>foo</keyword>
+      <keyword>bar</keyword>
+      <keyword>baz</keyword>
+      <keyword>Baz</keyword>
+      <keyword>e</keyword>
+      <keyword>b</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="2" isPublic="true">
+      <creationDate class="sql-timestamp">2006-10-12 23:33:29.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 12:23:37.0</lastModified>
+      <title>Boris Kitty</title>
+      <description>Sure is a fuzzy little guy.</description>
+      <location>Cats/boris.jpe</location>
+      <width>480</width>
+      <height>419</height>
+      <imageCreationDate>2001</imageCreationDate>
+      <keyword>cats</keyword>
+      <keyword>boris</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="3" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-14 20:02:30.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 22:09:24.0</lastModified>
+      <title></title>
+      <description>so why should I care if there is a problem it is no keyboard mouse well since</description>
+      <location>2163941381_0.jpe</location>
+      <width>352</width>
+      <height>288</height>
+      <imageCreationDate>01/01/1201</imageCreationDate>
+      <keyword>DONT.SHOW.ME.DAMMIT</keyword>
+      <keyword>private</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="5" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-15 16:05:37.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-15 16:05:37.0</lastModified>
+      <title>THIS IMAGE IS PRIVATE!</title>
+      <description></description>
+      <location>Cats/gangof3.jpe</location>
+      <width>310</width>
+      <height>400</height>
+      <keyword>cats</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="6" isPublic="true">
+      <creationDate class="sql-timestamp">2006-10-16 11:38:24.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-03 16:27:02.0</lastModified>
+      <title>Spot the fish</title>
+      <description></description>
+      <location>Aquarium/P2110025.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>02/11/2004</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="7" isPublic="true">
+      <creationDate class="sql-timestamp">2006-10-16 11:38:34.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 12:22:32.0</lastModified>
+      <title>Rocks</title>
+      <description></description>
+      <location>Aquarium/P2180002.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>02/2004</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="11" isPublic="true">
+      <creationDate class="sql-timestamp">2006-10-19 20:51:02.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 22:09:29.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>2163954821_0.jpe</location>
+      <width>352</width>
+      <height>288</height>
+    </imageDescriptor>
+    <imageDescriptor id="21" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:51:31.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:51:31.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>2164108549_0.jpe</location>
+      <width>352</width>
+      <height>288</height>
+    </imageDescriptor>
+    <imageDescriptor id="23" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:51:36.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:51:36.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>2164138245_330.jpe</location>
+      <width>336</width>
+      <height>276</height>
+    </imageDescriptor>
+    <imageDescriptor id="24" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:51:38.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:51:38.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>henry hu 1280906117.jpg</location>
+      <width>352</width>
+      <height>288</height>
+    </imageDescriptor>
+    <imageDescriptor id="25" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:51:42.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:51:43.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P1070031.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>01/07/2004</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="26" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:51:46.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-03 16:26:17.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P1070032.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>01/07/2004</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="27" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:51:50.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-25 17:42:44.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P1200030.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="28" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:51:55.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:51:55.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P1200032.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>01/20/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="29" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:51:58.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:51:58.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P2160001.JPG</location>
+      <width>960</width>
+      <height>1280</height>
+      <imageCreationDate>02/16/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="31" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:52:12.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:52:13.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P3050012.JPG</location>
+      <width>960</width>
+      <height>1280</height>
+      <imageCreationDate>03/05/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="32" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:52:17.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:52:17.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P3050014.JPG</location>
+      <width>960</width>
+      <height>1280</height>
+      <imageCreationDate>03/05/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="33" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:52:21.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:52:21.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P3170001.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>03/17/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="34" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:52:25.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:52:25.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P4220001.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/22/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="35" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:52:29.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:52:29.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P5170001.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>05/17/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="37" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:52:47.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:52:47.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P5170002.JPG</location>
+      <width>960</width>
+      <height>1280</height>
+      <imageCreationDate>05/17/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="39" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:53:23.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:53:23.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P6210043.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>06/21/2004</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="40" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:53:27.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:53:27.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P6210044.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>06/21/2004</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="41" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:53:31.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:53:31.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P7270016.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>07/27/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="42" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:53:35.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:53:35.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P7290017.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>07/29/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="43" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:53:39.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:53:39.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P7290018.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>07/29/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="45" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:58:16.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:58:16.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P8220056.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>08/22/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="46" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:58:20.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 20:58:20.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P8220057.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>08/22/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="47" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 20:59:57.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 21:41:52.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>2163987717_0.jpe</location>
+      <width>352</width>
+      <height>288</height>
+    </imageDescriptor>
+    <imageDescriptor id="48" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-19 21:00:05.0</creationDate>
+      <lastModified class="sql-timestamp">2006-10-19 21:00:05.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>P8220058.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>08/22/2003</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="64" isPublic="false">
+      <creationDate class="sql-timestamp">2006-11-03 16:28:00.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-03 16:28:00.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>blue house/DCP01065.JPG</location>
+      <width>1152</width>
+      <height>864</height>
+    </imageDescriptor>
+    <imageDescriptor id="65" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-06 16:45:18.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-06 16:45:19.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Lk Lillian Hike 2006/PA080012.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>10/08/2006</imageCreationDate>
+    </imageDescriptor>
+    <imageDescriptor id="66" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-06 17:00:06.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-06 17:00:07.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>2163859205_0.jpe</location>
+      <width>352</width>
+      <height>288</height>
+    </imageDescriptor>
+    <imageDescriptor id="67" isPublic="false">
+      <creationDate class="sql-timestamp">2006-11-20 12:43:39.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 12:43:39.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>2163968517_0.jpe</location>
+      <width>352</width>
+      <height>288</height>
+    </imageDescriptor>
+    <imageDescriptor id="68" isPublic="false">
+      <creationDate class="sql-timestamp">2006-11-20 12:43:43.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 12:43:43.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>2164021381_0.jpe</location>
+      <width>352</width>
+      <height>288</height>
+    </imageDescriptor>
+    <imageDescriptor id="69" isPublic="false">
+      <creationDate class="sql-timestamp">2006-11-20 12:43:46.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 12:43:46.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>2164004101_0.jpe</location>
+      <width>352</width>
+      <height>288</height>
+    </imageDescriptor>
+    <imageDescriptor id="70" isPublic="false">
+      <creationDate class="sql-timestamp">2006-11-20 12:52:41.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 12:52:42.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>2164038917_0.jpe</location>
+      <width>352</width>
+      <height>288</height>
+    </imageDescriptor>
+    <imageDescriptor id="71" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:26:12.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:26:13.0</lastModified>
+      <title>Diseased grape leaf</title>
+      <description></description>
+      <location>Garden/Diseased grape leaf 1 (2006).jpg</location>
+      <width>3008</width>
+      <height>2000</height>
+      <imageCreationDate>06/13/2006</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="72" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:26:26.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:26:27.0</lastModified>
+      <title>Diseased grape leaf</title>
+      <description></description>
+      <location>Garden/Diseased grape leaf 2 (2006).jpg</location>
+      <width>3008</width>
+      <height>2000</height>
+      <imageCreationDate>06/13/2006</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="73" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:26:38.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:26:38.0</lastModified>
+      <title>Nigella</title>
+      <description></description>
+      <location>Garden/DSC_0001.JPG</location>
+      <width>3008</width>
+      <height>2000</height>
+      <imageCreationDate>06/10/2006</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="74" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:26:50.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:26:51.0</lastModified>
+      <title>Nigella</title>
+      <description></description>
+      <location>Garden/DSC_0002.JPG</location>
+      <width>3008</width>
+      <height>2000</height>
+      <imageCreationDate>06/10/2006</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="75" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:27:01.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:27:02.0</lastModified>
+      <title>Nigella</title>
+      <description></description>
+      <location>Garden/DSC_0003.JPG</location>
+      <width>3008</width>
+      <height>2000</height>
+      <imageCreationDate>06/10/2006</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="76" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:27:17.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:27:18.0</lastModified>
+      <title>Mock orange</title>
+      <description></description>
+      <location>Garden/mock orange.jpg</location>
+      <width>3008</width>
+      <height>2000</height>
+      <imageCreationDate>06/13/2006</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="77" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:31:46.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:31:46.0</lastModified>
+      <title>Primrose</title>
+      <description></description>
+      <location>Garden/P2250002.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>02/25/2003</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="78" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:32:05.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:32:05.0</lastModified>
+      <title>Holly bed</title>
+      <description></description>
+      <location>Garden/P4230015.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="79" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:32:15.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:32:15.0</lastModified>
+      <title>Lilac</title>
+      <description></description>
+      <location>Garden/P4230018.JPG</location>
+      <width>960</width>
+      <height>1280</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="80" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:32:33.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:32:33.0</lastModified>
+      <title>Hedge</title>
+      <description></description>
+      <location>Garden/P4230020.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="81" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:32:42.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:32:43.0</lastModified>
+      <title>Lilac</title>
+      <description></description>
+      <location>Garden/P4230023.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="82" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:32:59.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:32:59.0</lastModified>
+      <title>Honeysuckle</title>
+      <description>Damn it is small</description>
+      <location>Garden/P4230027.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="83" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:33:09.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:33:10.0</lastModified>
+      <title>South bed</title>
+      <description></description>
+      <location>Garden/P4230028.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="84" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:33:22.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:33:23.0</lastModified>
+      <title>Lilac</title>
+      <description></description>
+      <location>Garden/P4230030.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="85" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:33:31.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:33:31.0</lastModified>
+      <title>South bed</title>
+      <description></description>
+      <location>Garden/P4230029.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="86" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:33:46.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:33:47.0</lastModified>
+      <title>Money plant</title>
+      <description></description>
+      <location>Garden/P4230032.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="87" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:33:59.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:33:59.0</lastModified>
+      <title>Lamp bed</title>
+      <description></description>
+      <location>Garden/P4230036.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="88" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:34:10.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:34:10.0</lastModified>
+      <title>Rhodies</title>
+      <description></description>
+      <location>Garden/P4230038.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="89" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:34:16.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:34:17.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/P4230039.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="90" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:34:23.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:34:24.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/P4230043.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="91" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:34:28.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:34:28.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/P4230045.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="92" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:34:33.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:34:33.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/P5250013.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>05/25/2003</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="93" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:34:37.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:34:37.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/P5250014.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>05/25/2003</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="94" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:47:58.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:47:59.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/P5250015.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>05/25/2003</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="95" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:48:24.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:48:25.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/DSC_0004.JPG</location>
+      <width>3008</width>
+      <height>2000</height>
+      <imageCreationDate>06/10/2006</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="96" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:48:31.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:48:32.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/DSC_0005.JPG</location>
+      <width>3008</width>
+      <height>2000</height>
+      <imageCreationDate>06/10/2006</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="97" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:48:41.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:48:42.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/P4230047.JPG</location>
+      <width>960</width>
+      <height>1280</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="98" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:48:46.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:48:46.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/P4230046.JPG</location>
+      <width>960</width>
+      <height>1280</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+    <imageDescriptor id="99" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:48:51.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 17:48:52.0</lastModified>
+      <title></title>
+      <description></description>
+      <location>Garden/P4230044.JPG</location>
+      <width>1280</width>
+      <height>960</height>
+      <imageCreationDate>04/23/2004</imageCreationDate>
+      <keyword>garden</keyword>
+    </imageDescriptor>
+  </imageDescriptors>
+  <galleries>
+    <gallery id="2" orderIndex="0" isPublic="true">
+      <creationDate class="sql-timestamp">2006-10-12 23:32:41.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-03 16:23:51.0</lastModified>
+      <name>Cats &amp; Fish</name>
+      <description>This is dev, you know.</description>
+      <images>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[2]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[5]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[6]"/>
+      </images>
+    </gallery>
+    <gallery id="3" orderIndex="1" isPublic="false">
+      <creationDate class="sql-timestamp">2006-10-14 20:02:10.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-20 12:52:42.0</lastModified>
+      <name>The private gallery</name>
+      <description>Here&apos;s some &lt;b&gt;description&lt;/b&gt;.</description>
+      <images>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[3]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[9]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[4]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[2]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[8]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[7]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[10]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[11]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[12]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[13]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[14]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[15]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[17]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[16]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[18]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[19]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[20]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[21]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[22]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[23]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[24]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[25]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[26]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[27]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[28]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[29]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[30]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[34]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[35]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[36]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[37]"/>
+      </images>
+    </gallery>
+    <gallery id="9" orderIndex="2" isPublic="true">
+      <creationDate class="sql-timestamp">2006-10-18 22:59:05.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-03 16:25:01.0</lastModified>
+      <name>Lake Lillian/Rampart Lakes</name>
+      <description></description>
+      <images>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[7]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor"/>
+      </images>
+    </gallery>
+    <gallery id="11" orderIndex="3" isPublic="false">
+      <creationDate class="sql-timestamp">2006-11-03 15:53:55.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-03 16:26:17.0</lastModified>
+      <name>gallery4</name>
+      <description></description>
+      <images>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[12]"/>
+      </images>
+    </gallery>
+    <gallery id="12" orderIndex="4" isPublic="false">
+      <creationDate class="sql-timestamp">2006-11-03 15:54:01.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-03 16:27:02.0</lastModified>
+      <name>gallery 5</name>
+      <description></description>
+      <images>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[5]"/>
+      </images>
+    </gallery>
+    <gallery id="13" orderIndex="5" isPublic="false">
+      <creationDate class="sql-timestamp">2006-11-03 15:54:05.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-03 16:28:00.0</lastModified>
+      <name>gallery 6</name>
+      <description></description>
+      <images>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[31]"/>
+      </images>
+    </gallery>
+    <gallery id="14" orderIndex="6" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-03 15:54:09.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-06 16:45:32.0</lastModified>
+      <name>gallery 7</name>
+      <description></description>
+      <images>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[32]"/>
+      </images>
+    </gallery>
+    <gallery id="15" orderIndex="7" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-06 16:59:58.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-06 17:00:07.0</lastModified>
+      <name>A gallery</name>
+      <description></description>
+      <images>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[33]"/>
+      </images>
+    </gallery>
+    <gallery id="16" orderIndex="8" isPublic="true">
+      <creationDate class="sql-timestamp">2006-11-20 17:24:25.0</creationDate>
+      <lastModified class="sql-timestamp">2006-11-24 13:42:33.0</lastModified>
+      <name>Photos tagged with keyword &quot;garden&quot;</name>
+      <description></description>
+      <images>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[38]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[39]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[40]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[41]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[42]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[43]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[44]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[45]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[46]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[47]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[48]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[49]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[50]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[51]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[52]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[53]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[54]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[55]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[56]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[57]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[58]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[59]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[60]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[61]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[62]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[63]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[64]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[65]"/>
+        <imageDescriptor reference="/photogal-data/imageDescriptors/imageDescriptor[66]"/>
+      </images>
+    </gallery>
+  </galleries>
+</photogal-data>
