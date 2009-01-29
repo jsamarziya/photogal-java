@@ -27,10 +27,11 @@ import java.io.Writer;
  */
 public interface PhotogalExporter {
     /**
-     * Exports the photogal database.
+     * Exports the specifed photogal data.
      * 
+     * @param data the data to export
      * @param writer the writer to write the exported data to
      * @throws IOException if an I/O error occurs
      */
-    void export(Writer writer) throws IOException;
+    void export(PhotogalData data, Writer writer) throws IOException;
 }

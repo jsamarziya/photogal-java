@@ -26,21 +26,73 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sourceforge.photogal.export.PhotogalData;
+import net.sourceforge.photogal.export.PhotogalExporter;
 import net.sourceforge.photogal.export.PhotogalExporterImpl;
 import net.sourceforge.photogal.hibernate.HibernateEntityManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A servlet that exports the Photogal database and writes it to the response as
  * an XML file.
  */
 public class PhotogalExportServlet extends HttpServlet {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PhotogalExportServlet.class);
+
+    private PhotogalExporter exporter;
+    private HibernateEntityManager entityManager;
+
+    public PhotogalExportServlet() {
+        setExporter(PhotogalExporterImpl.getInstance());
+        setEntityManager(HibernateEntityManager.getInstance());
+    }
+
+    /**
+     * Returns the entity manager used to access the database.
+     * 
+     * @return the entity manager
+     */
+    public HibernateEntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    /**
+     * Sets the entity manager used to access the database.
+     * 
+     * @param entityManager the entity manager
+     */
+    public void setEntityManager(HibernateEntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    /**
+     * Returns the exporter used by this servlet to export data.
+     * 
+     * @return the exporter
+     */
+    public PhotogalExporter getExporter() {
+        return exporter;
+    }
+
+    /**
+     * Sets the exporter used by this servlet to export data.
+     * 
+     * @param exporter the exporter
+     */
+    public void setExporter(PhotogalExporter exporter) {
+        this.exporter = exporter;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        final PhotogalData data = getEntityManager().getData();
         response.setContentType("text/xml");
         response.setCharacterEncoding("UTF-8");
-        final PhotogalExporterImpl exporter = new PhotogalExporterImpl();
-        exporter.setEntityManager(HibernateEntityManager.getInstance());
-        exporter.export(response.getWriter());
+        getExporter().export(data, response.getWriter());
+        LOGGER.info("Exported data (" + data.getImageDescriptors().size() + " images, "
+                + data.getGalleries().size() + " galleries)");
     }
 }
