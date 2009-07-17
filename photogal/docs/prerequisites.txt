@@ -1,4 +1,6 @@
 JDK 1.6
 Eclipse
+    subclipse plugin
+    m2eclipse plugin
 Maven 2.1.0
 Tomcat
