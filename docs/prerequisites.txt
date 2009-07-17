@@ -1,0 +1,4 @@
+JDK 1.6
+Eclipse
+Maven 2.1.0
+Tomcat
