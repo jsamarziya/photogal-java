@@ -18,27 +18,25 @@
  */
 package net.sourceforge.photogal.web.controller.strategy;
 
+import java.util.List;
 
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
+import net.sourceforge.photogal.ImageDescriptor;
 import net.sourceforge.photogal.web.form.ShowImagesByDateForm;
 
-import org.hibernate.Query;
-
-public class FetchImagesByDateTaken implements FetchImagesByDateStrategy {
+public class FetchImagesByDateTaken extends AbstractFetchImagesByDateStrategy {
     public boolean canHandleRequest(ShowImagesByDateForm form) {
         return ShowImagesByDateForm.DATE_TYPE_TAKEN.equals(form.getDateType())
-            && !form.isAllMonths();
+                && !form.isAllMonths();
     }
 
     public int getImageCount(ShowImagesByDateForm form) {
-        return HibernateEntityManager.getInstance()
-                .getImagesByDateTakenCount(form.getYear(), form.getMonth(),
-                                           form.getIncludePrivate());
+        return getPhotogalDao().getImagesByDateTakenCount(form.getYear(), form.getMonth(),
+                form.getIncludePrivate());
     }
 
-    public Query getFetchImagesQuery(ShowImagesByDateForm form) {
-        return HibernateEntityManager.getInstance()
-                .createImagesByDateTakenQuery(form.getYear(), form.getMonth(),
-                                              form.getIncludePrivate());
+    @Override
+    public List<ImageDescriptor> getImages(ShowImagesByDateForm form) {
+        return getPhotogalDao().getImageDescriptorsByDateTaken(form.getYear(), form.getMonth(),
+                form.getIncludePrivate(), form.getStartIndex(), form.getItemsPerPage());
     }
 }

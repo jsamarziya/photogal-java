@@ -27,16 +27,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.sixcats.utils.CalendarDate;
 import org.sixcats.utils.CalendarDateSetDayTransformer;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class ShowDateIndex extends AbstractController {
+public class ShowDateIndex extends PhotogalDaoAwareController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -50,29 +46,25 @@ public class ShowDateIndex extends AbstractController {
     }
 
     @SuppressWarnings("unchecked")
-    private Map<CalendarDate, Integer> getDateTakenCountMap(
-            final boolean includePrivate) {
-        final Map<Long, CalendarDate> creationDateMap = HibernateEntityManager
-                .getInstance().getImageCreationDates(includePrivate);
-        final List<CalendarDate> creationDates = new ArrayList<CalendarDate>(
-                                                                             creationDateMap
-                                                                                     .values());
-        CollectionUtils.transform(creationDates, CalendarDateSetDayTransformer
-                .getNullInstance());
+    private Map<CalendarDate, Integer> getDateTakenCountMap(final boolean includePrivate) {
+        final Map<Long, CalendarDate> creationDateMap = getPhotogalDao().getImageCreationDates(
+                includePrivate);
+        final List<CalendarDate> creationDates = new ArrayList<CalendarDate>(creationDateMap
+                .values());
+        CollectionUtils.transform(creationDates, CalendarDateSetDayTransformer.getNullInstance());
         final Map<CalendarDate, Integer> dateCountMap = CollectionUtils
                 .getCardinalityMap(creationDates);
         return dateCountMap;
     }
 
     @SuppressWarnings("unchecked")
-    private Map<CalendarDate, Integer> getDatePostedCountMap(
-            final boolean includePrivate) {
-        final Map<Long, Date> postedDateMap = HibernateEntityManager
-                .getInstance().getDescriptorCreationDates(includePrivate);
+    private Map<CalendarDate, Integer> getDatePostedCountMap(final boolean includePrivate) {
+        final Map<Long, Date> postedDateMap = getPhotogalDao().getDescriptorCreationDates(
+                includePrivate);
         final List<CalendarDate> postedDates = new ArrayList<CalendarDate>();
         for (Date date : postedDateMap.values()) {
-            postedDates.add((CalendarDate) CalendarDateSetDayTransformer
-                    .getNullInstance().transform(new CalendarDate(date)));
+            postedDates.add((CalendarDate) CalendarDateSetDayTransformer.getNullInstance()
+                    .transform(new CalendarDate(date)));
 
         }
         final Map<CalendarDate, Integer> dateCountMap = CollectionUtils

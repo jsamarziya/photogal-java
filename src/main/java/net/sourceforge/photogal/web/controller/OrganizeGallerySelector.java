@@ -27,16 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.photogal.Gallery;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class OrganizeGallerySelector extends AbstractController {
+public class OrganizeGallerySelector extends PhotogalDaoAwareController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        Gallery gallery = ControllerUtils.getGallery(request);
+        Gallery gallery = ControllerUtils.getGallery(getPhotogalDao(), request);
         Map<String, Object> model = new HashMap<String, Object>();
-        logger.debug("Gallery is " + gallery + " with "
-            + gallery.getImageCount() + " images");
+        logger.debug("Gallery is " + gallery + " with " + gallery.getImageCount() + " images");
         model.put("gallery", gallery);
         model.put("returnTo", request.getParameter("returnTo"));
         model.put("returnToName", request.getParameter("returnToName"));

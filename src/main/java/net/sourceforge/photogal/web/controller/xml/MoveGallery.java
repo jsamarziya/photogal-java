@@ -20,30 +20,22 @@ package net.sourceforge.photogal.web.controller.xml;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
-
-
-public class MoveGallery extends WebService {
+public class MoveGallery extends PhotogalDaoAwareWebService {
     @Override
-    protected WebServiceResponse handleWebServiceRequest(
-            HttpServletRequest request) throws Exception {
-        DefaultWebServiceResponse response = new DefaultWebServiceResponse(
-                                                                           request);
+    protected WebServiceResponse handleWebServiceRequest(HttpServletRequest request)
+            throws Exception {
+        DefaultWebServiceResponse response = new DefaultWebServiceResponse(request);
         final int fromIndex = Integer.parseInt(request.getParameter("from"));
         final int toIndex = Integer.parseInt(request.getParameter("to"));
-        final int galleryCount = HibernateEntityManager.getInstance()
-                .getGalleryCount();
+        final int galleryCount = getPhotogalDao().getGalleryCount();
         if (fromIndex < 0 || fromIndex > galleryCount - 1) {
             response.setStatus(WebServiceResponse.STATUS_ERROR);
-            response.setStatusMessage("fromIndex (" + fromIndex
-                + ") out of range");
+            response.setStatusMessage("fromIndex (" + fromIndex + ") out of range");
         } else if (toIndex < 0 || toIndex > galleryCount - 1) {
             response.setStatus(WebServiceResponse.STATUS_ERROR);
-            response.setStatusMessage("toIndex (" + fromIndex
-                + ") out of range");
+            response.setStatusMessage("toIndex (" + fromIndex + ") out of range");
         } else {
-            HibernateEntityManager.getInstance()
-                    .moveGallery(fromIndex, toIndex);
+            getPhotogalDao().moveGallery(fromIndex, toIndex);
             response.setStatus(WebServiceResponse.STATUS_OK);
             log.debug("moved gallery " + fromIndex + " to " + toIndex);
         }

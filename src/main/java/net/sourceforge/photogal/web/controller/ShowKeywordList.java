@@ -27,23 +27,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
-
 import org.sixcats.utils.CollectionUtils;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class ShowKeywordList extends AbstractController {
+public class ShowKeywordList extends PhotogalDaoAwareController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         final boolean canViewPrivate = ControllerUtils.canViewPrivate(request);
         final Map<String, Object> model = new HashMap<String, Object>();
-        final Map<String, Integer> keywordOccurences = HibernateEntityManager
-                .getInstance().getKeywords(canViewPrivate);
-        final List<String> keywords = new ArrayList<String>(keywordOccurences
-                .keySet());
+        final Map<String, Integer> keywordOccurences = getPhotogalDao().getKeywords(canViewPrivate);
+        final List<String> keywords = new ArrayList<String>(keywordOccurences.keySet());
         Collections.sort(keywords, String.CASE_INSENSITIVE_ORDER);
         final Map<String, List<String>> indexedKeywords = CollectionUtils
                 .indexedCollection(keywords);

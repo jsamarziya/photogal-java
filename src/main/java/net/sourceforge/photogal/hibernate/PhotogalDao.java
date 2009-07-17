@@ -29,7 +29,7 @@ import net.sourceforge.photogal.export.PhotogalData;
 
 import org.sixcats.utils.CalendarDate;
 
-public interface EntityManager {
+public interface PhotogalDao {
     /**
      * Returns the galleries, sorted by orderIndex.
      * 
@@ -60,6 +60,59 @@ public interface EntityManager {
      * @return the image descriptors contained in the database
      */
     public List<ImageDescriptor> getImageDescriptors();
+
+    /**
+     * Returns the image descriptors that have the specified keyword.
+     * 
+     * @param keyword the keyword
+     * @param includePrivate if <code>true</code>, return private images too
+     * @param start the index of the first image descriptor to return
+     * @param max the maximum number of image descriptors to return
+     * @return a list containing the specified image descriptors
+     */
+    public List<ImageDescriptor> getImageDescriptors(String keyword, boolean includePrivate,
+            int start, int max);
+
+    /**
+     * Returns the image descriptors for the images that were posted in the
+     * specified date range.
+     * 
+     * @param startDate the start of the date range
+     * @param endDate the end of the date range
+     * @param includePrivate if <code>true</code>, return private images too
+     * @param start the index of the first image descriptor to return
+     * @param max the maximum number of image descriptors to return
+     * @return a list containing the specified image descriptors
+     */
+    public List<ImageDescriptor> getImageDescriptorsByDatePosted(Date startDate, Date endDate,
+            boolean includePrivate, int start, int max);
+
+    /**
+     * Returns the image descriptors for the images that were created in the
+     * specified month and year.
+     * 
+     * @param year the year
+     * @param month the month
+     * @param includePrivate if <code>true</code>, return private images too
+     * @param start the index of the first image descriptor to return
+     * @param max the maximum number of image descriptors to return
+     * @return a list containing the specified image descriptors
+     */
+    public List<ImageDescriptor> getImageDescriptorsByDateTaken(int year, Integer month,
+            boolean includePrivate, int start, int max);
+
+    /**
+     * Returns the image descriptors for the images that were created in the
+     * specified year.
+     * 
+     * @param year the year
+     * @param includePrivate if <code>true</code>, return private images too
+     * @param start the index of the first image descriptor to return
+     * @param max the maximum number of image descriptors to return
+     * @return a list containing the specified image descriptors
+     */
+    public List<ImageDescriptor> getImageDescriptorsByYearTaken(int year, boolean includePrivate,
+            int start, int max);
 
     /**
      * Returns the specified image descriptor.
@@ -177,4 +230,25 @@ public interface EntityManager {
      * @return the photogal data
      */
     public PhotogalData getData();
+
+    /**
+     * Deletes the specified persistent object.
+     * 
+     * @param object the persistent object to delete
+     */
+    public void delete(Object object);
+
+    /**
+     * Saves or updates the specified object.
+     * 
+     * @param entity the object to save
+     */
+    public void saveOrUpdate(Object object);
+
+    /**
+     * Updates the specified object.
+     * 
+     * @param entity the object to update
+     */
+    public void update(Object object);
 }

@@ -20,18 +20,17 @@ package net.sourceforge.photogal.web.controller.strategy;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
-
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
+import net.sourceforge.photogal.ImageDescriptor;
 import net.sourceforge.photogal.web.form.ShowImagesByDateForm;
 
-import org.hibernate.Query;
 import org.sixcats.utils.ThreadLocalObjects;
 
-public class FetchImagesByYearPosted implements FetchImagesByDateStrategy {
+public class FetchImagesByYearPosted extends AbstractFetchImagesByDateStrategy {
     public boolean canHandleRequest(ShowImagesByDateForm form) {
         return ShowImagesByDateForm.DATE_TYPE_POSTED.equals(form.getDateType())
-            && form.isAllMonths();
+                && form.isAllMonths();
     }
 
     private Date getStartDate(ShowImagesByDateForm form) {
@@ -52,16 +51,14 @@ public class FetchImagesByYearPosted implements FetchImagesByDateStrategy {
     }
 
     public int getImageCount(ShowImagesByDateForm form) {
-        return HibernateEntityManager.getInstance()
-                .getImagesByDatePostedCount(getStartDate(form),
-                                            getEndDate(form),
-                                            form.getIncludePrivate());
+        return getPhotogalDao().getImagesByDatePostedCount(getStartDate(form), getEndDate(form),
+                form.getIncludePrivate());
     }
 
-    public Query getFetchImagesQuery(ShowImagesByDateForm form) {
-        return HibernateEntityManager.getInstance()
-                .createImagesByDatePostedQuery(getStartDate(form),
-                                               getEndDate(form),
-                                               form.getIncludePrivate());
+    @Override
+    public List<ImageDescriptor> getImages(ShowImagesByDateForm form) {
+        return getPhotogalDao().getImageDescriptorsByDatePosted(getStartDate(form),
+                getEndDate(form), form.getIncludePrivate(), form.getStartIndex(),
+                form.getItemsPerPage());
     }
 }

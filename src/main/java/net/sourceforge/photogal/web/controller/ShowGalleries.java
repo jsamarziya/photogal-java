@@ -26,21 +26,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 import net.sourceforge.photogal.image.ScaledImageCalculator;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class ShowGalleries extends AbstractController {
+public class ShowGalleries extends PhotogalDaoAwareController {
     private ScaledImageCalculator scaledImageCalculator;
 
     public ScaledImageCalculator getScaledImageCalculator() {
         return scaledImageCalculator;
     }
 
-    public void setScaledImageCalculator(
-            ScaledImageCalculator scaledImageCalculator) {
+    public void setScaledImageCalculator(ScaledImageCalculator scaledImageCalculator) {
         this.scaledImageCalculator = scaledImageCalculator;
     }
 
@@ -49,8 +46,7 @@ public class ShowGalleries extends AbstractController {
             HttpServletResponse response) throws Exception {
         final boolean canViewPrivate = ControllerUtils.canViewPrivate(request);
         final Map<String, Object> model = new HashMap<String, Object>();
-        final List<Gallery> galleries = HibernateEntityManager.getInstance()
-                .getGalleries(canViewPrivate);
+        final List<Gallery> galleries = getPhotogalDao().getGalleries(canViewPrivate);
         model.put("galleryList", galleries);
         model.put("scaledImageCalculator", getScaledImageCalculator());
         return new ModelAndView("galleries", model);

@@ -27,8 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
-
+import net.sourceforge.photogal.hibernate.PhotogalDao;
 
 /**
  * Convenience methods for web controller implementations.
@@ -68,36 +67,46 @@ public class ControllerUtils {
         try {
             id = Long.parseLong(galleryId);
         } catch (NumberFormatException ex) {
-            throw new IllegalArgumentException("invalid galleryId \""
-                + galleryId + "\"");
+            throw new IllegalArgumentException("invalid galleryId \"" + galleryId + "\"");
         }
         return id;
     }
 
     /**
      * Returns the gallery identified by the request parameter "galleryId".
+     * 
+     * @param photogalDao the DAO to retrieve the gallery from
+     * @param request the request
+     * @throws IllegalArgumentException if galleryId is not a long or if no such
+     *             gallery exists
      */
-    public static Gallery getGallery(final HttpServletRequest request) {
-        return getGallery(getGalleryId(request));
+    public static Gallery getGallery(final PhotogalDao photogalDao, final HttpServletRequest request) {
+        return getGallery(photogalDao, getGalleryId(request));
     }
 
     /**
      * Returns the gallery identified by the specified id
      * 
+     * @param photogalDao the DAO to retrieve the gallery from
      * @param galleryId the id of the gallery to return
      * @throws IllegalArgumentException if galleryId is not a long or if no such
-     * gallery exists
+     *             gallery exists
      */
-    public static Gallery getGallery(final String galleryId) {
-        return getGallery(getGalleryId(galleryId));
+    public static Gallery getGallery(final PhotogalDao photogalDao, final String galleryId) {
+        return getGallery(photogalDao, getGalleryId(galleryId));
     }
 
-    public static Gallery getGallery(final long galleryId) {
-        final Gallery gallery = HibernateEntityManager.getInstance()
-                .getGallery(galleryId);
+    /**
+     * Returns the gallery identified by the specified id.
+     * 
+     * @param photogalDao the DAO to retrieve the gallery from
+     * @param galleryId the id of the gallery to return
+     * @throws IllegalArgumentException if no such gallery exists
+     */
+    public static Gallery getGallery(final PhotogalDao photogalDao, final long galleryId) {
+        final Gallery gallery = photogalDao.getGallery(galleryId);
         if (gallery == null) {
-            throw new IllegalArgumentException("gallery " + galleryId
-                + " not found");
+            throw new IllegalArgumentException("gallery " + galleryId + " not found");
         }
         return gallery;
     }
@@ -127,8 +136,7 @@ public class ControllerUtils {
         try {
             id = Long.parseLong(imageId);
         } catch (NumberFormatException ex) {
-            throw new IllegalArgumentException("invalid imageId \"" + imageId
-                + "\"");
+            throw new IllegalArgumentException("invalid imageId \"" + imageId + "\"");
         }
         return id;
     }
@@ -136,29 +144,32 @@ public class ControllerUtils {
     /**
      * Returns the image descriptor identified by the request parameter
      * "imageId".
+     * 
+     * @param photogalDao the DAO to retrieve the gallery from
      */
-    public static ImageDescriptor getImageDescriptor(
+    public static ImageDescriptor getImageDescriptor(PhotogalDao photogalDao,
             final HttpServletRequest request) {
-        return getImageDescriptor(getImageId(request));
+        return getImageDescriptor(photogalDao, getImageId(request));
     }
 
     /**
      * Returns the image descriptor identified by the specified id
      * 
+     * @param photogalDao the DAO to retrieve the gallery from
      * @param imageId the id of the image descriptor to return
      * @throws IllegalArgumentException if imageId is not a long or if no such
-     * image descriptor exists
+     *             image descriptor exists
      */
-    public static ImageDescriptor getImageDescriptor(final String imageId) {
-        return getImageDescriptor(getImageId(imageId));
+    public static ImageDescriptor getImageDescriptor(final PhotogalDao photogalDao,
+            final String imageId) {
+        return getImageDescriptor(photogalDao, getImageId(imageId));
     }
 
-    public static ImageDescriptor getImageDescriptor(final long imageId) {
-        final ImageDescriptor descriptor = HibernateEntityManager.getInstance()
-                .getImageDescriptor(imageId);
+    public static ImageDescriptor getImageDescriptor(final PhotogalDao photogalDao,
+            final long imageId) {
+        final ImageDescriptor descriptor = photogalDao.getImageDescriptor(imageId);
         if (descriptor == null) {
-            throw new IllegalArgumentException("image " + imageId
-                + " not found");
+            throw new IllegalArgumentException("image " + imageId + " not found");
         }
         return descriptor;
     }

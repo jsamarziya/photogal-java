@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 import net.sourceforge.photogal.image.ImageOperations;
 
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
@@ -40,9 +39,8 @@ import org.apache.commons.lang.Validate;
 import org.sixcats.utils.FileAccessManager;
 import org.sixcats.utils.FileUtils;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class ShowImageFileBrowser extends AbstractController {
+public class ShowImageFileBrowser extends PhotogalDaoAwareController {
     private FileAccessManager fileAccessManager;
 
     /**
@@ -62,9 +60,9 @@ public class ShowImageFileBrowser extends AbstractController {
         final String dir = request.getParameter("dir");
         Validate.notNull(dir, "no dir specified");
 
-        final Gallery gallery = ControllerUtils.getGallery(request);
-        logger.debug("Showing image file browser for " + File.separatorChar
-            + dir + ", galleryId=" + gallery.getId());
+        final Gallery gallery = ControllerUtils.getGallery(getPhotogalDao(), request);
+        logger.debug("Showing image file browser for " + File.separatorChar + dir + ", galleryId="
+                + gallery.getId());
 
         final File baseDir = new File(getFileAccessManager().getBaseDirectory());
         final File imageDir = getFileAccessManager().getFile(dir);
@@ -72,30 +70,27 @@ public class ShowImageFileBrowser extends AbstractController {
         final Map<String, Object> model = new HashMap<String, Object>();
         final File parentDirectory = imageDir.getParentFile();
         if (FileUtils.isAncestor(baseDir, parentDirectory)) {
-            model.put("parentDirectory", new File(FileUtils
-                    .getRelativePath(baseDir, parentDirectory)));
+            model.put("parentDirectory", new File(FileUtils.getRelativePath(baseDir,
+                    parentDirectory)));
         }
-        model.put("currentDirectory", new File(File.separator, FileUtils
-                .getRelativePath(baseDir, imageDir)));
+        model.put("currentDirectory", new File(File.separator, FileUtils.getRelativePath(baseDir,
+                imageDir)));
         model.put("imageFiles", imageFiles);
         model.put("subdirectories", getSubdirectories(imageDir));
         model.put("gallery", gallery);
         model.put("imageDescriptors", getImageDescriptors(imageFiles));
         final File parentDir = imageDir.getParentFile();
         if (parentDir != null && FileUtils.isAncestor(baseDir, parentDir)) {
-            model.put("parentDir", FileUtils
-                    .getRelativePath(baseDir, parentDir));
+            model.put("parentDir", FileUtils.getRelativePath(baseDir, parentDir));
         }
         return new ModelAndView("edit/imageFileBrowser", model);
     }
 
-    private Map<File, ImageDescriptor> getImageDescriptors(
-            Collection<File> imageFiles) {
+    private Map<File, ImageDescriptor> getImageDescriptors(Collection<File> imageFiles) {
         Map<File, ImageDescriptor> retval = new HashMap<File, ImageDescriptor>();
         for (File file : imageFiles) {
             final String location = file.getPath().replace('\\', '/');
-            final ImageDescriptor descriptor = HibernateEntityManager
-                    .getInstance().getImageDescriptor(location);
+            final ImageDescriptor descriptor = getPhotogalDao().getImageDescriptor(location);
             if (descriptor != null) {
                 retval.put(file, descriptor);
             }
@@ -113,12 +108,10 @@ public class ShowImageFileBrowser extends AbstractController {
         return retval;
     }
 
-    private Collection<File> getSubdirectories(final File dir)
-            throws IOException {
+    private Collection<File> getSubdirectories(final File dir) throws IOException {
         File baseDir = new File(getFileAccessManager().getBaseDirectory());
         ArrayList<File> retval = new ArrayList<File>();
-        for (File subdir : dir
-                .listFiles((FileFilter) DirectoryFileFilter.INSTANCE)) {
+        for (File subdir : dir.listFiles((FileFilter) DirectoryFileFilter.INSTANCE)) {
             retval.add(new File(FileUtils.getRelativePath(baseDir, subdir)));
         }
         Collections.sort(retval);

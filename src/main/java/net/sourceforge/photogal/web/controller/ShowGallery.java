@@ -27,30 +27,27 @@ import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.image.ScaledImageCalculator;
 
-import org.sixcats.utils.web.controller.SimplePagedDataController;
 import org.sixcats.utils.web.form.PagedDataForm;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-public class ShowGallery extends SimplePagedDataController {
+public class ShowGallery extends PhotogalDaoAwarePagedDataController {
     private ScaledImageCalculator scaledImageCalculator;
 
     public ScaledImageCalculator getScaledImageCalculator() {
         return scaledImageCalculator;
     }
 
-    public void setScaledImageCalculator(
-            ScaledImageCalculator scaledImageCalculator) {
+    public void setScaledImageCalculator(ScaledImageCalculator scaledImageCalculator) {
         this.scaledImageCalculator = scaledImageCalculator;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected ModelAndView showForm(HttpServletRequest request,
-            HttpServletResponse response, BindException errors)
-            throws Exception {
+    protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response,
+            BindException errors) throws Exception {
         final boolean canViewPrivate = ControllerUtils.canViewPrivate(request);
-        final Gallery gallery = ControllerUtils.getGallery(request);
+        final Gallery gallery = ControllerUtils.getGallery(getPhotogalDao(), request);
         if (!gallery.isPublic() && !canViewPrivate) {
             throw new ServletException("gallery is private");
         }

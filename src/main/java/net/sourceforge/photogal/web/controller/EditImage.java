@@ -30,24 +30,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 import net.sourceforge.photogal.image.ImageMetadataUtils;
 import net.sourceforge.photogal.image.ImageOperations;
 import net.sourceforge.photogal.image.ScaledImageCalculator;
 import net.sourceforge.photogal.web.form.EditImageForm;
 
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.Session;
 import org.sixcats.utils.CalendarDate;
 import org.sixcats.utils.FileAccessManager;
-import org.sixcats.utils.hibernate.HibernateUtil;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractFormController;
 
-public class EditImage extends AbstractFormController {
+public class EditImage extends PhotogalDaoAwareFormController {
     private FileAccessManager fileAccessManager;
     private ScaledImageCalculator scaledImageCalculator;
 
@@ -74,37 +70,32 @@ public class EditImage extends AbstractFormController {
     }
 
     @Override
-    protected void initBinder(HttpServletRequest request,
-            ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(String.class,
-                                    new StringTrimmerEditor(false));
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
+            throws Exception {
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 
     @Override
-    protected ModelAndView showForm(HttpServletRequest request,
-            HttpServletResponse response, BindException errors)
-            throws Exception {
+    protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response,
+            BindException errors) throws Exception {
         EditImageForm form = (EditImageForm) errors.getTarget();
         ImageDescriptor descriptor;
         if (form.getImageId() == null) {
             if (StringUtils.isEmpty(form.getLocation())) {
                 throw new ServletException("no image id or location specified");
             }
-            descriptor = HibernateEntityManager.getInstance()
-                    .getImageDescriptor(form.getLocation());
+            descriptor = getPhotogalDao().getImageDescriptor(form.getLocation());
         } else {
-            descriptor = ControllerUtils.getImageDescriptor(form.getImageId());
+            descriptor = ControllerUtils.getImageDescriptor(getPhotogalDao(), form.getImageId());
         }
         if (descriptor == null) {
             logger.debug("preparing EditImage form for adding image");
             File imageFile = getFileAccessManager().getFile(form.getLocation());
             if (!ImageOperations.isImage(imageFile)) {
-                logger.error(imageFile.getCanonicalPath()
-                    + " is not a supported image file");
+                logger.error(imageFile.getCanonicalPath() + " is not a supported image file");
                 throw new ServletException("not a supported image file");
             }
-            Date imageCreationDate = ImageOperations
-                    .getImageCreationDate(imageFile);
+            Date imageCreationDate = ImageOperations.getImageCreationDate(imageFile);
             logger.debug("image creation date is " + imageCreationDate);
             if (imageCreationDate != null) {
                 form.setImageCreationDate(new CalendarDate(imageCreationDate));
@@ -115,8 +106,7 @@ public class EditImage extends AbstractFormController {
             form.setGalleryImage(false);
             form.setPublic(false);
         } else {
-            logger.debug("preparing EditImage form for image \""
-                + form.getImageId() + "\"");
+            logger.debug("preparing EditImage form for image \"" + form.getImageId() + "\"");
             form.setImageId(descriptor.getId());
             form.setLocation(descriptor.getLocation());
             form.setTitle(descriptor.getTitle());
@@ -130,20 +120,18 @@ public class EditImage extends AbstractFormController {
             if (form.getGalleryId() == null) {
                 form.setGalleryImage(false);
             } else {
-                Gallery gallery = ControllerUtils.getGallery(form
-                        .getGalleryId());
+                Gallery gallery = ControllerUtils.getGallery(getPhotogalDao(), form.getGalleryId());
                 form.setGalleryImage(gallery.isGalleryImage(descriptor));
             }
         }
-        form.setAvailableSizes(getScaledImageCalculator()
-                .getAvailableSizes(form.getWidth(), form.getHeight()));
+        form.setAvailableSizes(getScaledImageCalculator().getAvailableSizes(form.getWidth(),
+                form.getHeight()));
         return showForm(request, errors, "edit/editImage");
     }
 
     @Override
     protected ModelAndView processFormSubmission(HttpServletRequest request,
-            HttpServletResponse response, Object command, BindException errors)
-            throws Exception {
+            HttpServletResponse response, Object command, BindException errors) throws Exception {
         EditImageForm form = (EditImageForm) command;
         String action = request.getParameter("action");
         if (action == null) {
@@ -157,8 +145,7 @@ public class EditImage extends AbstractFormController {
         }
     }
 
-    private ModelAndView handleSaveRequest(final EditImageForm form)
-            throws Exception {
+    private ModelAndView handleSaveRequest(final EditImageForm form) throws Exception {
         // TODO check for errors
         ImageDescriptor descriptor;
         if (form.getImageId() == null) {
@@ -169,25 +156,24 @@ public class EditImage extends AbstractFormController {
             descriptor.setWidth(d.width);
             descriptor.setHeight(d.height);
         } else {
-            descriptor = ControllerUtils.getImageDescriptor(form.getImageId());
+            descriptor = ControllerUtils.getImageDescriptor(getPhotogalDao(), form.getImageId());
         }
         descriptor.setTitle(form.getTitle());
         descriptor.setDescription(form.getDescription());
         descriptor.setImageCreationDate(form.getImageCreationDate());
         descriptor.setKeywordsAsString(form.getKeywords());
 
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.saveOrUpdate(descriptor);
+        getPhotogalDao().saveOrUpdate(descriptor);
 
         boolean imageAddedToGallery = false;
         if (form.getGalleryId() != null) {
-            final Gallery gallery = ControllerUtils.getGallery(form
+            final Gallery gallery = ControllerUtils.getGallery(getPhotogalDao(), form
                     .getGalleryId());
             if (!gallery.containsImage(descriptor)) {
                 gallery.addImage(descriptor);
                 imageAddedToGallery = true;
-                logger.debug("added image descriptor (id=" + descriptor.getId()
-                    + ") to gallery " + gallery.getId());
+                logger.debug("added image descriptor (id=" + descriptor.getId() + ") to gallery "
+                        + gallery.getId());
             }
             if (form.isGalleryImage()) {
                 gallery.setGalleryImage(descriptor);
@@ -196,15 +182,13 @@ public class EditImage extends AbstractFormController {
                     gallery.setGalleryImage(null);
                 }
             }
-            session.saveOrUpdate(gallery);
+            getPhotogalDao().saveOrUpdate(gallery);
         }
 
         if (form.getImageId() == null) {
-            logger.debug("created new image descriptor (id="
-                + descriptor.getId() + ")");
+            logger.debug("created new image descriptor (id=" + descriptor.getId() + ")");
         } else {
-            logger.debug("updated image descriptor (id=" + descriptor.getId()
-                + ")");
+            logger.debug("updated image descriptor (id=" + descriptor.getId() + ")");
         }
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("image", descriptor);
@@ -213,8 +197,7 @@ public class EditImage extends AbstractFormController {
         return new ModelAndView(form.getReturnTo(), model);
     }
 
-    private ModelAndView handleCancelRequest(final EditImageForm form)
-            throws Exception {
+    private ModelAndView handleCancelRequest(final EditImageForm form) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("imageId", form.getImageId());
         model.put("galleryId", form.getGalleryId());

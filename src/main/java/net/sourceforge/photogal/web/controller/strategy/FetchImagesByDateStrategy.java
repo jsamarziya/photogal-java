@@ -18,14 +18,15 @@
  */
 package net.sourceforge.photogal.web.controller.strategy;
 
-import net.sourceforge.photogal.web.form.ShowImagesByDateForm;
+import java.util.List;
 
-import org.hibernate.Query;
+import net.sourceforge.photogal.ImageDescriptor;
+import net.sourceforge.photogal.web.form.ShowImagesByDateForm;
 
 public interface FetchImagesByDateStrategy {
     public boolean canHandleRequest(ShowImagesByDateForm form);
 
     public int getImageCount(ShowImagesByDateForm form);
 
-    public Query getFetchImagesQuery(ShowImagesByDateForm form);
+    public List<ImageDescriptor> getImages(ShowImagesByDateForm form);
 }

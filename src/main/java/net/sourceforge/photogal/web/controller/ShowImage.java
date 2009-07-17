@@ -23,18 +23,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.ImageDescriptor;
+import net.sourceforge.photogal.hibernate.PhotogalDao;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Serves requests for images.
  */
-public class ShowImage extends AbstractShowImageController {
+public class ShowImage extends AbstractShowImageController implements InitializingBean {
+    private PhotogalDao photogalDao;
+
+    public PhotogalDao getPhotogalDao() {
+        return photogalDao;
+    }
+
+    public void setPhotogalDao(PhotogalDao photogalDao) {
+        this.photogalDao = photogalDao;
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        Assert.notNull(getPhotogalDao(), "a PhotogalDao must be set");
+    }
+
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        final ImageDescriptor descriptor = ControllerUtils
-                .getImageDescriptor(request);
+        final ImageDescriptor descriptor = ControllerUtils.getImageDescriptor(getPhotogalDao(),
+                request);
         if (!descriptor.isPublic() && !ControllerUtils.canViewPrivate(request)) {
             throw new ServletException("image is private");
         }

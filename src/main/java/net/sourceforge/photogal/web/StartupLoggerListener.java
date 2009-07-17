@@ -23,9 +23,9 @@ import javax.servlet.ServletContextListener;
 
 import net.sourceforge.photogal.image.ScaledImageCache;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.sixcats.utils.FileAccessManager;
 import org.sixcats.utils.Version;
-import org.sixcats.utils.hibernate.HibernateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -56,9 +56,10 @@ public class StartupLoggerListener implements ServletContextListener {
     }
 
     private void logHibernateConfig() {
-        log.info("Database: "
-                + HibernateUtil.getConfiguration()
-                        .getProperty("connection.url"));
+        throw new NotImplementedException("fix me!");
+//        log.info("Database: "
+//                + HibernateUtil.getConfiguration()
+//                        .getProperty("connection.url"));
     }
 
     private void logImageFileDirectory(final ApplicationContext context) {
