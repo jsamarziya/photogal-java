@@ -29,8 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.photogal.export.PhotogalData;
 import net.sourceforge.photogal.export.PhotogalExporter;
 import net.sourceforge.photogal.export.XStreamPhotogalExporter;
-import net.sourceforge.photogal.hibernate.EntityManager;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
+import net.sourceforge.photogal.hibernate.PhotogalDao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,29 +42,28 @@ public class PhotogalExportServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(PhotogalExportServlet.class);
 
     private PhotogalExporter exporter;
-    private EntityManager entityManager;
+    private PhotogalDao photogalDao;
 
     public PhotogalExportServlet() {
         setExporter(XStreamPhotogalExporter.getInstance());
-        setEntityManager(HibernateEntityManager.getInstance());
     }
 
     /**
-     * Returns the entity manager used to access the database.
+     * Returns the PhotogalDao used to access the database.
      * 
-     * @return the entity manager
+     * @return the PhotogalDao
      */
-    public EntityManager getEntityManager() {
-        return entityManager;
+    public PhotogalDao getPhotogalDao() {
+        return photogalDao;
     }
 
     /**
-     * Sets the entity manager used to access the database.
+     * Sets the PhotogalDao used to access the database.
      * 
-     * @param entityManager the entity manager
+     * @param photogalDao the entity manager
      */
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public void setPhotogalDao(PhotogalDao photogalDao) {
+        this.photogalDao = photogalDao;
     }
 
     /**
@@ -89,7 +87,7 @@ public class PhotogalExportServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        final PhotogalData data = getEntityManager().getData();
+        final PhotogalData data = getPhotogalDao().getData();
         response.setContentType("text/xml");
         response.setCharacterEncoding("UTF-8");
         getExporter().exportData(data, response.getWriter());

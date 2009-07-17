@@ -21,38 +21,26 @@ package net.sourceforge.photogal.web.controller.xml;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sourceforge.photogal.Gallery;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 
-import org.sixcats.utils.hibernate.HibernateUtil;
-
-public class MoveImage extends WebService {
+public class MoveImage extends PhotogalDaoAwareWebService {
     @Override
-    protected WebServiceResponse handleWebServiceRequest(
-            HttpServletRequest request) throws Exception {
-        DefaultWebServiceResponse response = new DefaultWebServiceResponse(
-                                                                           request);
+    protected WebServiceResponse handleWebServiceRequest(HttpServletRequest request)
+            throws Exception {
+        DefaultWebServiceResponse response = new DefaultWebServiceResponse(request);
         final long galleryId = Long.parseLong(request.getParameter("gallery"));
         final int fromIndex = Integer.parseInt(request.getParameter("from"));
         final int toIndex = Integer.parseInt(request.getParameter("to"));
-        final Gallery gallery = getGallery(galleryId);
+        final Gallery gallery = getPhotogalDao().getGallery(galleryId);
         if (gallery == null) {
             response.setStatus(WebServiceResponse.STATUS_ERROR);
             response.setStatusMessage("Gallery " + galleryId + " not found");
         } else {
             gallery.moveImage(fromIndex, toIndex);
-            HibernateUtil.getSessionFactory().getCurrentSession()
-                    .update(gallery);
+            getPhotogalDao().update(gallery);
             response.setStatus(WebServiceResponse.STATUS_OK);
-            log.debug("moved image " + fromIndex + " to " + toIndex
-                + " (gallery " + galleryId + ")");
+            log.debug("moved image " + fromIndex + " to " + toIndex + " (gallery " + galleryId
+                    + ")");
         }
         return response;
     }
-
-    private Gallery getGallery(final long id) {
-        final Gallery gallery = HibernateEntityManager.getInstance()
-                .getGallery(id);
-        return gallery;
-    }
-
 }

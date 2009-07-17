@@ -25,18 +25,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
-
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class OrganizeGallery extends AbstractController {
+public class OrganizeGallery extends PhotogalDaoAwareController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         final long galleryId = ControllerUtils.getGalleryId(request);
-        if (!HibernateEntityManager.getInstance().galleryExists(galleryId)) {
+        if (!getPhotogalDao().galleryExists(galleryId)) {
             throw new ServletException("gallery " + galleryId + " not found");
         }
         Map<String, Object> model = new HashMap<String, Object>();

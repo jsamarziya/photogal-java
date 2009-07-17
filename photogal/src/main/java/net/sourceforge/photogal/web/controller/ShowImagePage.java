@@ -31,17 +31,15 @@ import net.sourceforge.photogal.ImageDescriptor;
 import net.sourceforge.photogal.image.ScaledImageCalculator;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class ShowImagePage extends AbstractController {
+public class ShowImagePage extends PhotogalDaoAwareController {
     private ScaledImageCalculator scaledImageCalculator;
 
     public ScaledImageCalculator getScaledImageCalculator() {
         return scaledImageCalculator;
     }
 
-    public void setScaledImageCalculator(
-            ScaledImageCalculator scaledImageCalculator) {
+    public void setScaledImageCalculator(ScaledImageCalculator scaledImageCalculator) {
         this.scaledImageCalculator = scaledImageCalculator;
     }
 
@@ -49,8 +47,7 @@ public class ShowImagePage extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         final Map<String, Object> model = new HashMap<String, Object>();
-        final ImageDescriptor image = ControllerUtils
-                .getImageDescriptor(request);
+        final ImageDescriptor image = ControllerUtils.getImageDescriptor(getPhotogalDao(), request);
         if (!image.isPublic() && !ControllerUtils.canViewPrivate(request)) {
             throw new ServletException("image is private");
         }
@@ -58,7 +55,7 @@ public class ShowImagePage extends AbstractController {
         model.put("scaledImageCalculator", getScaledImageCalculator());
 
         if (ControllerUtils.hasGalleryId(request)) {
-            final Gallery gallery = ControllerUtils.getGallery(request);
+            final Gallery gallery = ControllerUtils.getGallery(getPhotogalDao(), request);
             final List<ImageDescriptor> galleryImages = gallery.getImages();
             final int position = galleryImages.indexOf(image);
             ImageDescriptor previousImage = null;

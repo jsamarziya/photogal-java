@@ -26,19 +26,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class EditGalleries extends AbstractController {
+public class EditGalleries extends PhotogalDaoAwareController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         final boolean canViewPrivate = ControllerUtils.canViewPrivate(request);
         Map<String, Object> model = new HashMap<String, Object>();
-        List<Gallery> galleries = HibernateEntityManager.getInstance()
-                .getGalleries(canViewPrivate);
+        List<Gallery> galleries = getPhotogalDao().getGalleries(canViewPrivate);
         logger.debug(galleries.size() + " galleries found");
         model.put("galleryList", galleries);
         return new ModelAndView("edit/editGalleries", model);

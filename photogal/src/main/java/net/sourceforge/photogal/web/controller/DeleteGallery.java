@@ -25,17 +25,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class DeleteGallery extends AbstractController {
-    private static final View EDIT_GALLERIES_VIEW = new RedirectView(
-                                                                     "/edit/editGalleries.do",
-                                                                     true);
+public class DeleteGallery extends PhotogalDaoAwareController {
+    private static final View EDIT_GALLERIES_VIEW = new RedirectView("/edit/editGalleries.do", true);
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
@@ -48,13 +44,12 @@ public class DeleteGallery extends AbstractController {
         } else if ("cancel".equals(action)) {
             return handleCancelRequest(request);
         } else {
-            throw new IllegalArgumentException("unable to handle action \""
-                + action + "\"");
+            throw new IllegalArgumentException("unable to handle action \"" + action + "\"");
         }
     }
 
     private ModelAndView handleConfirmRequest(final HttpServletRequest request) {
-        final Gallery gallery = ControllerUtils.getGallery(request);
+        final Gallery gallery = ControllerUtils.getGallery(getPhotogalDao(), request);
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("gallery", gallery);
         return new ModelAndView("edit/confirmDeleteGallery", model);
@@ -63,7 +58,7 @@ public class DeleteGallery extends AbstractController {
     private ModelAndView handleDeleteRequest(final HttpServletRequest request) {
         final long galleryId = ControllerUtils.getGalleryId(request);
         logger.debug("deleting gallery " + galleryId);
-        HibernateEntityManager.getInstance().deleteGallery(galleryId, true);
+        getPhotogalDao().deleteGallery(galleryId, true);
         return new ModelAndView(EDIT_GALLERIES_VIEW);
     }
 

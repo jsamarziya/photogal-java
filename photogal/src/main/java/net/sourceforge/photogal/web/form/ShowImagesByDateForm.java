@@ -26,16 +26,16 @@ public class ShowImagesByDateForm extends DefaultPagedDataForm {
     public static final String DATE_TYPE_TAKEN = "taken";
 
     private int year;
-    private Integer month;
+    private int month;
     private String dateType;
     private boolean allMonths;
     private boolean includePrivate;
 
-    public Integer getMonth() {
+    public int getMonth() {
         return month;
     }
 
-    public void setMonth(Integer month) {
+    public void setMonth(int month) {
         this.month = month;
     }
 

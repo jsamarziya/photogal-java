@@ -23,29 +23,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 import net.sourceforge.photogal.web.form.EditGalleryForm;
 
-import org.hibernate.Session;
-import org.sixcats.utils.hibernate.HibernateUtil;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractFormController;
 
-public class EditGallery extends AbstractFormController {
+public class EditGallery extends PhotogalDaoAwareFormController {
     @Override
-    protected void initBinder(HttpServletRequest request,
-            ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(String.class,
-                                    new StringTrimmerEditor(false));
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
+            throws Exception {
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 
     @Override
-    protected ModelAndView showForm(HttpServletRequest request,
-            HttpServletResponse response, BindException errors)
-            throws Exception {
+    protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response,
+            BindException errors) throws Exception {
         EditGalleryForm form = (EditGalleryForm) errors.getTarget();
         if (form.getId() == null) {
             throw new ServletException("no gallery id specified");
@@ -54,9 +48,8 @@ public class EditGallery extends AbstractFormController {
             form.setName("New Gallery");
             form.setPublic(false);
         } else {
-            logger.debug("preparing EditGallery form for gallery \""
-                + form.getId() + "\"");
-            Gallery gallery = ControllerUtils.getGallery(form.getId());
+            logger.debug("preparing EditGallery form for gallery \"" + form.getId() + "\"");
+            Gallery gallery = ControllerUtils.getGallery(getPhotogalDao(), form.getId());
             form.setName(gallery.getName());
             form.setDescription(gallery.getDescription());
             form.setPublic(gallery.isPublic());
@@ -66,8 +59,7 @@ public class EditGallery extends AbstractFormController {
 
     @Override
     protected ModelAndView processFormSubmission(HttpServletRequest request,
-            HttpServletResponse response, Object command, BindException errors)
-            throws Exception {
+            HttpServletResponse response, Object command, BindException errors) throws Exception {
         final EditGalleryForm form = (EditGalleryForm) command;
         final String action = request.getParameter("action");
         if (action == null) {
@@ -90,16 +82,14 @@ public class EditGallery extends AbstractFormController {
         Gallery gallery = null;
         if (form.isNewGallery()) {
             gallery = new Gallery();
-            gallery.setOrderIndex(HibernateEntityManager.getInstance()
-                    .getGalleryCount());
+            gallery.setOrderIndex(getPhotogalDao().getGalleryCount());
         } else {
-            gallery = ControllerUtils.getGallery(id);
+            gallery = ControllerUtils.getGallery(getPhotogalDao(), id);
         }
         gallery.setName(form.getName());
         gallery.setDescription(form.getDescription());
         gallery.setPublic(form.isPublic());
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.saveOrUpdate(gallery);
+        getPhotogalDao().saveOrUpdate(gallery);
         if (form.isNewGallery()) {
             logger.debug("created new gallery (id=" + gallery.getId() + ")");
         } else {

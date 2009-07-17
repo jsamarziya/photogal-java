@@ -26,13 +26,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
-import net.sourceforge.photogal.hibernate.HibernateEntityManager;
 
-import org.sixcats.utils.hibernate.HibernateUtil;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class DeleteImage extends AbstractController {
+public class DeleteImage extends PhotogalDaoAwareController {
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -44,31 +41,27 @@ public class DeleteImage extends AbstractController {
         } else if ("cancel".equals(action)) {
             return null;
         } else {
-            throw new IllegalArgumentException("unable to handle action \""
-                + action + "\"");
+            throw new IllegalArgumentException("unable to handle action \"" + action + "\"");
         }
     }
 
     private ModelAndView handleDeleteRequest(HttpServletRequest request) {
-        final Gallery gallery = ControllerUtils.getGallery(request);
-        final ImageDescriptor imageDescriptor = ControllerUtils
-                .getImageDescriptor(request);
+        final Gallery gallery = ControllerUtils.getGallery(getPhotogalDao(), request);
+        final ImageDescriptor imageDescriptor = ControllerUtils.getImageDescriptor(
+                getPhotogalDao(), request);
         if (!gallery.containsImage(imageDescriptor)) {
             throw new IllegalStateException("image " + imageDescriptor.getId()
-                + " is not contained in gallery " + gallery.getId());
+                    + " is not contained in gallery " + gallery.getId());
         }
         if (gallery.isGalleryImage(imageDescriptor)) {
             gallery.setGalleryImage(null);
         }
-        logger.debug("removing image " + imageDescriptor.getId()
-            + " from gallery " + gallery.getId());
+        logger.debug("removing image " + imageDescriptor.getId() + " from gallery "
+                + gallery.getId());
         gallery.removeImage(imageDescriptor);
-        if (HibernateEntityManager.getInstance()
-                .getImageGalleryCount(imageDescriptor.getId()) <= 1) {
-            logger.debug("image " + imageDescriptor.getId()
-                + " is now orphaned, deleting it");
-            HibernateUtil.getSessionFactory().getCurrentSession()
-                    .delete(imageDescriptor);
+        if (getPhotogalDao().getImageGalleryCount(imageDescriptor.getId()) <= 1) {
+            logger.debug("image " + imageDescriptor.getId() + " is now orphaned, deleting it");
+            getPhotogalDao().delete(imageDescriptor);
         }
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("imageId", imageDescriptor.getId());
@@ -79,8 +72,8 @@ public class DeleteImage extends AbstractController {
 
     private ModelAndView handleConfirmRequest(HttpServletRequest request) {
         final long galleryId = ControllerUtils.getGalleryId(request);
-        final ImageDescriptor imageDescriptor = ControllerUtils
-                .getImageDescriptor(request);
+        final ImageDescriptor imageDescriptor = ControllerUtils.getImageDescriptor(
+                getPhotogalDao(), request);
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("galleryId", galleryId);
         model.put("image", imageDescriptor);
