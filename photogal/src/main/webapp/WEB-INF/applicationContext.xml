@@ -2,76 +2,76 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <bean id="imageFileAccessManager" class="org.sixcats.utils.FileAccessManager">
-        <property name="baseDirectory" value="\\\\sixcats\\files\\photos" />
-    </bean>
-    <bean id="scaledImageCalculator" class="net.sourceforge.photogal.image.ScaledImageCalculator">
-        <property name="maxSizes">
-            <map>
-                <entry key="t">
-                    <value type="java.lang.Integer">
+	<bean id="imageFileAccessManager" class="org.sixcats.utils.FileAccessManager">
+		<property name="baseDirectory" value="\\\\sixcats\\files\\photos" />
+	</bean>
+	<bean id="scaledImageCalculator" class="net.sourceforge.photogal.image.ScaledImageCalculator">
+		<property name="maxSizes">
+			<map>
+				<entry key="t">
+					<value type="java.lang.Integer">
 						${scaledImage.maxSize.t}
 					</value>
-                </entry>
-                <entry key="s">
-                    <value type="java.lang.Integer">
+				</entry>
+				<entry key="s">
+					<value type="java.lang.Integer">
 						${scaledImage.maxSize.s}
 					</value>
-                </entry>
-                <entry key="m">
-                    <value type="java.lang.Integer">
+				</entry>
+				<entry key="m">
+					<value type="java.lang.Integer">
 						${scaledImage.maxSize.m}
 					</value>
-                </entry>
-                <entry key="l">
-                    <value type="java.lang.Integer">
+				</entry>
+				<entry key="l">
+					<value type="java.lang.Integer">
 						${scaledImage.maxSize.l}
 					</value>
-                </entry>
-            </map>
-        </property>
-    </bean>
-    <bean id="scaledImageCache"
-        class="net.sourceforge.photogal.image.SynchronizedScaledImageCache">
-        <property name="scaledImageCalculator" ref="scaledImageCalculator" />
-        <property name="cacheDirectory"
-            value="C:\\Users\\jeffrey\\Documents\\pgImageCache" />
-    </bean>
-    <bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator">
-        <property name="fileAccessManager" ref="imageFileAccessManager" />
-        <property name="scaledImageCache" ref="scaledImageCache" />
-        <property name="throttleDelay" value="1000" />
-    </bean>
-    <bean id="propertyPlaceholderConfigurer"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="/WEB-INF/applicationContext.properties" />
-    </bean>
-    <bean id="dataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource">
-        <property name="url" value="jdbc:mysql://sixcats/photogal_dev" />
-        <property name="user" value="photogal_dev" />
-        <property name="password" value="photogal_dev_pw" />
-    </bean>
-    <bean id="sessionFactory"
-        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="mappingResources">
-            <list>
-                <value>net/sourceforge/photogal/Gallery.hbm.xml</value>
-                <value>net/sourceforge/photogal/ImageDescriptor.hbm.xml</value>
-            </list>
-        </property>
-        <property name="cacheProvider" value="org.hibernate.cache.NoCacheProvider" />
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.current_session_context_class">thread</prop>
-                <prop key="hibernate.show_sql">false</prop>
-            </props>
-        </property>
-    </bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="scaledImageCache"
+		class="net.sourceforge.photogal.image.SynchronizedScaledImageCache">
+		<property name="scaledImageCalculator" ref="scaledImageCalculator" />
+		<property name="cacheDirectory" value="C:\\Users\\jeffrey\\Documents\\pgImageCache" />
+	</bean>
+	<bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator">
+		<property name="fileAccessManager" ref="imageFileAccessManager" />
+		<property name="scaledImageCache" ref="scaledImageCache" />
+		<property name="throttleDelay" value="1000" />
+	</bean>
+	<bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/applicationContext.properties" />
+	</bean>
+	<bean id="dataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource">
+		<property name="url" value="jdbc:mysql://sixcats/photogal_dev" />
+		<property name="user" value="photogal_dev" />
+		<property name="password" value="photogal_dev_pw" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>net/sourceforge/photogal/Gallery.hbm.xml</value>
+				<value>net/sourceforge/photogal/ImageDescriptor.hbm.xml</value>
+			</list>
+		</property>
+		<property name="cacheProvider">
+			<bean class="org.hibernate.cache.NoCacheProvider" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+	</bean>
 
-    <bean id="photogalDao"
-        class="net.sourceforge.photogal.hibernate.HibernatePhotogalDao">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+	<bean id="photogalDao" class="net.sourceforge.photogal.hibernate.HibernatePhotogalDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 </beans>
