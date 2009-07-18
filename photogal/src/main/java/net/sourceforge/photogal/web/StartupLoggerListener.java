@@ -23,7 +23,6 @@ import javax.servlet.ServletContextListener;
 
 import net.sourceforge.photogal.image.ScaledImageCache;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.sixcats.utils.FileAccessManager;
 import org.sixcats.utils.Version;
 import org.slf4j.Logger;
@@ -51,23 +50,21 @@ public class StartupLoggerListener implements ServletContextListener {
     }
 
     private String getVersion() {
-        return Version.getVersion() + " (" + Version.getDeploymentEnvironment()
-                + ")";
+        return Version.getVersion() + " (" + Version.getDeploymentEnvironment() + ")";
     }
 
     private void logHibernateConfig() {
-        throw new NotImplementedException("fix me!");
-//        log.info("Database: "
-//                + HibernateUtil.getConfiguration()
-//                        .getProperty("connection.url"));
+        log.warn("TODO: logHibernateConfig()");
+        // log.info("Database: "
+        // + HibernateUtil.getConfiguration()
+        // .getProperty("connection.url"));
     }
 
     private void logImageFileDirectory(final ApplicationContext context) {
         try {
             final FileAccessManager imageFileAccessManager = (FileAccessManager) context
                     .getBean("imageFileAccessManager");
-            log.info("Image file base directory: "
-                    + imageFileAccessManager.getBaseDirectory());
+            log.info("Image file base directory: " + imageFileAccessManager.getBaseDirectory());
         } catch (Exception ex) {
             log.error("error logging image file directory", ex);
         }
@@ -77,8 +74,7 @@ public class StartupLoggerListener implements ServletContextListener {
         try {
             final ScaledImageCache scaledImageCache = (ScaledImageCache) context
                     .getBean("scaledImageCache");
-            log.info("Scaled image cache directory: "
-                    + scaledImageCache.getCacheDirectory());
+            log.info("Scaled image cache directory: " + scaledImageCache.getCacheDirectory());
         } catch (Exception ex) {
             log.error("error logging scaled image cache directory", ex);
         }
