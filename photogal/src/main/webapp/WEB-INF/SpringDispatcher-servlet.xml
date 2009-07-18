@@ -1,210 +1,208 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
-    <!--
-        Application context definition for "SpringDispatcher"
-        DispatcherServlet.
-    -->
+	<!--
+		Application context definition for "SpringDispatcher"
+		DispatcherServlet.
+	-->
 
 <beans>
-    <bean id="showGalleries"
-        class="net.sourceforge.photogal.web.controller.ShowGalleries">
-        <property name="supportedMethods" value="GET" />
-        <property name="cacheSeconds" value="300" />
-        <property name="scaledImageCalculator" ref="scaledImageCalculator" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="showKeywordList"
-        class="net.sourceforge.photogal.web.controller.ShowKeywordList">
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="showDateIndex"
-        class="net.sourceforge.photogal.web.controller.ShowDateIndex">
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="showGallery" class="net.sourceforge.photogal.web.controller.ShowGallery">
-        <property name="supportedMethods" value="GET" />
-        <property name="cacheSeconds" value="300" />
-        <property name="scaledImageCalculator" ref="scaledImageCalculator" />
-        <property name="defaultItemsPerPage" value="24" />
-        <property name="commandClass"
-            value="org.sixcats.utils.web.form.DefaultPagedDataForm" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="showImagePage"
-        class="net.sourceforge.photogal.web.controller.ShowImagePage">
-        <property name="supportedMethods" value="GET" />
-        <property name="cacheSeconds" value="300" />
-        <property name="scaledImageCalculator" ref="scaledImageCalculator" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="showKeywordImages"
-        class="net.sourceforge.photogal.web.controller.ShowKeywordImages">
-        <property name="supportedMethods" value="GET" />
-        <property name="cacheSeconds" value="300" />
-        <property name="photogalDao" ref="photogalDao" />
-        <property name="scaledImageCalculator" ref="scaledImageCalculator" />
-        <property name="defaultItemsPerPage" value="24" />
-        <property name="commandClass"
-            value="net.sourceforge.photogal.web.form.ShowKeywordImagesForm" />
-    </bean>
-    <bean id="showImagesByDate"
-        class="net.sourceforge.photogal.web.controller.ShowImagesByDate">
-        <property name="supportedMethods" value="GET" />
-        <property name="cacheSeconds" value="300" />
-        <property name="scaledImageCalculator" ref="scaledImageCalculator" />
-        <property name="defaultItemsPerPage" value="24" />
-        <property name="commandClass"
-            value="net.sourceforge.photogal.web.form.ShowImagesByDateForm" />
-        <property name="fetchStrategies">
-            <list>
-                <bean
-                    class="net.sourceforge.photogal.web.controller.strategy.FetchImagesByDatePosted" />
-                <bean
-                    class="net.sourceforge.photogal.web.controller.strategy.FetchImagesByDateTaken" />
-                <bean
-                    class="net.sourceforge.photogal.web.controller.strategy.FetchImagesByYearPosted" />
-                <bean
-                    class="net.sourceforge.photogal.web.controller.strategy.FetchImagesByYearTaken" />
-            </list>
-        </property>
-    </bean>
-    <bean id="showImage" class="net.sourceforge.photogal.web.controller.ShowImage">
-        <property name="supportedMethods" value="GET" />
-        <property name="cacheSeconds" value="28800" />
-        <property name="fileAccessManager" ref="imageFileAccessManager" />
-        <property name="imageCache" ref="scaledImageCache" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="editGalleries"
-        class="net.sourceforge.photogal.web.controller.EditGalleries">
-        <property name="supportedMethods" value="GET" />
-        <property name="cacheSeconds" value="0" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="editGallery" class="net.sourceforge.photogal.web.controller.EditGallery">
-        <property name="cacheSeconds" value="0" />
-        <property name="photogalDao" ref="photogalDao" />
-        <property name="commandClass"
-            value="net.sourceforge.photogal.web.form.EditGalleryForm" />
-        <property name="bindOnNewForm" value="true" />
-    </bean>
-    <bean id="organizeGallery"
-        class="net.sourceforge.photogal.web.controller.OrganizeGallery">
-        <property name="cacheSeconds" value="0" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="organizeGallerySelector"
-        class="net.sourceforge.photogal.web.controller.OrganizeGallerySelector">
-        <property name="cacheSeconds" value="0" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="showImageFile"
-        class="net.sourceforge.photogal.web.controller.ShowImageFile">
-        <property name="supportedMethods" value="GET" />
-        <property name="cacheSeconds" value="3600" />
-        <property name="fileAccessManager" ref="imageFileAccessManager" />
-        <property name="imageCache" ref="scaledImageCache" />
-    </bean>
-    <bean id="showImageFileBrowser"
-        class="net.sourceforge.photogal.web.controller.ShowImageFileBrowser">
-        <property name="supportedMethods" value="GET" />
-        <property name="cacheSeconds" value="0" />
-        <property name="fileAccessManager" ref="imageFileAccessManager" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="editImage" class="net.sourceforge.photogal.web.controller.EditImage">
-        <property name="supportedMethods" value="GET,POST" />
-        <property name="cacheSeconds" value="0" />
-        <property name="commandName" value="command" />
-        <property name="commandClass"
-            value="net.sourceforge.photogal.web.form.EditImageForm" />
-        <property name="bindOnNewForm" value="true" />
-        <property name="fileAccessManager" ref="imageFileAccessManager" />
-        <property name="scaledImageCalculator" ref="scaledImageCalculator" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="deleteImage" class="net.sourceforge.photogal.web.controller.DeleteImage">
-        <property name="supportedMethods" value="GET,POST" />
-        <property name="cacheSeconds" value="0" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="deleteGallery"
-        class="net.sourceforge.photogal.web.controller.DeleteGallery">
-        <property name="supportedMethods" value="GET,POST" />
-        <property name="cacheSeconds" value="0" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="generateThumbnails"
-        class="net.sourceforge.photogal.web.controller.GenerateThumbnails">
-        <property name="supportedMethods" value="GET,POST" />
-        <property name="cacheSeconds" value="0" />
-        <property name="thumbnailGenerator" ref="thumbnailGenerator" />
-    </bean>
-    <bean id="logout" class="net.sourceforge.photogal.web.controller.Logout">
-        <property name="supportedMethods" value="GET,POST" />
-        <property name="cacheSeconds" value="0" />
-    </bean>
-    <bean id="moveGallery"
-        class="net.sourceforge.photogal.web.controller.xml.MoveGallery">
-        <property name="supportedMethods" value="GET,POST" />
-        <property name="cacheSeconds" value="0" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="moveImage"
-        class="net.sourceforge.photogal.web.controller.xml.MoveImage">
-        <property name="supportedMethods" value="GET,POST" />
-        <property name="cacheSeconds" value="0" />
-        <property name="photogalDao" ref="photogalDao" />
-    </bean>
-    <bean id="urlMapping"
-        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <props>
-                <prop key="/showGalleries.do">showGalleries</prop>
-                <prop key="/showKeywordList.do">showKeywordList</prop>
-                <prop key="/showDateIndex.do">showDateIndex</prop>
-                <prop key="/showGallery.do">showGallery</prop>
-                <prop key="/showImagePage.do">showImagePage</prop>
-                <prop key="/showKeywordImages.do">
+	<bean id="showGalleries" class="net.sourceforge.photogal.web.controller.ShowGalleries">
+		<property name="supportedMethods" value="GET" />
+		<property name="cacheSeconds" value="300" />
+		<property name="scaledImageCalculator" ref="scaledImageCalculator" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="showKeywordList" class="net.sourceforge.photogal.web.controller.ShowKeywordList">
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="showDateIndex" class="net.sourceforge.photogal.web.controller.ShowDateIndex">
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="showGallery" class="net.sourceforge.photogal.web.controller.ShowGallery">
+		<property name="supportedMethods" value="GET" />
+		<property name="cacheSeconds" value="300" />
+		<property name="scaledImageCalculator" ref="scaledImageCalculator" />
+		<property name="defaultItemsPerPage" value="24" />
+		<property name="commandClass"
+			value="org.sixcats.utils.web.form.DefaultPagedDataForm" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="showImagePage" class="net.sourceforge.photogal.web.controller.ShowImagePage">
+		<property name="supportedMethods" value="GET" />
+		<property name="cacheSeconds" value="300" />
+		<property name="scaledImageCalculator" ref="scaledImageCalculator" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="showKeywordImages"
+		class="net.sourceforge.photogal.web.controller.ShowKeywordImages">
+		<property name="supportedMethods" value="GET" />
+		<property name="cacheSeconds" value="300" />
+		<property name="photogalDao" ref="photogalDao" />
+		<property name="scaledImageCalculator" ref="scaledImageCalculator" />
+		<property name="defaultItemsPerPage" value="24" />
+		<property name="commandClass"
+			value="net.sourceforge.photogal.web.form.ShowKeywordImagesForm" />
+	</bean>
+	<bean id="showImagesByDate"
+		class="net.sourceforge.photogal.web.controller.ShowImagesByDate">
+		<property name="supportedMethods" value="GET" />
+		<property name="cacheSeconds" value="300" />
+		<property name="scaledImageCalculator" ref="scaledImageCalculator" />
+		<property name="defaultItemsPerPage" value="24" />
+		<property name="commandClass"
+			value="net.sourceforge.photogal.web.form.ShowImagesByDateForm" />
+		<property name="fetchStrategies">
+			<list>
+				<bean
+					class="net.sourceforge.photogal.web.controller.strategy.FetchImagesByDatePosted">
+					<property name="photogalDao" ref="photogalDao" />
+				</bean>
+				<bean
+					class="net.sourceforge.photogal.web.controller.strategy.FetchImagesByDateTaken">
+					<property name="photogalDao" ref="photogalDao" />
+				</bean>
+				<bean
+					class="net.sourceforge.photogal.web.controller.strategy.FetchImagesByYearPosted">
+					<property name="photogalDao" ref="photogalDao" />
+				</bean>
+				<bean
+					class="net.sourceforge.photogal.web.controller.strategy.FetchImagesByYearTaken">
+					<property name="photogalDao" ref="photogalDao" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="showImage" class="net.sourceforge.photogal.web.controller.ShowImage">
+		<property name="supportedMethods" value="GET" />
+		<property name="cacheSeconds" value="28800" />
+		<property name="fileAccessManager" ref="imageFileAccessManager" />
+		<property name="imageCache" ref="scaledImageCache" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="editGalleries" class="net.sourceforge.photogal.web.controller.EditGalleries">
+		<property name="supportedMethods" value="GET" />
+		<property name="cacheSeconds" value="0" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="editGallery" class="net.sourceforge.photogal.web.controller.EditGallery">
+		<property name="cacheSeconds" value="0" />
+		<property name="photogalDao" ref="photogalDao" />
+		<property name="commandClass"
+			value="net.sourceforge.photogal.web.form.EditGalleryForm" />
+		<property name="bindOnNewForm" value="true" />
+	</bean>
+	<bean id="organizeGallery" class="net.sourceforge.photogal.web.controller.OrganizeGallery">
+		<property name="cacheSeconds" value="0" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="organizeGallerySelector"
+		class="net.sourceforge.photogal.web.controller.OrganizeGallerySelector">
+		<property name="cacheSeconds" value="0" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="showImageFile" class="net.sourceforge.photogal.web.controller.ShowImageFile">
+		<property name="supportedMethods" value="GET" />
+		<property name="cacheSeconds" value="3600" />
+		<property name="fileAccessManager" ref="imageFileAccessManager" />
+		<property name="imageCache" ref="scaledImageCache" />
+	</bean>
+	<bean id="showImageFileBrowser"
+		class="net.sourceforge.photogal.web.controller.ShowImageFileBrowser">
+		<property name="supportedMethods" value="GET" />
+		<property name="cacheSeconds" value="0" />
+		<property name="fileAccessManager" ref="imageFileAccessManager" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="editImage" class="net.sourceforge.photogal.web.controller.EditImage">
+		<property name="supportedMethods" value="GET,POST" />
+		<property name="cacheSeconds" value="0" />
+		<property name="commandName" value="command" />
+		<property name="commandClass"
+			value="net.sourceforge.photogal.web.form.EditImageForm" />
+		<property name="bindOnNewForm" value="true" />
+		<property name="fileAccessManager" ref="imageFileAccessManager" />
+		<property name="scaledImageCalculator" ref="scaledImageCalculator" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="deleteImage" class="net.sourceforge.photogal.web.controller.DeleteImage">
+		<property name="supportedMethods" value="GET,POST" />
+		<property name="cacheSeconds" value="0" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="deleteGallery" class="net.sourceforge.photogal.web.controller.DeleteGallery">
+		<property name="supportedMethods" value="GET,POST" />
+		<property name="cacheSeconds" value="0" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="generateThumbnails"
+		class="net.sourceforge.photogal.web.controller.GenerateThumbnails">
+		<property name="supportedMethods" value="GET,POST" />
+		<property name="cacheSeconds" value="0" />
+		<property name="thumbnailGenerator" ref="thumbnailGenerator" />
+	</bean>
+	<bean id="logout" class="net.sourceforge.photogal.web.controller.Logout">
+		<property name="supportedMethods" value="GET,POST" />
+		<property name="cacheSeconds" value="0" />
+	</bean>
+	<bean id="moveGallery" class="net.sourceforge.photogal.web.controller.xml.MoveGallery">
+		<property name="supportedMethods" value="GET,POST" />
+		<property name="cacheSeconds" value="0" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="moveImage" class="net.sourceforge.photogal.web.controller.xml.MoveImage">
+		<property name="supportedMethods" value="GET,POST" />
+		<property name="cacheSeconds" value="0" />
+		<property name="photogalDao" ref="photogalDao" />
+	</bean>
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/showGalleries.do">showGalleries</prop>
+				<prop key="/showKeywordList.do">showKeywordList</prop>
+				<prop key="/showDateIndex.do">showDateIndex</prop>
+				<prop key="/showGallery.do">showGallery</prop>
+				<prop key="/showImagePage.do">showImagePage</prop>
+				<prop key="/showKeywordImages.do">
 					showKeywordImages
 				</prop>
-                <prop key="/showImagesByDate.do">showImagesByDate</prop>
-                <prop key="/showImage.do">showImage</prop>
-                <prop key="/edit/editGallery.do">editGallery</prop>
-                <prop key="/edit/editGalleries.do">editGalleries</prop>
-                <prop key="/edit/organizeGallery.do">
+				<prop key="/showImagesByDate.do">showImagesByDate</prop>
+				<prop key="/showImage.do">showImage</prop>
+				<prop key="/edit/editGallery.do">editGallery</prop>
+				<prop key="/edit/editGalleries.do">editGalleries</prop>
+				<prop key="/edit/organizeGallery.do">
 					organizeGallery
 				</prop>
-                <prop key="/edit/organizeGallerySelector.do">
+				<prop key="/edit/organizeGallerySelector.do">
 					organizeGallerySelector
 				</prop>
-                <prop key="/edit/showImageFile.do">showImageFile</prop>
-                <prop key="/edit/showImageFileBrowser.do">
+				<prop key="/edit/showImageFile.do">showImageFile</prop>
+				<prop key="/edit/showImageFileBrowser.do">
 					showImageFileBrowser
 				</prop>
-                <prop key="/edit/editImage.do">editImage</prop>
-                <prop key="/edit/deleteImage.do">deleteImage</prop>
-                <prop key="/edit/deleteGallery.do">deleteGallery</prop>
-                <prop key="/edit/generateThumbnails.do">
+				<prop key="/edit/editImage.do">editImage</prop>
+				<prop key="/edit/deleteImage.do">deleteImage</prop>
+				<prop key="/edit/deleteGallery.do">deleteGallery</prop>
+				<prop key="/edit/generateThumbnails.do">
 					generateThumbnails
 				</prop>
-                <prop key="/edit/logout.do">logout</prop>
-                <prop key="/edit/xml/moveGallery.do">moveGallery</prop>
-                <prop key="/edit/xml/moveImage.do">moveImage</prop>
-            </props>
-        </property>
-    </bean>
-    <bean id="viewResolver"
-        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass">
-            <value>org.springframework.web.servlet.view.JstlView</value>
-        </property>
-        <property name="prefix">
-            <value>/WEB-INF/jsp/</value>
-        </property>
-        <property name="suffix">
-            <value>.jsp</value>
-        </property>
-    </bean>
+				<prop key="/edit/logout.do">logout</prop>
+				<prop key="/edit/xml/moveGallery.do">moveGallery</prop>
+				<prop key="/edit/xml/moveImage.do">moveImage</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
 </beans>
