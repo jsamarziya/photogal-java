@@ -3,7 +3,7 @@
 
 <beans>
 	<bean id="imageFileAccessManager" class="org.sixcats.utils.FileAccessManager">
-		<property name="baseDirectory" value="\\\\sixcats\\files\\photos" />
+		<property name="baseDirectory" value="${images.dir}" />
 	</bean>
 	<bean id="scaledImageCalculator" class="net.sourceforge.photogal.image.ScaledImageCalculator">
 		<property name="maxSizes">
@@ -34,7 +34,7 @@
 	<bean id="scaledImageCache"
 		class="net.sourceforge.photogal.image.SynchronizedScaledImageCache">
 		<property name="scaledImageCalculator" ref="scaledImageCalculator" />
-		<property name="cacheDirectory" value="C:\\Users\\jeffrey\\Documents\\pgImageCache" />
+		<property name="cacheDirectory" value="${scaledImage.cache.dir}" />
 	</bean>
 	<bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator">
 		<property name="fileAccessManager" ref="imageFileAccessManager" />
