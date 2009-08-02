@@ -5,6 +5,7 @@
 	<bean id="imageFileAccessManager" class="org.sixcats.utils.FileAccessManager">
 		<property name="baseDirectory" value="${images.dir}" />
 	</bean>
+
 	<bean id="scaledImageCalculator" class="net.sourceforge.photogal.image.ScaledImageCalculator">
 		<property name="maxSizes">
 			<map>
@@ -31,25 +32,30 @@
 			</map>
 		</property>
 	</bean>
+
 	<bean id="scaledImageCache"
 		class="net.sourceforge.photogal.image.SynchronizedScaledImageCache">
 		<property name="scaledImageCalculator" ref="scaledImageCalculator" />
 		<property name="cacheDirectory" value="${scaledImage.cache.dir}" />
 	</bean>
+
 	<bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator">
 		<property name="fileAccessManager" ref="imageFileAccessManager" />
 		<property name="scaledImageCache" ref="scaledImageCache" />
 		<property name="throttleDelay" value="1000" />
 	</bean>
+
 	<bean id="propertyPlaceholderConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="/WEB-INF/applicationContext.properties" />
 	</bean>
+
 	<bean id="dataSource" class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource">
 		<property name="url" value="jdbc:mysql://sixcats/photogal_dev" />
 		<property name="user" value="photogal_dev" />
 		<property name="password" value="photogal_dev_pw" />
 	</bean>
+
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -65,10 +71,14 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="hibernate.show_sql">false</prop>
 			</props>
 		</property>
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<bean id="photogalDao" class="net.sourceforge.photogal.hibernate.HibernatePhotogalDao">
