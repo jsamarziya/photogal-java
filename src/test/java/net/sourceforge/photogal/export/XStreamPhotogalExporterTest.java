@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -49,7 +50,7 @@ public class XStreamPhotogalExporterTest {
     }
 
     @Test
-    public void testImportData() throws Exception {
+    public void testImportData() throws IOException {
         final String xml = readFile("XStreamPhotogalExporterTestFile2.txt", "UTF-8");
         final Reader reader = new StringReader(xml);
         final PhotogalData data = XStreamPhotogalExporter.getInstance().importData(reader);
@@ -68,6 +69,16 @@ public class XStreamPhotogalExporterTest {
         assertThat(data.getImageDescriptors(), is(instanceOf(ArrayList.class)));
         assertThat(data.getGalleries().size(), is(9));
         assertThat(data.getImageDescriptors().size(), is(66));
+    }
+
+    @Test
+    public void testImportExportRoundtrip() throws IOException {
+        final String xml = readFile("XStreamPhotogalExporterTestFile2.txt", "UTF-8");
+        final Reader reader = new StringReader(xml);
+        final PhotogalData data = XStreamPhotogalExporter.getInstance().importData(reader);
+        final StringWriter writer = new StringWriter();
+        XStreamPhotogalExporter.getInstance().exportData(data, writer);
+        assertThat(writer.toString(), is(xml));
     }
 
     private String readFile(String filename, String encoding) throws IOException {
