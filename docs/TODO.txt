@@ -26,15 +26,11 @@ mark unused images somehow? (to keep them from showing up in the file listings)
 	
 do string length checking in input forms to prevent db errors (form validation I think)
 
-export/import via XML?
-
 replace navbar with quick link popup menu
 
 make edit link in header (with a popup menu)
 
 preview link for image in editImage and gallery in editGallery?
-
-add create war target to buildfile
 
 generalize gallery editing into file management paradigm?
 
@@ -94,8 +90,6 @@ search
 cropping/rotation tool?
 
 add uncertanity flag ("?") to CalendarDate?
-
-use application server datasource for db connections?
 
 add "also contained in" gallery list to image page
 
