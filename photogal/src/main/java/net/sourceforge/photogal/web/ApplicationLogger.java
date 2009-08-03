@@ -31,52 +31,55 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * A ServletContextListener that does some startup logging.
+ * A ServletContextListener that does some application lifecycle logging.
  */
-public class StartupLoggerListener implements ServletContextListener {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+public class ApplicationLogger implements ServletContextListener {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationLogger.class);
 
     public void contextInitialized(ServletContextEvent event) {
         final ApplicationContext appContext = WebApplicationContextUtils
                 .getWebApplicationContext(event.getServletContext());
-        log.info("photogal version " + getVersion() + " starting");
-        logHibernateConfig();
+        LOGGER.info("photogal version " + getVersion() + " starting");
+        logDatabaseInfo(appContext);
         logImageFileDirectory(appContext);
         logScaledImageCacheDirectory(appContext);
     }
 
     public void contextDestroyed(ServletContextEvent event) {
-        log.info("photogal shutting down");
+        LOGGER.info("photogal shutting down");
     }
 
     private String getVersion() {
         return Version.getVersion() + " (" + Version.getDeploymentEnvironment() + ")";
     }
 
-    private void logHibernateConfig() {
-        log.warn("TODO: logHibernateConfig()");
-        // log.info("Database: "
-        // + HibernateUtil.getConfiguration()
-        // .getProperty("connection.url"));
+    private void logDatabaseInfo(ApplicationContext appContext) {
+        try {
+            final String databaseDirectory = (String) appContext.getBean("databaseDirectory",
+                    String.class);
+            LOGGER.info("Database directory: " + databaseDirectory);
+        } catch (Exception ex) {
+            LOGGER.error("error logging database directory", ex);
+        }
     }
 
     private void logImageFileDirectory(final ApplicationContext context) {
         try {
-            final FileAccessManager imageFileAccessManager = (FileAccessManager) context
-                    .getBean("imageFileAccessManager");
-            log.info("Image file base directory: " + imageFileAccessManager.getBaseDirectory());
+            final FileAccessManager imageFileAccessManager = (FileAccessManager) context.getBean(
+                    "imageFileAccessManager", FileAccessManager.class);
+            LOGGER.info("Image file base directory: " + imageFileAccessManager.getBaseDirectory());
         } catch (Exception ex) {
-            log.error("error logging image file directory", ex);
+            LOGGER.error("error logging image file directory", ex);
         }
     }
 
     private void logScaledImageCacheDirectory(final ApplicationContext context) {
         try {
-            final ScaledImageCache scaledImageCache = (ScaledImageCache) context
-                    .getBean("scaledImageCache");
-            log.info("Scaled image cache directory: " + scaledImageCache.getCacheDirectory());
+            final ScaledImageCache scaledImageCache = (ScaledImageCache) context.getBean(
+                    "scaledImageCache", ScaledImageCache.class);
+            LOGGER.info("Scaled image cache directory: " + scaledImageCache.getCacheDirectory());
         } catch (Exception ex) {
-            log.error("error logging scaled image cache directory", ex);
+            LOGGER.error("error logging scaled image cache directory", ex);
         }
     }
 }
