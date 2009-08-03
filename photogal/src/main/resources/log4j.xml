@@ -16,13 +16,13 @@
 		<level value="WARN" />
 	</logger>
 	<logger name="net.sourceforge">
-		<level value="INFO" />
+		<level value="${photogal.log.level}" />
 	</logger>
 	<logger name="net.sourceforge.photogal.image.ThumbnailGenerator">
 		<level value="INFO" />
 	</logger>
 	<root>
-		<level value="INFO" />
+		<level value="DEBUG" />
 		<appender-ref ref="console" />
 	</root>
 </log4j:configuration>
