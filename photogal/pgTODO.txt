@@ -1,3 +1,14 @@
+save as PNGs?
+
+ImageIO.setUseCache(false)??
+
+unsharpen mask?
+        
+fix image scaler OutOfMemoryError problems!
+
+modify scaling so that all sizes are created once (to save the expense of ImageIO.read() and also 
+optimize multiple-step scalers)
+
 add stats page - 
 	# galleries (private/public/total)
 	# images
@@ -17,8 +28,6 @@ clean up db.script - refer to HSQL documentation
 
 add hibernate annotations 
 
-fix image scaler OutOfMemoryError problems!
-
 put debug log statements in conditional
 
 unit tests
@@ -35,3 +44,5 @@ checkstyle
 investigate image URL escaping when path contains single quote character
 
 GWT use?
+
+RSS feed
