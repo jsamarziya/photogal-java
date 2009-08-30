@@ -32,12 +32,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
-import net.sourceforge.photogal.image.ImageOperations;
 
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.lang.Validate;
 import org.sixcats.utils.FileAccessManager;
 import org.sixcats.utils.FileUtils;
+import org.sixcats.utils.image.ImageUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 public class ShowImageFileBrowser extends PhotogalDaoAwareController {
@@ -101,7 +101,7 @@ public class ShowImageFileBrowser extends PhotogalDaoAwareController {
     private Collection<File> getImageFiles(final File dir) throws IOException {
         File baseDir = new File(getFileAccessManager().getBaseDirectory());
         ArrayList<File> retval = new ArrayList<File>();
-        for (File file : ImageOperations.getImageFiles(dir)) {
+        for (File file : ImageUtils.getImageFiles(dir)) {
             retval.add(new File(FileUtils.getRelativePath(baseDir, file)));
         }
         Collections.sort(retval);

@@ -26,12 +26,11 @@ import java.io.InputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-
-import net.sourceforge.photogal.image.ImageOperations;
 import net.sourceforge.photogal.image.ScaledImageCache;
 
 import org.apache.commons.io.IOUtils;
 import org.sixcats.utils.FileAccessManager;
+import org.sixcats.utils.image.ImageUtils;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 public abstract class AbstractShowImageController extends AbstractController {
@@ -64,7 +63,7 @@ public abstract class AbstractShowImageController extends AbstractController {
     protected void renderImage(final String filename, final String size,
             final HttpServletResponse response) throws IOException {
         File imageFile = getFileAccessManager().getFile(filename);
-        if (!ImageOperations.isJPEG(imageFile)) {
+        if (!ImageUtils.isJPEG(imageFile)) {
             logger.warn("File " + imageFile.getPath()
                 + " is not a supported image file");
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,

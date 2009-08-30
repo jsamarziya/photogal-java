@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
+import org.sixcats.utils.image.ImageUtils;
+
 import com.drew.imaging.jpeg.JpegMetadataReader;
 import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.Metadata;
@@ -60,7 +62,7 @@ public class ImageMetadataUtils {
      * @throws IOException if an I/O error occurs
      */
     public static Dimension getSize(final File file) throws IOException {
-        BufferedImage image = ImageOperations.getImage(file);
+        final BufferedImage image = ImageUtils.readImage(file);
         return new Dimension(image.getWidth(), image.getHeight());
     }
 }
