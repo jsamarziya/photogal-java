@@ -38,6 +38,7 @@ import net.sourceforge.photogal.web.form.EditImageForm;
 import org.apache.commons.lang.StringUtils;
 import org.sixcats.utils.CalendarDate;
 import org.sixcats.utils.FileAccessManager;
+import org.sixcats.utils.image.ImageUtils;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -91,7 +92,7 @@ public class EditImage extends PhotogalDaoAwareFormController {
         if (descriptor == null) {
             logger.debug("preparing EditImage form for adding image");
             File imageFile = getFileAccessManager().getFile(form.getLocation());
-            if (!ImageOperations.isImage(imageFile)) {
+            if (!ImageUtils.isImage(imageFile)) {
                 logger.error(imageFile.getCanonicalPath() + " is not a supported image file");
                 throw new ServletException("not a supported image file");
             }

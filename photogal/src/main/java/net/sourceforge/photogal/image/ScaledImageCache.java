@@ -22,6 +22,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import org.sixcats.utils.image.ImageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,36 +57,36 @@ public class ScaledImageCache {
         return getScaledImageFile(imageFile, sizeId).exists();
     }
 
-    public File getScaledImage(final File imageFile, final String sizeId)
-            throws IOException {
+    public File getScaledImage(final File imageFile, final String sizeId) throws IOException {
         File scaledImage = getScaledImageFile(imageFile, sizeId);
         if (scaledImage.exists()) {
-            log.debug("Found cached image " + scaledImage);
+            if (log.isDebugEnabled()) {
+                log.debug("Found cached image " + scaledImage);
+            }
         } else {
             createAndSaveScaledImage(imageFile, scaledImage, sizeId);
-            log.debug("Created cached image " + scaledImage);
+            if (log.isDebugEnabled()) {
+                log.debug("Created cached image " + scaledImage);
+            }
         }
         return scaledImage;
     }
 
-    private void createAndSaveScaledImage(File originalImageFile,
-            File scaledImageFile, String sizeId) throws IOException {
-        BufferedImage originalImage = ImageOperations
-                .getImage(originalImageFile);
+    private void createAndSaveScaledImage(File originalImageFile, File scaledImageFile,
+            String sizeId) throws IOException {
+        final BufferedImage originalImage = ImageUtils.readImage(originalImageFile);
         if (originalImage == null) {
             throw new IOException("unable to read original image file "
-                + originalImageFile.getPath());
+                    + originalImageFile.getPath());
         }
-        BufferedImage scaledImage = createScaledImage(originalImage, sizeId);
+        final BufferedImage scaledImage = createScaledImage(originalImage, sizeId);
         if (!scaledImageFile.getParentFile().exists()) {
             scaledImageFile.getParentFile().mkdirs();
         }
-        ImageOperations.saveAsJPEG(scaledImage, scaledImageFile);
+        ImageUtils.saveAsJPEG(scaledImage, scaledImageFile);
     }
 
-    protected BufferedImage createScaledImage(final BufferedImage image,
-            final String sizeId) {
-        return ImageOperations.limitSize(image, getScaledImageCalculator()
-                .getMaxSize(sizeId));
+    protected BufferedImage createScaledImage(final BufferedImage image, final String sizeId) {
+        return ImageOperations.limitSize(image, getScaledImageCalculator().getMaxSize(sizeId));
     }
 }

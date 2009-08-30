@@ -27,6 +27,7 @@ import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.NotImplementedException;
 import org.sixcats.utils.FileAccessManager;
+import org.sixcats.utils.image.ImageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +54,7 @@ public class ThumbnailGenerator implements Runnable {
                 } else if (!getFileAccessManager().isValidFile(file)) {
                     log.debug(file + " is not valid");
                     return false;
-                } else if (!ImageOperations.isImage(file)) {
+                } else if (!ImageUtils.isImage(file)) {
                     log.debug(file + " is not an image file");
                     return false;
                 } else if (getScaledImageCache().hasScaledImage(file, "t")) {
