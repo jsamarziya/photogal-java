@@ -65,6 +65,6 @@ public class CalendarDateConverter implements SingleValueConverter {
 
     @Override
     public String toString(Object obj) {
-        return CalendarDateFormat.getInstance().format(obj);
+        return obj == null ? null : CalendarDateFormat.getInstance().format(obj);
     }
 }
