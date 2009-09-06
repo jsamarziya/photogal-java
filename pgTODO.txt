@@ -1,9 +1,3 @@
-save as PNGs?
-
-ImageIO.setUseCache(false)??
-
-unsharpen mask?
-        
 fix image scaler OutOfMemoryError problems!
 
 modify scaling so that all sizes are created once (to save the expense of ImageIO.read() and also 
@@ -44,3 +38,12 @@ investigate image URL escaping when path contains single quote character
 GWT use?
 
 RSS feed
+ 
+save as PNGs?
+	PNG files appear to be too big
+
+ImageIO.setUseCache(false)??
+
+unsharpen mask?
+        
+	
