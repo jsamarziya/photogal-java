@@ -26,8 +26,8 @@
 			class="net.sourceforge.photogal.ImageDescriptor" />
 	</class>
 	<sql-query name="getImageGalleryCount">
-		<return-scalar column="count" type="integer" />
-		select count(distinct GALLERY_ID) as count from GALLERY_IMAGES
+		<return-scalar column="galleryCount" type="integer" />
+		select count(distinct GALLERY_ID) as galleryCount from GALLERY_IMAGES
 		where IMAGE_ID = :imageId
 	</sql-query>
 </hibernate-mapping>
