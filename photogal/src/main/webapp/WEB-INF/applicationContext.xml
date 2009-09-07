@@ -71,8 +71,7 @@
         <property name="mappingResources">
             <list>
                 <value>net/sourceforge/photogal/Gallery.hbm.xml</value>
-                <value>net/sourceforge/photogal/ImageDescriptor.hbm.xml
-                    </value>
+                <value>net/sourceforge/photogal/ImageDescriptor.hbm.xml</value>
             </list>
         </property>
         <property name="cacheProvider">
