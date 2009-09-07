@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 
@@ -272,4 +273,87 @@ public class HibernatePhotogalDaoTest {
         assertThat(dao.getImageGalleryCount(descriptor1.getId()), is(1));
     }
 
+    @Test
+    public void testDeleteGallery() {
+        final Gallery gallery3 = new Gallery();
+        gallery3.setOrderIndex(3);
+        dao.saveOrUpdate(gallery3);
+        final Gallery gallery2 = new Gallery();
+        gallery2.setOrderIndex(2);
+        dao.saveOrUpdate(gallery2);
+        final Gallery gallery1 = new Gallery();
+        gallery1.setOrderIndex(1);
+        dao.saveOrUpdate(gallery1);
+        currentTransaction.commit();
+        currentTransaction = sessionFactory.getCurrentSession().beginTransaction();
+        dao.deleteGallery(gallery2.getId(), false);
+        currentTransaction.commit();
+        currentTransaction = sessionFactory.getCurrentSession().beginTransaction();
+        assertThat(dao.getGallery(gallery1.getId()).getOrderIndex(), is(1));
+        assertThat(dao.getGallery(gallery3.getId()).getOrderIndex(), is(2));
+        assertThat(dao.getGallery(gallery2.getId()), is(nullValue()));
+    }
+
+    @Test
+    public void testDeleteGalleryWithOrphanImages() {
+        Gallery gallery1 = new Gallery();
+        gallery1.setOrderIndex(1);
+        dao.saveOrUpdate(gallery1);
+        Gallery gallery2 = new Gallery();
+        gallery2.setOrderIndex(2);
+        dao.saveOrUpdate(gallery2);
+        // descriptor0 is in no galleries
+        ImageDescriptor descriptor0 = new ImageDescriptor();
+        descriptor0.setLocation("");
+        dao.saveOrUpdate(descriptor0);
+        // descriptor1 is in gallery1
+        ImageDescriptor descriptor1 = new ImageDescriptor();
+        descriptor1.setLocation("");
+        dao.saveOrUpdate(descriptor1);
+        gallery1.addImage(descriptor1);
+        // descriptor2 is in gallery2
+        ImageDescriptor descriptor2 = new ImageDescriptor();
+        descriptor2.setLocation("");
+        dao.saveOrUpdate(descriptor2);
+        gallery2.addImage(descriptor2);
+        // descriptor12 is in gallery1 and gallery2
+        ImageDescriptor descriptor12 = new ImageDescriptor();
+        descriptor12.setLocation("");
+        dao.saveOrUpdate(descriptor12);
+        gallery1.addImage(descriptor12);
+        gallery2.addImage(descriptor12);
+        currentTransaction.commit();
+        currentTransaction = sessionFactory.getCurrentSession().beginTransaction();
+
+        gallery1 = dao.getGallery(gallery1.getId());
+        gallery2 = dao.getGallery(gallery2.getId());
+        descriptor0 = dao.getImageDescriptor(descriptor0.getId());
+        descriptor1 = dao.getImageDescriptor(descriptor1.getId());
+        descriptor2 = dao.getImageDescriptor(descriptor2.getId());
+        descriptor12 = dao.getImageDescriptor(descriptor12.getId());
+        assertThat(gallery1.getImages(), is(Arrays.asList(descriptor1, descriptor12)));
+        assertThat(gallery2.getImages(), is(Arrays.asList(descriptor2, descriptor12)));
+        assertThat(descriptor0.getGalleries(), is(Collections.<Gallery> emptySet()));
+        assertThat(descriptor1.getGalleries(), is(Collections.singleton(gallery1)));
+        assertThat(descriptor2.getGalleries(), is(Collections.singleton(gallery2)));
+        assertThat(descriptor12.getGalleries(), is((Object) new HashSet<Gallery>(Arrays.asList(
+                gallery1, gallery2))));
+
+        dao.deleteGallery(gallery1.getId(), true);
+        currentTransaction.commit();
+        currentTransaction = sessionFactory.getCurrentSession().beginTransaction();
+
+        gallery1 = dao.getGallery(gallery1.getId());
+        gallery2 = dao.getGallery(gallery2.getId());
+        descriptor0 = dao.getImageDescriptor(descriptor0.getId());
+        descriptor1 = dao.getImageDescriptor(descriptor1.getId());
+        descriptor2 = dao.getImageDescriptor(descriptor2.getId());
+        descriptor12 = dao.getImageDescriptor(descriptor12.getId());
+        assertThat(gallery1, is(nullValue()));
+        assertThat(gallery2.getImages(), is(Arrays.asList(descriptor2, descriptor12)));
+        assertThat(descriptor0.getGalleries(), is(Collections.<Gallery> emptySet()));
+        assertThat(descriptor1, is(nullValue()));
+        assertThat(descriptor2.getGalleries(), is(Collections.singleton(gallery2)));
+        assertThat(descriptor12.getGalleries(), is(Collections.singleton(gallery2)));
+    }
 }
