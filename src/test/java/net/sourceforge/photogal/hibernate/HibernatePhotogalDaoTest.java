@@ -480,7 +480,8 @@ public class HibernatePhotogalDaoTest {
     }
 
     /**
-     * Tests getImageCreationDates(), getImageCountByDateTaken().
+     * Tests getImageCreationDates(), getImageCountByDateTaken(),
+     * getImageCountByYearTaken().
      */
     @Test
     public void testGetByImageCreationDate() {
@@ -551,20 +552,30 @@ public class HibernatePhotogalDaoTest {
         assertThat(dao.getImageCountByDateTaken(2000, 2, true), is(2));
         assertThat(dao.getImageCountByDateTaken(2001, null, false), is(2));
         assertThat(dao.getImageCountByDateTaken(2001, null, true), is(3));
+
+        assertThat(dao.getImageCountByYearTaken(1999, false), is(0));
+        assertThat(dao.getImageCountByYearTaken(1999, false), is(0));
+        assertThat(dao.getImageCountByYearTaken(2000, false), is(3));
+        assertThat(dao.getImageCountByYearTaken(2000, true), is(3));
+        assertThat(dao.getImageCountByYearTaken(2001, false), is(2));
+        assertThat(dao.getImageCountByYearTaken(2001, true), is(3));
     }
 
     /**
-     * Tests getDescriptorCreationDates.
+     * Tests getDescriptorCreationDates(), getImageCountByDatePosted().
      */
     @Test
-    public void testGetByDescriptorCreationDate() {
+    public void testGetByDescriptorCreationDate() throws InterruptedException {
         final Gallery publicGallery = createGallery(1);
         final Gallery privateGallery = createGallery(2);
         publicGallery.setPublic(true);
         privateGallery.setPublic(false);
         final ImageDescriptor descriptor1 = createImageDescriptor();
+        descriptor1.setCreationDate(new Date(20000));
         final ImageDescriptor descriptor2 = createImageDescriptor();
+        descriptor2.setCreationDate(new Date(40000));
         final ImageDescriptor descriptor12 = createImageDescriptor();
+        descriptor12.setCreationDate(new Date(60000));
         publicGallery.addImage(descriptor1);
         privateGallery.addImage(descriptor2);
         publicGallery.addImage(descriptor12);
@@ -588,5 +599,12 @@ public class HibernatePhotogalDaoTest {
                 .getCreationDate()));
         assertThat(allDescriptorCreationDates.get(descriptor12.getId()), is(descriptor12
                 .getCreationDate()));
+
+        assertThat(dao.getImageCountByDatePosted(new Date(0), new Date(Long.MAX_VALUE), false),
+                is(2));
+        assertThat(dao.getImageCountByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true),
+                is(3));
+        assertThat(dao.getImageCountByDatePosted(new Date(20000), new Date(40000), false), is(1));
+        assertThat(dao.getImageCountByDatePosted(new Date(20000), new Date(40000), true), is(2));
     }
 }
