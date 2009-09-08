@@ -272,19 +272,6 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
         return retval.intValue();
     }
 
-    /**
-     * Returns a query that returns images that have a specified keyword.
-     * 
-     * @param keyword the keyword
-     * @param includePrivate if <code>true</code>, return private images
-     */
-    private Query createGetImagesByKeywordQuery(final String keyword, boolean includePrivate) {
-        final Query query = getCurrentSession().getNamedQuery("getImagesByKeyword");
-        query.setString("keyword", keyword);
-        query.setBoolean("includePrivate", includePrivate);
-        return query;
-    }
-
     @Override
     @SuppressWarnings("unchecked")
     public Map<Long, CalendarDate> getImageCreationDates(final boolean includePrivate) {
@@ -321,22 +308,6 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
         return retval.intValue();
     }
 
-    /**
-     * Returns a query that returns images that were taken in the specified
-     * month and year.
-     * 
-     * @param year the year
-     * @param month the month
-     * @param includePrivate if <code>true</code>, include private images
-     */
-    private Query createImagesByDateTakenQuery(int year, Integer month, boolean includePrivate) {
-        final Query query = getCurrentSession().getNamedQuery("getImagesByDateTaken");
-        query.setInteger("year", year);
-        query.setParameter("month", month);
-        query.setBoolean("includePrivate", includePrivate);
-        return query;
-    }
-
     @Override
     public int getImageCountByYearTaken(int year, boolean includePrivate) {
         final Query query = getCurrentSession().getNamedQuery("countImagesByYearTaken");
@@ -344,20 +315,6 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
         query.setBoolean("includePrivate", includePrivate);
         final Number retval = (Number) query.uniqueResult();
         return retval.intValue();
-    }
-
-    /**
-     * Returns a query that returns images that were taken in the specified
-     * year.
-     * 
-     * @param year the year
-     * @param includePrivate if true, include private images
-     */
-    private Query createImagesByYearTakenQuery(int year, boolean includePrivate) {
-        final Query query = getCurrentSession().getNamedQuery("getImagesByYearTaken");
-        query.setInteger("year", year);
-        query.setBoolean("includePrivate", includePrivate);
-        return query;
     }
 
     @Override
@@ -369,15 +326,6 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
         query.setBoolean("includePrivate", includePrivate);
         final Number retval = (Number) query.uniqueResult();
         return retval.intValue();
-    }
-
-    private Query createImagesByDatePostedQuery(final Date startDate, final Date endDate,
-            final boolean includePrivate) {
-        final Query query = getCurrentSession().getNamedQuery("getImagesByDatePosted");
-        query.setDate("startDate", startDate);
-        query.setDate("endDate", endDate);
-        query.setBoolean("includePrivate", includePrivate);
-        return query;
     }
 
     @Override
@@ -410,7 +358,9 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     @SuppressWarnings("unchecked")
     public List<ImageDescriptor> getImageDescriptors(String keyword, boolean includePrivate,
             int start, int max) {
-        final Query query = createGetImagesByKeywordQuery(keyword, includePrivate);
+        final Query query = getCurrentSession().getNamedQuery("getImagesByKeyword");
+        query.setString("keyword", keyword);
+        query.setBoolean("includePrivate", includePrivate);
         query.setFirstResult(start);
         query.setMaxResults(max);
         final List<ImageDescriptor> retval = query.list(); // unchecked
@@ -421,7 +371,10 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     @SuppressWarnings("unchecked")
     public List<ImageDescriptor> getImageDescriptorsByDatePosted(Date startDate, Date endDate,
             boolean includePrivate, int start, int max) {
-        final Query query = createImagesByDatePostedQuery(startDate, endDate, includePrivate);
+        final Query query = getCurrentSession().getNamedQuery("getImagesByDatePosted");
+        query.setDate("startDate", startDate);
+        query.setDate("endDate", endDate);
+        query.setBoolean("includePrivate", includePrivate);
         query.setFirstResult(start);
         query.setMaxResults(max);
         final List<ImageDescriptor> retval = query.list(); // unchecked
@@ -432,7 +385,10 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     @SuppressWarnings("unchecked")
     public List<ImageDescriptor> getImageDescriptorsByDateTaken(int year, Integer month,
             boolean includePrivate, int start, int max) {
-        final Query query = createImagesByDateTakenQuery(year, month, includePrivate);
+        final Query query = getCurrentSession().getNamedQuery("getImagesByDateTaken");
+        query.setInteger("year", year);
+        query.setParameter("month", month);
+        query.setBoolean("includePrivate", includePrivate);
         query.setFirstResult(start);
         query.setMaxResults(max);
         final List<ImageDescriptor> retval = query.list(); // unchecked
@@ -443,7 +399,9 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     @SuppressWarnings("unchecked")
     public List<ImageDescriptor> getImageDescriptorsByYearTaken(int year, boolean includePrivate,
             int start, int max) {
-        final Query query = createImagesByYearTakenQuery(year, includePrivate);
+        final Query query = getCurrentSession().getNamedQuery("getImagesByYearTaken");
+        query.setInteger("year", year);
+        query.setBoolean("includePrivate", includePrivate);
         query.setFirstResult(start);
         query.setMaxResults(max);
         final List<ImageDescriptor> retval = query.list(); // unchecked
