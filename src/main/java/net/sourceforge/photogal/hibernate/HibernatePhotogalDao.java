@@ -321,8 +321,8 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     public int getImageCountByDatePosted(final Date startDate, final Date endDate,
             final boolean includePrivate) {
         final Query query = getCurrentSession().getNamedQuery("countImagesByDatePosted");
-        query.setDate("startDate", startDate);
-        query.setDate("endDate", endDate);
+        query.setTimestamp("startDate", startDate);
+        query.setTimestamp("endDate", endDate);
         query.setBoolean("includePrivate", includePrivate);
         final Number retval = (Number) query.uniqueResult();
         return retval.intValue();
@@ -372,8 +372,8 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     public List<ImageDescriptor> getImageDescriptorsByDatePosted(Date startDate, Date endDate,
             boolean includePrivate, int start, int max) {
         final Query query = getCurrentSession().getNamedQuery("getImagesByDatePosted");
-        query.setDate("startDate", startDate);
-        query.setDate("endDate", endDate);
+        query.setTimestamp("startDate", startDate);
+        query.setTimestamp("endDate", endDate);
         query.setBoolean("includePrivate", includePrivate);
         query.setFirstResult(start);
         query.setMaxResults(max);
