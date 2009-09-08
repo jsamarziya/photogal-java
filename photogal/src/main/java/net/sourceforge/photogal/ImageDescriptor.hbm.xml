@@ -92,12 +92,12 @@
     <query name="countImagesByDatePosted">
         select count(*) from ImageDescriptor descriptor where
         descriptor.creationDate &gt;= :startDate and descriptor.creationDate
-        &lt; :endDate and (:includePrivate = true or descriptor.public = true)
+        &lt;= :endDate and (:includePrivate = true or descriptor.public = true)
     </query>
     <query name="getImagesByDatePosted">
         from ImageDescriptor descriptor where
         descriptor.creationDate &gt;= :startDate and descriptor.creationDate
-        &lt; :endDate and (:includePrivate = true or descriptor.public = true)
+        &lt;= :endDate and (:includePrivate = true or descriptor.public = true)
         order by descriptor.creationDate asc, descriptor.id asc
 	</query>
 </hibernate-mapping>
