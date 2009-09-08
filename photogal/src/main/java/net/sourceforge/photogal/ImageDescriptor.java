@@ -264,7 +264,17 @@ public class ImageDescriptor {
         return creationDate;
     }
 
-    private void setCreationDate(final Date creationDate) {
+    /**
+     * Sets the creation date for this descriptor.
+     * 
+     * <p>
+     * Note: you do not normally need to call this method - the constructor will
+     * set this to the current time when the ImageDescriptor is created.
+     * </p>
+     * 
+     * @param creationDate the creation date
+     */
+    public void setCreationDate(final Date creationDate) {
         this.creationDate = creationDate;
     }
 
