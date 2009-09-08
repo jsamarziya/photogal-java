@@ -45,6 +45,7 @@ import org.springframework.util.Assert;
  * An implementation of PhotogalDao that uses Hibernate to access the photogal
  * database.
  */
+//TODO change queries to take isPublic parameter
 public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(HibernatePhotogalDao.class);
 
@@ -94,7 +95,7 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
 
     @Override
     public int getGalleryCount() {
-        final Integer retval = (Integer) getCurrentSession().createCriteria(Gallery.class)
+        final Number retval = (Number) getCurrentSession().createCriteria(Gallery.class)
                 .setProjection(Projections.rowCount()).uniqueResult();
         return retval.intValue();
     }
@@ -131,19 +132,19 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
 
     @Override
     public boolean galleryExists(final long id) {
-        final Integer retval = (Integer) getCurrentSession().createCriteria(Gallery.class).add(
+        final Number retval = (Number) getCurrentSession().createCriteria(Gallery.class).add(
                 Restrictions.eq("id", id)).setProjection(Projections.rowCount()).uniqueResult();
-        return retval > 0;
+        return retval.longValue() > 0;
     }
 
     @Override
-    public int getImageGalleryCount(long imageId) {
-        final int retval = (Integer) getCurrentSession().getNamedQuery("getImageGalleryCount")
+    public int getGalleryCountForImage(long imageId) {
+        final Number retval = (Number) getCurrentSession().getNamedQuery("getImageGalleryCount")
                 .setLong("imageId", imageId).uniqueResult();
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("image " + imageId + " is contained in " + retval + " galleries");
         }
-        return retval;
+        return retval.intValue();
     }
 
     @Override
@@ -167,9 +168,14 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
         }
     }
 
+    /**
+     * Deletes any images contained exclusively in the specified gallery.
+     * 
+     * @param gallery the gallery that is being deleted
+     */
     private void deleteOrphanImages(final Gallery gallery) {
         for (ImageDescriptor descriptor : gallery.getImages()) {
-            if (getImageGalleryCount(descriptor.getId()) <= 1) {
+            if (getGalleryCountForImage(descriptor.getId()) <= 1) {
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("image " + descriptor.getId() + " is now orphaned, deleting it");
                 }
@@ -189,6 +195,13 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
         }
     }
 
+    /**
+     * Moves a gallery down the list, bubbling all galleries that follow it up
+     * one position.
+     * 
+     * @param fromIndex the index of the gallery to move
+     * @param toIndex the index to move the gallery to
+     */
     @SuppressWarnings("unchecked")
     private void moveGalleryDown(final int fromIndex, final int toIndex) {
         final Gallery gallery = (Gallery) getCurrentSession().createCriteria(Gallery.class).add(
@@ -212,6 +225,12 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
         gallery.setOrderIndex(toIndex);
     }
 
+    /**
+     * Moves a gallery up the list, moving galleries down one position as necessary to make room for it.
+     * 
+     * @param fromIndex the index of the gallery to move
+     * @param toIndex the index to move the gallery to
+     */
     @SuppressWarnings("unchecked")
     private void moveGalleryUp(final int fromIndex, final int toIndex) {
         final Gallery gallery = (Gallery) getCurrentSession().createCriteria(Gallery.class).add(
@@ -244,12 +263,12 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     }
 
     @Override
-    public int getKeywordImageCount(String keyword, boolean includePrivate) {
+    public int getImageCountForKeyword(String keyword, boolean includePrivate) {
         final Query query = getCurrentSession().getNamedQuery(
                 includePrivate ? "countAllImagesByKeyword" : "countPublicImagesByKeyword");
         query.setString("keyword", keyword);
-        final Integer retval = (Integer) query.uniqueResult();
-        return retval;
+        final Number retval = (Number) query.uniqueResult();
+        return retval.intValue();
     }
 
     /**
@@ -291,13 +310,13 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     }
 
     @Override
-    public int getImagesByDateTakenCount(int year, Integer month, boolean includePrivate) {
+    public int getImageCountByDateTaken(int year, Integer month, boolean includePrivate) {
         final Query query = getCurrentSession().getNamedQuery(
                 includePrivate ? "countAllImagesByDateTaken" : "countPublicImagesByDateTaken");
         query.setInteger("year", year);
         query.setParameter("month", month);
-        final Integer retval = (Integer) query.uniqueResult();
-        return retval;
+        final Number retval = (Number) query.uniqueResult();
+        return retval.intValue();
     }
 
     /**
@@ -317,12 +336,12 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     }
 
     @Override
-    public int getImagesByYearTakenCount(int year, boolean includePrivate) {
+    public int getImageCountByYearTaken(int year, boolean includePrivate) {
         final Query query = getCurrentSession().getNamedQuery(
                 includePrivate ? "countAllImagesByYearTaken" : "countPublicImagesByYearTaken");
         query.setInteger("year", year);
-        final Integer retval = (Integer) query.uniqueResult();
-        return retval;
+        final Number retval = (Number) query.uniqueResult();
+        return retval.intValue();
     }
 
     /**
@@ -340,14 +359,14 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     }
 
     @Override
-    public int getImagesByDatePostedCount(final Date startDate, final Date endDate,
+    public int getImageCountByDatePosted(final Date startDate, final Date endDate,
             final boolean includePrivate) {
         final Query query = getCurrentSession().getNamedQuery(
                 includePrivate ? "countAllImagesByDatePosted" : "countPublicImagesByDatePosted");
         query.setDate("startDate", startDate);
         query.setDate("endDate", endDate);
-        final Integer retval = (Integer) query.uniqueResult();
-        return retval;
+        final Number retval = (Number) query.uniqueResult();
+        return retval.intValue();
     }
 
     private Query createImagesByDatePostedQuery(final Date startDate, final Date endDate,
@@ -374,8 +393,10 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     }
 
     @Override
-    public void saveOrUpdate(Object object) {
-        getCurrentSession().saveOrUpdate(object);
+    public void saveOrUpdate(Object... objects) {
+        for (Object object : objects) {
+            getCurrentSession().saveOrUpdate(object);
+        }
     }
 
     @Override

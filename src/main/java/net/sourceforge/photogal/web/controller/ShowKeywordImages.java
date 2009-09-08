@@ -49,7 +49,7 @@ public class ShowKeywordImages extends PhotogalDaoAwarePagedDataController {
         final boolean canViewPrivate = ControllerUtils.canViewPrivate(request);
         final ShowKeywordImagesForm form = (ShowKeywordImagesForm) errors.getTarget();
         final String keyword = form.getKeyword();
-        final int imageCount = getPhotogalDao().getKeywordImageCount(keyword, canViewPrivate);
+        final int imageCount = getPhotogalDao().getImageCountForKeyword(keyword, canViewPrivate);
         final List<ImageDescriptor> images = getPhotogalDao().getImageDescriptors(keyword,
                 canViewPrivate, form.getStartIndex(), form.getItemsPerPage());
 
