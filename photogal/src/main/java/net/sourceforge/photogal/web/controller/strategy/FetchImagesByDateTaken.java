@@ -30,7 +30,7 @@ public class FetchImagesByDateTaken extends AbstractFetchImagesByDateStrategy {
     }
 
     public int getImageCount(ShowImagesByDateForm form) {
-        return getPhotogalDao().getImagesByDateTakenCount(form.getYear(), form.getMonth(),
+        return getPhotogalDao().getImageCountByDateTaken(form.getYear(), form.getMonth(),
                 form.getIncludePrivate());
     }
 

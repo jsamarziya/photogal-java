@@ -140,7 +140,7 @@ public interface PhotogalDao {
      * @param imageId the id of the image
      * @return the number of galleries that contain the specified image
      */
-    public int getImageGalleryCount(long imageId);
+    public int getGalleryCountForImage(long imageId);
 
     /**
      * Deletes the specified gallery, optionally deleting image descriptors that
@@ -178,7 +178,7 @@ public interface PhotogalDao {
      *            included in the count
      * @return the number of images that have the specified keyword
      */
-    public int getKeywordImageCount(String keyword, boolean includePrivate);
+    public int getImageCountForKeyword(String keyword, boolean includePrivate);
 
     /**
      * Returns a mapping of image descriptor ids to image creation dates.
@@ -202,7 +202,7 @@ public interface PhotogalDao {
      * @param month the month
      * @param includePrivate if true, include private images
      */
-    public int getImagesByDateTakenCount(int year, Integer month, boolean includePrivate);
+    public int getImageCountByDateTaken(int year, Integer month, boolean includePrivate);
 
     /**
      * Returns the number of images that were taken in the specified year.
@@ -210,7 +210,7 @@ public interface PhotogalDao {
      * @param year the year
      * @param includePrivate if <code>true</code>, include private images
      */
-    public int getImagesByYearTakenCount(int year, boolean includePrivate);
+    public int getImageCountByYearTaken(int year, boolean includePrivate);
 
     /**
      * Returns the number of images posted between the specified dates.
@@ -221,7 +221,7 @@ public interface PhotogalDao {
      *            included in the count
      * @return the number of images posted between the specified dates
      */
-    public int getImagesByDatePostedCount(final Date startDate, final Date endDate,
+    public int getImageCountByDatePosted(final Date startDate, final Date endDate,
             final boolean includePrivate);
 
     /**
@@ -236,14 +236,15 @@ public interface PhotogalDao {
      * 
      * @param object the persistent object to delete
      */
+    // TODO change this to delete(ImageDescriptor) ?
     public void delete(Object object);
 
     /**
-     * Saves or updates the specified object.
+     * Saves or updates the specified objects.
      * 
-     * @param entity the object to save
+     * @param objects the objects to save or update
      */
-    public void saveOrUpdate(Object object);
+    public void saveOrUpdate(Object... objects);
 
     /**
      * Updates the specified object.

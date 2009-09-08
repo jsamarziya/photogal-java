@@ -59,7 +59,7 @@ public class DeleteImage extends PhotogalDaoAwareController {
         logger.debug("removing image " + imageDescriptor.getId() + " from gallery "
                 + gallery.getId());
         gallery.removeImage(imageDescriptor);
-        if (getPhotogalDao().getImageGalleryCount(imageDescriptor.getId()) <= 1) {
+        if (getPhotogalDao().getGalleryCountForImage(imageDescriptor.getId()) <= 1) {
             logger.debug("image " + imageDescriptor.getId() + " is now orphaned, deleting it");
             getPhotogalDao().delete(imageDescriptor);
         }
