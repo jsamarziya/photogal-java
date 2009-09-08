@@ -227,6 +227,11 @@ public class ImageDescriptor {
         }
     }
 
+    /**
+     * Sets the keywords as a whitespace-delimited string.
+     * 
+     * @param keywords the keywords as a whitespace-delimited string
+     */
     public void setKeywordsAsString(final String keywords) {
         List<String> keywordList;
         if (keywords == null) {
