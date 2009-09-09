@@ -23,6 +23,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +44,7 @@ import java.util.Properties;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
+import net.sourceforge.photogal.export.PhotogalData;
 
 import org.apache.commons.io.IOUtils;
 import org.hibernate.SessionFactory;
@@ -52,6 +54,7 @@ import org.hibernate.classic.Session;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.sixcats.utils.CalendarDate;
 import org.sixcats.utils.FileUtils;
@@ -424,10 +427,11 @@ public class HibernatePhotogalDaoTest {
     }
 
     /**
-     * Tests getKeywords(), getImageCountForKeyword().
+     * Tests getKeywords(), getImageCountForKeyword(),
+     * getImageDescriptors(String, boolean, int, int).
      */
     @Test
-    public void testGetKeywordsAndKeywordImageCount() {
+    public void testGetByKeyword() {
         final Gallery publicGallery = createGallery(1);
         final Gallery privateGallery = createGallery(2);
         publicGallery.setPublic(true);
@@ -477,11 +481,45 @@ public class HibernatePhotogalDaoTest {
         assertThat(dao.getImageCountForKeyword("too", true), is(1));
         assertThat(dao.getImageCountForKeyword("goo", true), is(1));
         assertThat(dao.getImageCountForKeyword("crud", true), is(0));
+
+        assertThat(dao.getImageDescriptors("foo", false, 0, 1), is(Arrays.asList(descriptor1)));
+        assertThat(dao.getImageDescriptors("foo", false, 1, 1), is(Arrays.asList(descriptor12)));
+        assertThat(dao.getImageDescriptors("foo", false, 2, 1), is(Collections
+                .<ImageDescriptor> emptyList()));
+        assertThat(dao.getImageDescriptors("foo", false, 0, 2), is(Arrays.asList(descriptor1,
+                descriptor12)));
+        assertThat(dao.getImageDescriptors("foo", false, 1, 2), is(Arrays.asList(descriptor12)));
+        assertThat(dao.getImageDescriptors("foo", false, 0, 5), is(Arrays.asList(descriptor1,
+                descriptor12)));
+        assertThat(dao.getImageDescriptors("foo", false, 0, Integer.MAX_VALUE), is(Arrays.asList(
+                descriptor1, descriptor12)));
+
+        assertThat(dao.getImageDescriptors("foo", true, 0, 1), is(Arrays.asList(descriptor1)));
+        assertThat(dao.getImageDescriptors("foo", true, 1, 1), is(Arrays.asList(descriptor2)));
+        assertThat(dao.getImageDescriptors("foo", true, 2, 1), is(Arrays.asList(descriptor12)));
+        assertThat(dao.getImageDescriptors("foo", true, 3, 1), is(Collections
+                .<ImageDescriptor> emptyList()));
+        assertThat(dao.getImageDescriptors("foo", true, 0, 2), is(Arrays.asList(descriptor1,
+                descriptor2)));
+        assertThat(dao.getImageDescriptors("foo", true, 0, 3), is(Arrays.asList(descriptor1,
+                descriptor2, descriptor12)));
+        assertThat(dao.getImageDescriptors("foo", true, 1, 2), is(Arrays.asList(descriptor2,
+                descriptor12)));
+        assertThat(dao.getImageDescriptors("foo", true, 0, 5), is(Arrays.asList(descriptor1,
+                descriptor2, descriptor12)));
+        assertThat(dao.getImageDescriptors("foo", true, 0, Integer.MAX_VALUE), is(Arrays.asList(
+                descriptor1, descriptor2, descriptor12)));
+
+        assertThat(dao.getImageDescriptors("crud", false, 0, Integer.MAX_VALUE), is(Collections
+                .<ImageDescriptor> emptyList()));
+        assertThat(dao.getImageDescriptors("crud", true, 0, Integer.MAX_VALUE), is(Collections
+                .<ImageDescriptor> emptyList()));
     }
 
     /**
      * Tests getImageCreationDates(), getImageCountByDateTaken(),
-     * getImageCountByYearTaken().
+     * getImageCountByYearTaken(), getImageDescriptorsByDateTaken(),
+     * getImageDescriptorsByYearTaken().
      */
     @Test
     public void testGetByImageCreationDate() {
@@ -489,17 +527,17 @@ public class HibernatePhotogalDaoTest {
         final Gallery privateGallery = createGallery(2);
         publicGallery.setPublic(true);
         privateGallery.setPublic(false);
-        final ImageDescriptor descriptor1 = createImageDescriptor();
+        ImageDescriptor descriptor1 = createImageDescriptor();
         descriptor1.setImageCreationDate(new CalendarDate(null, null, 2000));
-        final ImageDescriptor descriptor2 = createImageDescriptor();
+        ImageDescriptor descriptor2 = createImageDescriptor();
         descriptor2.setImageCreationDate(new CalendarDate(null, 2, 2000));
-        final ImageDescriptor descriptor3 = createImageDescriptor();
+        ImageDescriptor descriptor3 = createImageDescriptor();
         descriptor3.setImageCreationDate(new CalendarDate(1, 2, 2000));
-        final ImageDescriptor descriptor4 = createImageDescriptor();
+        ImageDescriptor descriptor4 = createImageDescriptor();
         descriptor4.setImageCreationDate(new CalendarDate(null, null, 2001));
-        final ImageDescriptor descriptor5 = createImageDescriptor();
+        ImageDescriptor descriptor5 = createImageDescriptor();
         descriptor5.setImageCreationDate(new CalendarDate(null, null, 2001));
-        final ImageDescriptor descriptor6 = createImageDescriptor();
+        ImageDescriptor descriptor6 = createImageDescriptor();
         descriptor6.setImageCreationDate(new CalendarDate(null, null, 2001));
         publicGallery.addImage(descriptor1);
         publicGallery.addImage(descriptor2);
@@ -511,6 +549,12 @@ public class HibernatePhotogalDaoTest {
                 descriptor6, publicGallery, privateGallery);
         currentTransaction.commit();
         currentTransaction = sessionFactory.getCurrentSession().beginTransaction();
+        descriptor1 = dao.getImageDescriptor(descriptor1.getId());
+        descriptor2 = dao.getImageDescriptor(descriptor2.getId());
+        descriptor3 = dao.getImageDescriptor(descriptor3.getId());
+        descriptor4 = dao.getImageDescriptor(descriptor4.getId());
+        descriptor5 = dao.getImageDescriptor(descriptor5.getId());
+        descriptor6 = dao.getImageDescriptor(descriptor6.getId());
 
         final Map<Long, CalendarDate> publicImageCreationDates = dao.getImageCreationDates(false);
         assertThat(publicImageCreationDates.size(), is(5));
@@ -554,15 +598,105 @@ public class HibernatePhotogalDaoTest {
         assertThat(dao.getImageCountByDateTaken(2001, null, true), is(3));
 
         assertThat(dao.getImageCountByYearTaken(1999, false), is(0));
-        assertThat(dao.getImageCountByYearTaken(1999, false), is(0));
+        assertThat(dao.getImageCountByYearTaken(1999, true), is(0));
         assertThat(dao.getImageCountByYearTaken(2000, false), is(3));
         assertThat(dao.getImageCountByYearTaken(2000, true), is(3));
         assertThat(dao.getImageCountByYearTaken(2001, false), is(2));
         assertThat(dao.getImageCountByYearTaken(2001, true), is(3));
+
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, false, 0, 1), is(Arrays
+                .asList(descriptor4)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, false, 1, 1), is(Arrays
+                .asList(descriptor5)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, false, 2, 1), is(Collections
+                .<ImageDescriptor> emptyList()));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, false, 0, 2), is(Arrays.asList(
+                descriptor4, descriptor5)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, false, 1, 2), is(Arrays
+                .asList(descriptor5)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, false, 0, 5), is(Arrays.asList(
+                descriptor4, descriptor5)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, false, 0, Integer.MAX_VALUE),
+                is(Arrays.asList(descriptor4, descriptor5)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2000, 2, false, 0, Integer.MAX_VALUE),
+                is(Arrays.asList(descriptor2, descriptor3)));
+        assertThat(dao.getImageDescriptorsByDateTaken(1999, null, false, 0, Integer.MAX_VALUE),
+                is(Collections.<ImageDescriptor> emptyList()));
+
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 0, 1), is(Arrays
+                .asList(descriptor4)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 1, 1), is(Arrays
+                .asList(descriptor5)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 2, 1), is(Arrays
+                .asList(descriptor6)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 3, 1), is(Collections
+                .<ImageDescriptor> emptyList()));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 0, 2), is(Arrays.asList(
+                descriptor4, descriptor5)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 0, 3), is(Arrays.asList(
+                descriptor4, descriptor5, descriptor6)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 1, 2), is(Arrays.asList(
+                descriptor5, descriptor6)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 2, 2), is(Arrays
+                .asList(descriptor6)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 0, 5), is(Arrays.asList(
+                descriptor4, descriptor5, descriptor6)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2001, null, true, 0, Integer.MAX_VALUE),
+                is(Arrays.asList(descriptor4, descriptor5, descriptor6)));
+        assertThat(dao.getImageDescriptorsByDateTaken(2000, 2, true, 0, Integer.MAX_VALUE),
+                is(Arrays.asList(descriptor2, descriptor3)));
+        assertThat(dao.getImageDescriptorsByDateTaken(1999, null, true, 0, Integer.MAX_VALUE),
+                is(Collections.<ImageDescriptor> emptyList()));
+
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, false, 0, 1), is(Arrays
+                .asList(descriptor4)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, false, 1, 1), is(Arrays
+                .asList(descriptor5)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, false, 2, 1), is(Collections
+                .<ImageDescriptor> emptyList()));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, false, 0, 2), is(Arrays.asList(
+                descriptor4, descriptor5)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, false, 1, 2), is(Arrays
+                .asList(descriptor5)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, false, 0, 5), is(Arrays.asList(
+                descriptor4, descriptor5)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, false, 0, Integer.MAX_VALUE), is(Arrays
+                .asList(descriptor4, descriptor5)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2000, false, 0, Integer.MAX_VALUE), is(Arrays
+                .asList(descriptor1, descriptor2, descriptor3)));
+        assertThat(dao.getImageDescriptorsByYearTaken(1999, false, 0, Integer.MAX_VALUE),
+                is(Collections.<ImageDescriptor> emptyList()));
+
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 0, 1), is(Arrays
+                .asList(descriptor4)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 1, 1), is(Arrays
+                .asList(descriptor5)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 2, 1), is(Arrays
+                .asList(descriptor6)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 3, 1), is(Collections
+                .<ImageDescriptor> emptyList()));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 0, 2), is(Arrays.asList(
+                descriptor4, descriptor5)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 0, 3), is(Arrays.asList(
+                descriptor4, descriptor5, descriptor6)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 1, 2), is(Arrays.asList(
+                descriptor5, descriptor6)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 2, 2), is(Arrays
+                .asList(descriptor6)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 0, 5), is(Arrays.asList(
+                descriptor4, descriptor5, descriptor6)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2001, true, 0, Integer.MAX_VALUE), is(Arrays
+                .asList(descriptor4, descriptor5, descriptor6)));
+        assertThat(dao.getImageDescriptorsByYearTaken(2000, true, 0, Integer.MAX_VALUE), is(Arrays
+                .asList(descriptor1, descriptor2, descriptor3)));
+        assertThat(dao.getImageDescriptorsByYearTaken(1999, true, 0, Integer.MAX_VALUE),
+                is(Collections.<ImageDescriptor> emptyList()));
+
     }
 
     /**
-     * Tests getDescriptorCreationDates(), getImageCountByDatePosted().
+     * Tests getDescriptorCreationDates(), getImageCountByDatePosted(),
+     * getImageDescriptorsByDatePosted().
      */
     @Test
     public void testGetByDescriptorCreationDate() throws InterruptedException {
@@ -570,11 +704,11 @@ public class HibernatePhotogalDaoTest {
         final Gallery privateGallery = createGallery(2);
         publicGallery.setPublic(true);
         privateGallery.setPublic(false);
-        final ImageDescriptor descriptor1 = createImageDescriptor();
+        ImageDescriptor descriptor1 = createImageDescriptor();
         descriptor1.setCreationDate(new Date(20000));
-        final ImageDescriptor descriptor2 = createImageDescriptor();
+        ImageDescriptor descriptor2 = createImageDescriptor();
         descriptor2.setCreationDate(new Date(40000));
-        final ImageDescriptor descriptor12 = createImageDescriptor();
+        ImageDescriptor descriptor12 = createImageDescriptor();
         descriptor12.setCreationDate(new Date(60000));
         publicGallery.addImage(descriptor1);
         privateGallery.addImage(descriptor2);
@@ -583,6 +717,9 @@ public class HibernatePhotogalDaoTest {
         dao.saveOrUpdate(descriptor1, descriptor2, descriptor12, publicGallery, privateGallery);
         currentTransaction.commit();
         currentTransaction = sessionFactory.getCurrentSession().beginTransaction();
+        descriptor1 = dao.getImageDescriptor(descriptor1.getId());
+        descriptor2 = dao.getImageDescriptor(descriptor2.getId());
+        descriptor12 = dao.getImageDescriptor(descriptor12.getId());
 
         final Map<Long, Date> publicDescriptorCreationDates = dao.getDescriptorCreationDates(false);
         assertThat(publicDescriptorCreationDates.size(), is(2));
@@ -606,5 +743,113 @@ public class HibernatePhotogalDaoTest {
                 is(3));
         assertThat(dao.getImageCountByDatePosted(new Date(20000), new Date(40000), false), is(1));
         assertThat(dao.getImageCountByDatePosted(new Date(20000), new Date(40000), true), is(2));
+
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE),
+                false, 0, 1), is(Arrays.asList(descriptor1)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE),
+                false, 1, 1), is(Arrays.asList(descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE),
+                false, 2, 1), is(Collections.<ImageDescriptor> emptyList()));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE),
+                false, 0, 2), is(Arrays.asList(descriptor1, descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE),
+                false, 1, 2), is(Arrays.asList(descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE),
+                false, 0, 5), is(Arrays.asList(descriptor1, descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE),
+                false, 0, Integer.MAX_VALUE), is(Arrays.asList(descriptor1, descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(20000), new Date(40000), false, 0,
+                Integer.MAX_VALUE), is(Arrays.asList(descriptor1)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(0), false, 0,
+                Integer.MAX_VALUE), is(Collections.<ImageDescriptor> emptyList()));
+
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                0, 1), is(Arrays.asList(descriptor1)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                1, 1), is(Arrays.asList(descriptor2)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                2, 1), is(Arrays.asList(descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                3, 1), is(Collections.<ImageDescriptor> emptyList()));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                0, 2), is(Arrays.asList(descriptor1, descriptor2)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                0, 3), is(Arrays.asList(descriptor1, descriptor2, descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                1, 2), is(Arrays.asList(descriptor2, descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                2, 2), is(Arrays.asList(descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                0, 5), is(Arrays.asList(descriptor1, descriptor2, descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(Long.MAX_VALUE), true,
+                0, Integer.MAX_VALUE), is(Arrays.asList(descriptor1, descriptor2, descriptor12)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(20000), new Date(40000), true, 0,
+                Integer.MAX_VALUE), is(Arrays.asList(descriptor1, descriptor2)));
+        assertThat(dao.getImageDescriptorsByDatePosted(new Date(0), new Date(0), true, 0,
+                Integer.MAX_VALUE), is(Collections.<ImageDescriptor> emptyList()));
+    }
+
+    @Test
+    public void testGetEmptyData() {
+        final long startTime = System.currentTimeMillis();
+        final PhotogalData pgData = dao.getData();
+        final long endTime = System.currentTimeMillis();
+        final long exportTime = pgData.getExportDate().getTime();
+        assertThat(exportTime >= startTime, is(true));
+        assertThat(exportTime <= endTime, is(true));
+        assertThat(pgData.getGalleries().isEmpty(), is(true));
+        assertThat(pgData.getImageDescriptors().isEmpty(), is(true));
+    }
+
+    @Test
+    public void testGetData() {
+        final Gallery gallery1 = createGallery(1);
+        final Gallery gallery2 = createGallery(2);
+        final ImageDescriptor descriptor1 = createImageDescriptor();
+        final ImageDescriptor descriptor2 = createImageDescriptor();
+        final ImageDescriptor descriptor12 = createImageDescriptor();
+        gallery1.addImage(descriptor1);
+        gallery2.addImage(descriptor2);
+        gallery1.addImage(descriptor12);
+        gallery2.addImage(descriptor12);
+        dao.saveOrUpdate(gallery1, gallery2, descriptor1, descriptor2, descriptor12);
+        final PhotogalData pgData = dao.getData();
+        assertThat(pgData.getGalleries(), is(Arrays.asList(gallery1, gallery2)));
+        assertThat(pgData.getImageDescriptors(), is(Arrays.asList(descriptor1, descriptor2,
+                descriptor12)));
+    }
+
+    @Test
+    public void testDelete() {
+        final ImageDescriptor descriptor1 = createImageDescriptor();
+        final ImageDescriptor descriptor2 = createImageDescriptor();
+        final ImageDescriptor descriptor3 = createImageDescriptor();
+        assertThat(dao.getImageDescriptors().isEmpty(), is(true));
+        dao.delete(descriptor1);
+        assertThat(dao.getImageDescriptors().isEmpty(), is(true));
+        dao.saveOrUpdate(descriptor1);
+        assertThat(dao.getImageDescriptors(), is(Arrays.asList(descriptor1)));
+        dao.delete(descriptor1);
+        assertThat(dao.getImageDescriptors().isEmpty(), is(true));
+        dao.saveOrUpdate(descriptor2, descriptor3);
+        assertThat(dao.getImageDescriptors(), is(Arrays.asList(descriptor2, descriptor3)));
+        dao.delete(descriptor2);
+        assertThat(dao.getImageDescriptors(), is(Arrays.asList(descriptor3)));
+        dao.delete(descriptor3);
+        assertThat(dao.getImageDescriptors().isEmpty(), is(true));
+    }
+
+    @Test
+    @Ignore("not used")
+    public void testSaveOrUpdate() {
+        // saveOrUpdate() is pretty well tested by the other test methods in
+        // this class, so I can't think of anything to add here
+    }
+
+    @Test
+    @Ignore("not used")
+    public void testUpdate() {
+        // update() is pretty well tested by the other test methods in this
+        // class, so I can't think of anything to add here
     }
 }
