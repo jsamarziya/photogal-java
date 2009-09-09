@@ -66,7 +66,7 @@ public interface PhotogalDao {
      * 
      * @param keyword the keyword
      * @param includePrivate if <code>true</code>, return private images too
-     * @param start the index of the first image descriptor to return
+     * @param start the index of the first image descriptor to return (indexing starts with 0)
      * @param max the maximum number of image descriptors to return
      * @return a list containing the specified image descriptors
      */
@@ -80,7 +80,7 @@ public interface PhotogalDao {
      * @param startDate the start of the date range
      * @param endDate the end of the date range
      * @param includePrivate if <code>true</code>, return private images too
-     * @param start the index of the first image descriptor to return
+     * @param start the index of the first image descriptor to return (indexing starts with 0)
      * @param max the maximum number of image descriptors to return
      * @return a list containing the specified image descriptors
      */
@@ -94,7 +94,7 @@ public interface PhotogalDao {
      * @param year the year
      * @param month the month
      * @param includePrivate if <code>true</code>, return private images too
-     * @param start the index of the first image descriptor to return
+     * @param start the index of the first image descriptor to return (indexing starts with 0)
      * @param max the maximum number of image descriptors to return
      * @return a list containing the specified image descriptors
      */
@@ -107,7 +107,7 @@ public interface PhotogalDao {
      * 
      * @param year the year
      * @param includePrivate if <code>true</code>, return private images too
-     * @param start the index of the first image descriptor to return
+     * @param start the index of the first image descriptor to return (indexing starts with 0)
      * @param max the maximum number of image descriptors to return
      * @return a list containing the specified image descriptors
      */
