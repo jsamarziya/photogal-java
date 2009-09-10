@@ -3,6 +3,8 @@ fix image scaler OutOfMemoryError problems!
 modify scaling so that all sizes are created once (to save the expense of ImageIO.read() and also 
 optimize multiple-step scalers)
 
+create low-quality scaled images when needed?
+
 add stats page - 
 	# galleries (private/public/total)
 	# images
