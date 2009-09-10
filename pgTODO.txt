@@ -20,8 +20,6 @@ settings editor:
 	
 clean up db.script - refer to HSQL documentation
 
-add hibernate annotations 
-
 put debug log statements in conditional
 
 unit tests
