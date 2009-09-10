@@ -349,6 +349,7 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
         }
     }
 
+    // TODO why do we have this? can't we just call saveOrUpdate()?
     @Override
     public void update(Object object) {
         getCurrentSession().update(object);
