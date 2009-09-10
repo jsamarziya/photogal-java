@@ -28,22 +28,12 @@ import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-import org.sixcats.utils.image.ImageMetadataUtils;
-import org.sixcats.utils.image.ImageUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.drew.imaging.jpeg.JpegProcessingException;
-import com.drew.metadata.MetadataException;
-
 // TODO move these methods to ImageUtils
 public class ImageOperations {
-    private static final Logger log = LoggerFactory.getLogger(ImageOperations.class);
     private static final float DEFAULT_SOFTEN_FACTOR = 0.01f;
 
     public void scaleImage(File source, File destination, int maxside) throws IOException {
@@ -163,29 +153,6 @@ public class ImageOperations {
         int scaledWidth = (int) (source.getWidth() * scale_factor);
         int scaledHeight = (int) (source.getHeight() * scale_factor);
         BufferedImage retval = new BufferedImage(scaledWidth, scaledHeight, source.getType());
-        return retval;
-    }
-
-    /**
-     * Returns the date that the specified image was created.
-     * 
-     * @param imageFile the file that contains the image
-     * @return the date the image was created, or <code>null</code> if the image
-     *         creation date cannot be determined
-     */
-    public static Date getImageCreationDate(final File imageFile) {
-        Date retval = null;
-        try {
-            if (ImageUtils.isJPEG(imageFile)) {
-                retval = ImageMetadataUtils.getImageDate(imageFile);
-            }
-        } catch (IOException ex) {
-            log.warn("unable to determine if file is a JPEG", ex);
-        } catch (JpegProcessingException ex) {
-            log.warn("unable to process JPEG file", ex);
-        } catch (MetadataException ex) {
-            log.warn("unable to read JPEG metadata", ex);
-        }
         return retval;
     }
 }

@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
-import net.sourceforge.photogal.image.ImageOperations;
 import net.sourceforge.photogal.image.ScaledImageCalculator;
 import net.sourceforge.photogal.web.form.EditImageForm;
 
@@ -96,7 +95,7 @@ public class EditImage extends PhotogalDaoAwareFormController {
                 logger.error(imageFile.getCanonicalPath() + " is not a supported image file");
                 throw new ServletException("not a supported image file");
             }
-            Date imageCreationDate = ImageOperations.getImageCreationDate(imageFile);
+            Date imageCreationDate = ImageMetadataUtils.getImageDate(imageFile);
             logger.debug("image creation date is " + imageCreationDate);
             if (imageCreationDate != null) {
                 form.setImageCreationDate(new CalendarDate(imageCreationDate));
