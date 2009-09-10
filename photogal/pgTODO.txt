@@ -46,4 +46,5 @@ ImageIO.setUseCache(false)??
 
 unsharpen mask?
         
-	
+fix web application resource filtering in Eclipse
+	I think this is just a problem in the m2eclipse plugin
