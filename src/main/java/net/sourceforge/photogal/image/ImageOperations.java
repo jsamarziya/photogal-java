@@ -33,6 +33,7 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import org.sixcats.utils.image.ImageMetadataUtils;
 import org.sixcats.utils.image.ImageUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,7 @@ import org.slf4j.LoggerFactory;
 import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.MetadataException;
 
+// TODO move these methods to ImageUtils
 public class ImageOperations {
     private static final Logger log = LoggerFactory.getLogger(ImageOperations.class);
     private static final float DEFAULT_SOFTEN_FACTOR = 0.01f;

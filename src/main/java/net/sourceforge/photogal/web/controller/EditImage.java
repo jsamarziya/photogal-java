@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
-import net.sourceforge.photogal.image.ImageMetadataUtils;
 import net.sourceforge.photogal.image.ImageOperations;
 import net.sourceforge.photogal.image.ScaledImageCalculator;
 import net.sourceforge.photogal.web.form.EditImageForm;
@@ -38,6 +37,7 @@ import net.sourceforge.photogal.web.form.EditImageForm;
 import org.apache.commons.lang.StringUtils;
 import org.sixcats.utils.CalendarDate;
 import org.sixcats.utils.FileAccessManager;
+import org.sixcats.utils.image.ImageMetadataUtils;
 import org.sixcats.utils.image.ImageUtils;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.validation.BindException;
