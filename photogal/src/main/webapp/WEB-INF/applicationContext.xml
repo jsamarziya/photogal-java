@@ -44,7 +44,7 @@
         </property>
     </bean>
 
-    <bean id="scaledImageCache" class="net.sourceforge.photogal.image.SynchronizedScaledImageCache">
+    <bean id="scaledImageCache" class="net.sourceforge.photogal.image.ScaledImageCache">
         <property name="scaledImageCalculator" ref="scaledImageCalculator" />
         <property name="cacheDirectory" value="${scaledImage.cache.dir}" />
     </bean>
