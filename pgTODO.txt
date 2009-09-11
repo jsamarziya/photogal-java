@@ -22,7 +22,7 @@ clean up db.script - refer to HSQL documentation
 
 put debug log statements in conditional
 
-unit tests
+finish unit tests
 
 authentication via spring-security
 
