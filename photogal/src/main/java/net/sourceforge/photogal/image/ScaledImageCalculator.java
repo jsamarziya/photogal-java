@@ -23,25 +23,59 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ScaledImageCalculator {
+import org.sixcats.utils.image.ImageUtils;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
+
+/**
+ * Provides services used to relate symbolic image sizes to size constraints.
+ */
+public class ScaledImageCalculator implements InitializingBean {
     private Map<String, Integer> maxSizes;
 
+    /**
+     * Returns a mapping of size names to maximum dimensions.
+     * 
+     * @return a map containing the maximum image dimensions, mapped by size
+     *         name
+     */
+    public Map<String, Integer> getMaxSizes() {
+        return maxSizes == null ? null : Collections.unmodifiableMap(maxSizes);
+    }
+
+    /**
+     * Sets the maximum size map.
+     * 
+     * @param sizes the map of the maximum image dimensions, mapped by size name
+     */
     public void setMaxSizes(Map<String, Integer> sizes) {
         maxSizes = sizes;
     }
 
-    public Map<String, Integer> getMaxSizes() {
-        return Collections.unmodifiableMap(maxSizes);
-    }
-
-    public boolean isAvailableSize(final String size, final int imageWidth,
-            final int imageHeight) {
+    /**
+     * Returns <code>true</code> if at least one of the specified dimensions is
+     * greater than the maximum size for the specified image size name.
+     * 
+     * @param size the size name
+     * @param imageWidth the width of the image
+     * @param imageHeight the height of the image
+     * @return <code>true</code> if either imageWidth or imageHeight is greater
+     *         than the maximum size, <code>false</code> otherwise
+     */
+    public boolean isAvailableSize(final String size, final int imageWidth, final int imageHeight) {
         final int maxSize = getMaxSize(size);
         return imageWidth > maxSize || imageHeight > maxSize;
     }
 
-    public Map<String, Boolean> getAvailableSizes(int imageWidth,
-            int imageHeight) {
+    /**
+     * Returns the available sizes for an image of the specified size.
+     * 
+     * @param imageWidth the width of the image
+     * @param imageHeight the height of the image
+     * @return a Map that maps each size code to a boolean that indicates
+     *         whether or not that size code is valid for the given image size
+     */
+    public Map<String, Boolean> getAvailableSizes(int imageWidth, int imageHeight) {
         Map<String, Boolean> retval = new HashMap<String, Boolean>();
         for (String size : getMaxSizes().keySet()) {
             retval.put(size, isAvailableSize(size, imageWidth, imageHeight));
@@ -49,19 +83,38 @@ public class ScaledImageCalculator {
         return retval;
     }
 
+    /**
+     * Returns the maximum dimension for the specified size.
+     * 
+     * @param size the name of the size
+     * @return the maximum dimension
+     */
     public int getMaxSize(String size) {
-        return getMaxSizes().get(size);
+        final Integer retval = getMaxSizes().get(size);
+        if (retval == null) {
+            throw new IllegalArgumentException("unknown size " + size);
+        }
+        return retval;
     }
 
+    /**
+     * Returns the scaled size of an image that has the specified dimensions,
+     * for the specified size.
+     * 
+     * @param d the image dimensions
+     * @param size the size name
+     * 
+     * @return the scaled size
+     */
     public Dimension getScaledSize(Dimension d, String size) {
-        Dimension scaled = new Dimension(d);
-        int maxSize = getMaxSize(size);
-        int maxDimension = Math.max(d.height, d.width);
-        if (maxDimension > maxSize) {
-            double scaleFactor = (double) maxSize / maxDimension;
-            scaled.height *= scaleFactor;
-            scaled.width *= scaleFactor;
-        }
-        return scaled;
+        final int maxSize = getMaxSize(size);
+        final double scaleFactor = ImageUtils.getScaleFactor(d, maxSize);
+        return new Dimension((int) Math.round(d.width * scaleFactor), (int) Math.round(d.height
+                * scaleFactor));
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        Assert.notNull(getMaxSizes(), "a maxSizes map must be set");
     }
 }
