@@ -44,6 +44,11 @@
     </repositories>
     <dependencies>
         <dependency>
+            <groupId>com.mortennobel</groupId>
+            <artifactId>imagescaling</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.sanselan</groupId>
             <artifactId>sanselan</artifactId>
             <version>0.97-incubator</version>
