@@ -47,12 +47,15 @@
     <bean id="scaledImageCache" class="net.sourceforge.photogal.image.ScaledImageCache">
         <property name="scaledImageCalculator" ref="scaledImageCalculator" />
         <property name="cacheDirectory" value="${scaledImage.cache.dir}" />
+        <property name="imageScaler">
+            <bean class="org.sixcats.utils.image.NobelImageScaler" />
+        </property>
     </bean>
 
     <bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator">
         <property name="fileAccessManager" ref="imageFileAccessManager" />
         <property name="scaledImageCache" ref="scaledImageCache" />
-        <property name="throttleDelay" value="1000" />
+        <property name="throttleDelay" value="0" />
     </bean>
 
     <bean id="propertyPlaceholderConfigurer"
@@ -92,5 +95,14 @@
 
     <bean id="photogalDao" class="net.sourceforge.photogal.hibernate.HibernatePhotogalDao">
         <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="timerFactory" class="org.springframework.scheduling.timer.TimerFactoryBean">
+        <property name="scheduledTimerTasks">
+            <bean class="org.springframework.scheduling.timer.ScheduledTimerTask">
+                <property name="runnable" ref="thumbnailGenerator" />
+                <property name="period" value="60000" />
+            </bean>
+        </property>
     </bean>
 </beans>
