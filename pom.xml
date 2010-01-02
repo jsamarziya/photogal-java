@@ -23,6 +23,7 @@
                 <photogal.log.level>DEBUG</photogal.log.level>
                 <photogal.image.cache.dir>/tmp/pgImageCache</photogal.image.cache.dir>
                 <photogal.db.dir>/tmp/testdb</photogal.db.dir>
+                <photogal.images.dir>/tmp/pgImages</photogal.images.dir>
             </properties>
         </profile>
         <profile>
