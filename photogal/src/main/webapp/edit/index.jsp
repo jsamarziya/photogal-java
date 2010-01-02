@@ -39,6 +39,8 @@
 <ul>
 	<li><a href="<c:url value="/edit/editGalleries.do"/>">Edit
 	galleries</a></li>
+	<li><a href="<c:url value="/edit/import.do"/>">Import Database</a></li>
+	<li><a href="<c:url value="/edit/export.do"/>">Export Database</a></li>
 	<li><a href="<c:url value="/edit/logout.do"/>">Log out</a></li>
 </ul>
 <pg:footer />

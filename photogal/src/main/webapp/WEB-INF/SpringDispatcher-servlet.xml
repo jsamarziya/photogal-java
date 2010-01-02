@@ -144,6 +144,13 @@
         <property name="cacheSeconds" value="0" />
         <property name="photogalDao" ref="photogalDao" />
     </bean>
+    <bean id="export" class="net.sourceforge.photogal.web.controller.ExportDatabase">
+        <property name="exporter">
+            <bean class="net.sourceforge.photogal.export.XStreamPhotogalExporter"
+                factory-method="getInstance" />
+        </property>
+        <property name="photogalDao" ref="photogalDao" />
+    </bean>
     <bean id="urlMapping"
         class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
@@ -176,6 +183,7 @@
                 <prop key="/edit/logout.do">logout</prop>
                 <prop key="/edit/xml/moveGallery.do">moveGallery</prop>
                 <prop key="/edit/xml/moveImage.do">moveImage</prop>
+                <prop key="/edit/export.do">export</prop>
             </props>
         </property>
     </bean>

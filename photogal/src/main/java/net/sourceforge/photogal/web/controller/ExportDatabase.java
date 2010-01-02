@@ -17,53 +17,33 @@
  *  along with photogal.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.sourceforge.photogal.web.servlet;
+package net.sourceforge.photogal.web.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.photogal.export.PhotogalData;
 import net.sourceforge.photogal.export.PhotogalExporter;
-import net.sourceforge.photogal.export.XStreamPhotogalExporter;
-import net.sourceforge.photogal.hibernate.PhotogalDao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
- * A servlet that exports the Photogal database and writes it to the response as
- * an XML file.
+ * A controller that exports the Photogal database and writes it to the response
+ * as an XML file.
  */
-public class PhotogalExportServlet extends HttpServlet {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PhotogalExportServlet.class);
+public class ExportDatabase extends PhotogalDaoAwareController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExportDatabase.class);
 
     private PhotogalExporter exporter;
-    private PhotogalDao photogalDao;
-
-    public PhotogalExportServlet() {
-        setExporter(XStreamPhotogalExporter.getInstance());
-    }
 
     /**
-     * Returns the PhotogalDao used to access the database.
-     * 
-     * @return the PhotogalDao
+     * Constructs a new ExportDatabase.
      */
-    public PhotogalDao getPhotogalDao() {
-        return photogalDao;
-    }
-
-    /**
-     * Sets the PhotogalDao used to access the database.
-     * 
-     * @param photogalDao the entity manager
-     */
-    public void setPhotogalDao(PhotogalDao photogalDao) {
-        this.photogalDao = photogalDao;
+    public ExportDatabase() {
+        super();
     }
 
     /**
@@ -85,13 +65,20 @@ public class PhotogalExportServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    public void afterPropertiesSet() {
+        super.afterPropertiesSet();
+        Assert.notNull(getExporter(), "an Exporter must be set");
+    }
+
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
         final PhotogalData data = getPhotogalDao().getData();
         response.setContentType("text/xml");
         response.setCharacterEncoding("UTF-8");
         getExporter().exportData(data, response.getWriter());
         LOGGER.info("Exported data (" + data.getImageDescriptors().size() + " images, "
                 + data.getGalleries().size() + " galleries)");
+        return null;
     }
 }
