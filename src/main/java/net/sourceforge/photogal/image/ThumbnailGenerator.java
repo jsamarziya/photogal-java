@@ -163,9 +163,14 @@ public class ThumbnailGenerator implements Runnable {
      */
     @SuppressWarnings("unchecked")
     private void generate() {
+        final File imageDirectory = new File(getFileAccessManager().getBaseDirectory());
+        if (!imageDirectory.exists()) {
+            log.warn("Image directory " + imageDirectory + " does not exist");
+            return;
+        }
         int thumbnailsGenerated = 0;
-        Collection<File> images = FileUtils.listFiles(new File(getFileAccessManager()
-                .getBaseDirectory()), imageWithoutThumbnailFileFilter, TrueFileFilter.INSTANCE);
+        Collection<File> images = FileUtils.listFiles(imageDirectory,
+                imageWithoutThumbnailFileFilter, TrueFileFilter.INSTANCE);
         log.info("found " + images.size() + " images to create thumbnails for");
         if (images.size() == 0) {
             return;
