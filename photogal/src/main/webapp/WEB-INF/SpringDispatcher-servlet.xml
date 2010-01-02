@@ -130,11 +130,6 @@
         <property name="cacheSeconds" value="0" />
         <property name="photogalDao" ref="photogalDao" />
     </bean>
-    <bean id="generateThumbnails" class="net.sourceforge.photogal.web.controller.GenerateThumbnails">
-        <property name="supportedMethods" value="GET,POST" />
-        <property name="cacheSeconds" value="0" />
-        <property name="thumbnailGenerator" ref="thumbnailGenerator" />
-    </bean>
     <bean id="logout" class="net.sourceforge.photogal.web.controller.Logout">
         <property name="supportedMethods" value="GET,POST" />
         <property name="cacheSeconds" value="0" />
@@ -178,9 +173,6 @@
                 <prop key="/edit/editImage.do">editImage</prop>
                 <prop key="/edit/deleteImage.do">deleteImage</prop>
                 <prop key="/edit/deleteGallery.do">deleteGallery</prop>
-                <prop key="/edit/generateThumbnails.do">
-                    generateThumbnails
-				</prop>
                 <prop key="/edit/logout.do">logout</prop>
                 <prop key="/edit/xml/moveGallery.do">moveGallery</prop>
                 <prop key="/edit/xml/moveImage.do">moveImage</prop>
