@@ -55,7 +55,7 @@
     <bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator">
         <property name="fileAccessManager" ref="imageFileAccessManager" />
         <property name="scaledImageCache" ref="scaledImageCache" />
-        <property name="throttleDelay" value="0" />
+        <property name="throttleDelay" value="${thumbnail.generation.throttle.delay}" />
     </bean>
 
     <bean id="propertyPlaceholderConfigurer"
@@ -101,7 +101,7 @@
         <property name="scheduledTimerTasks">
             <bean class="org.springframework.scheduling.timer.ScheduledTimerTask">
                 <property name="runnable" ref="thumbnailGenerator" />
-                <property name="period" value="60000" />
+                <property name="period" value="${thumbnail.generation.period}" />
             </bean>
         </property>
     </bean>
