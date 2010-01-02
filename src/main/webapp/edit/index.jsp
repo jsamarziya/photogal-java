@@ -39,8 +39,6 @@
 <ul>
 	<li><a href="<c:url value="/edit/editGalleries.do"/>">Edit
 	galleries</a></li>
-	<li><a href="<c:url value="/edit/generateScaledImages.jsp"/>">Generate
-	scaled images</a></li>
 	<li><a href="<c:url value="/edit/logout.do"/>">Log out</a></li>
 </ul>
 <pg:footer />
