@@ -1,7 +1,3 @@
-fix image scaler OutOfMemoryError problems!
-
-create low-quality scaled images when needed?
-
 add stats page - 
 	# galleries (private/public/total)
 	# images
