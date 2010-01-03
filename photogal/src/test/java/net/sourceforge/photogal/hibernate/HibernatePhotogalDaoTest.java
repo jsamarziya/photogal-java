@@ -20,6 +20,8 @@
 package net.sourceforge.photogal.hibernate;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
@@ -40,6 +42,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
@@ -690,7 +693,6 @@ public class HibernatePhotogalDaoTest {
                 .asList(descriptor1, descriptor2, descriptor3)));
         assertThat(dao.getImageDescriptorsByYearTaken(1999, true, 0, Integer.MAX_VALUE),
                 is(Collections.<ImageDescriptor> emptyList()));
-
     }
 
     /**
@@ -850,5 +852,59 @@ public class HibernatePhotogalDaoTest {
     public void testUpdate() {
         // update() is pretty well tested by the other test methods in this
         // class, so I can't think of anything to add here
+    }
+
+    /**
+     * An integration test in which we create a new gallery and then add an
+     * image to it.
+     */
+    @Test
+    public void testCreateGalleryAndImage() {
+        final Gallery gallery = new Gallery();
+        gallery.setOrderIndex(5);
+        gallery.setName("galleryName");
+        gallery.setDescription("galleryDescription");
+        gallery.setPublic(true);
+        dao.saveOrUpdate(gallery);
+
+        currentTransaction.commit();
+        currentTransaction = sessionFactory.getCurrentSession().beginTransaction();
+
+        final ImageDescriptor image = new ImageDescriptor();
+        image.setLocation("imageLocation");
+        image.setWidth(3);
+        image.setHeight(4);
+        image.setTitle("imageTitle");
+        image.setDescription("imageDescription");
+        image.setImageCreationDate(new CalendarDate(11, 13, 15));
+        image.setKeywordsAsString("key1 key2 key3");
+        dao.saveOrUpdate(image);
+
+        assertThat(gallery.containsImage(image), is(false));
+        gallery.addImage(image);
+        assertThat(gallery.containsImage(image), is(true));
+        dao.saveOrUpdate(gallery);
+        assertThat(gallery.containsImage(image), is(true));
+
+        currentTransaction.commit();
+        currentTransaction = sessionFactory.getCurrentSession().beginTransaction();
+
+        final Gallery savedGallery = dao.getGallery(gallery.getId());
+        assertThat(savedGallery, is(notNullValue()));
+        assertThat(savedGallery, is(not(sameInstance(gallery))));
+        assertThat(savedGallery.getImageCount(), is(1));
+
+        final ImageDescriptor savedImage = dao.getImageDescriptor(image.getId());
+        assertThat(savedImage, is(notNullValue()));
+        assertThat(savedImage.getKeywordsAsString(), is("key1 key2 key3"));
+        assertThat(savedImage.getKeywords(), is(Arrays.asList("key1", "key2", "key3")));
+        assertThat(savedImage.getImageCreationDate(), is(new CalendarDate(11, 13, 15)));
+
+        final Set<Gallery> imageGalleries = savedImage.getGalleries();
+        assertThat(imageGalleries, is(notNullValue()));
+        assertThat(imageGalleries.size(), is(1));
+        assertThat(imageGalleries.contains(savedGallery), is(true));
+
+        assertThat(savedGallery.containsImage(savedImage), is(true));
     }
 }
