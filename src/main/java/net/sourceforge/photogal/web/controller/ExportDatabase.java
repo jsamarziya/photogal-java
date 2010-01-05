@@ -76,7 +76,7 @@ public class ExportDatabase extends PhotogalDaoAwareController {
         final PhotogalData data = getPhotogalDao().getData();
         response.setContentType("text/xml");
         response.setCharacterEncoding("UTF-8");
-        getExporter().exportData(data, response.getWriter());
+        getExporter().exportData(data, response.getWriter(), "UTF-8");
         LOGGER.info("Exported data (" + data.getImageDescriptors().size() + " images, "
                 + data.getGalleries().size() + " galleries)");
         return null;
