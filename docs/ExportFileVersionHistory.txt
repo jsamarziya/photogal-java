@@ -1,0 +1,7 @@
+1.0
+	Initial format.
+	
+1.1
+	Removed isPublic attribute from imageDescriptor elements.  The isPublic attribute is derived
+	using a formula, and so there is no reason to include it in the export data.
+	
