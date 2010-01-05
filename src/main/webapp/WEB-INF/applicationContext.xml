@@ -112,6 +112,7 @@
         <property name="scheduledTimerTasks">
             <bean class="org.springframework.scheduling.timer.ScheduledTimerTask">
                 <property name="runnable" ref="thumbnailGenerator" />
+                <property name="delay" value="${thumbnail.generation.delay}"></property>
                 <property name="period" value="${thumbnail.generation.period}" />
             </bean>
         </property>
