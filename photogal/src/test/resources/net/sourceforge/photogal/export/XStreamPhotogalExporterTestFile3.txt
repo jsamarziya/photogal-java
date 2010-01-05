@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='foo'?>
+<photogal-data date="1969-12-31 16:00:00.0 PST" version="1.0"/>
