@@ -40,9 +40,6 @@
     <listener>
         <listener-class>net.sourceforge.photogal.web.ApplicationLogger</listener-class>
     </listener>
-    <listener>
-        <listener-class>net.sourceforge.photogal.web.HsqlLifecycleManager</listener-class>
-    </listener>
     <filter>
         <filter-name>HibernateSessionFilter</filter-name>
         <filter-class>net.sourceforge.photogal.web.HibernateSessionFilter</filter-class>
