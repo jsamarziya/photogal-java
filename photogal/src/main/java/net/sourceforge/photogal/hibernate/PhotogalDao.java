@@ -29,6 +29,9 @@ import net.sourceforge.photogal.export.PhotogalData;
 
 import org.sixcats.utils.CalendarDate;
 
+/**
+ * Defines the Photogal DAO interface methods.
+ */
 public interface PhotogalDao {
     /**
      * Returns the galleries, sorted by orderIndex.
@@ -36,14 +39,15 @@ public interface PhotogalDao {
      * @param includePrivate if <code>true</code>, return private galleries too
      * @return the galleries contained in the database
      */
-    public List<Gallery> getGalleries(final boolean includePrivate);
+    public List<Gallery> getGalleries(boolean includePrivate);
 
     /**
      * Returns the number of galleries.
      * 
+     * @param includePrivate if <code>true</code>, count private galleries too
      * @return the number of galleries contained in the database
      */
-    public int getGalleryCount();
+    public int getGalleryCount(boolean includePrivate);
 
     /**
      * Returns the specified gallery.
@@ -52,7 +56,7 @@ public interface PhotogalDao {
      * @return the specified gallery, or <code>null</code> if no such descriptor
      *         exists
      */
-    public Gallery getGallery(final long id);
+    public Gallery getGallery(long id);
 
     /**
      * Returns the image descriptors, sorted by id.
@@ -66,7 +70,8 @@ public interface PhotogalDao {
      * 
      * @param keyword the keyword
      * @param includePrivate if <code>true</code>, return private images too
-     * @param start the index of the first image descriptor to return (indexing starts with 0)
+     * @param start the index of the first image descriptor to return (indexing
+     *            starts with 0)
      * @param max the maximum number of image descriptors to return
      * @return a list containing the specified image descriptors
      */
@@ -80,7 +85,8 @@ public interface PhotogalDao {
      * @param startDate the start of the date range
      * @param endDate the end of the date range
      * @param includePrivate if <code>true</code>, return private images too
-     * @param start the index of the first image descriptor to return (indexing starts with 0)
+     * @param start the index of the first image descriptor to return (indexing
+     *            starts with 0)
      * @param max the maximum number of image descriptors to return
      * @return a list containing the specified image descriptors
      */
@@ -94,7 +100,8 @@ public interface PhotogalDao {
      * @param year the year
      * @param month the month
      * @param includePrivate if <code>true</code>, return private images too
-     * @param start the index of the first image descriptor to return (indexing starts with 0)
+     * @param start the index of the first image descriptor to return (indexing
+     *            starts with 0)
      * @param max the maximum number of image descriptors to return
      * @return a list containing the specified image descriptors
      */
@@ -107,7 +114,8 @@ public interface PhotogalDao {
      * 
      * @param year the year
      * @param includePrivate if <code>true</code>, return private images too
-     * @param start the index of the first image descriptor to return (indexing starts with 0)
+     * @param start the index of the first image descriptor to return (indexing
+     *            starts with 0)
      * @param max the maximum number of image descriptors to return
      * @return a list containing the specified image descriptors
      */
@@ -121,7 +129,7 @@ public interface PhotogalDao {
      * @return the specified image descriptor, or <code>null</code> if no such
      *         descriptor exists
      */
-    public ImageDescriptor getImageDescriptor(final long imageId);
+    public ImageDescriptor getImageDescriptor(long imageId);
 
     /**
      * Returns the image descriptor for the specified image file.
@@ -130,9 +138,9 @@ public interface PhotogalDao {
      * @return the descriptor for the specified image file, or <code>null</code>
      *         if no such descriptor exists
      */
-    public ImageDescriptor getImageDescriptor(final String location);
+    public ImageDescriptor getImageDescriptor(String location);
 
-    public boolean galleryExists(final long id);
+    public boolean galleryExists(long id);
 
     /**
      * Returns the number of galleries that contain the specified image.
@@ -143,6 +151,20 @@ public interface PhotogalDao {
     public int getGalleryCountForImage(long imageId);
 
     /**
+     * Deletes all galleries.
+     * 
+     * @return the number of galleries deleted
+     */
+    public int deleteAllGalleries();
+
+    /**
+     * Deletes all image descriptors.
+     * 
+     * @return the number of image descriptors deleted
+     */
+    public int deleteAllImageDescriptors();
+
+    /**
      * Deletes the specified gallery, optionally deleting image descriptors that
      * are only contained in the gallery.
      * 
@@ -150,7 +172,7 @@ public interface PhotogalDao {
      * @param deleteOrphanImages <code>true</code> if image descriptors that are
      *            contained only in the specified gallery are to be deleted
      */
-    public void deleteGallery(final long galleryId, boolean deleteOrphanImages);
+    public void deleteGallery(long galleryId, boolean deleteOrphanImages);
 
     /**
      * Moves a gallery from one position to another.
@@ -158,7 +180,7 @@ public interface PhotogalDao {
      * @param fromIndex the orderIndex of the gallery to move
      * @param toIndex the orderIndex to move the gallery to
      */
-    public void moveGallery(final int fromIndex, final int toIndex);
+    public void moveGallery(int fromIndex, int toIndex);
 
     /**
      * Returns a mapping of keywords to occurence count.
@@ -185,7 +207,7 @@ public interface PhotogalDao {
      * 
      * @param includePrivate if <code>true</code>, include private images
      */
-    public Map<Long, CalendarDate> getImageCreationDates(final boolean includePrivate);
+    public Map<Long, CalendarDate> getImageCreationDates(boolean includePrivate);
 
     /**
      * Returns a mapping of image descriptor ids to descriptor creation dates.
@@ -221,8 +243,7 @@ public interface PhotogalDao {
      *            included in the count
      * @return the number of images posted between the specified dates
      */
-    public int getImageCountByDatePosted(final Date startDate, final Date endDate,
-            final boolean includePrivate);
+    public int getImageCountByDatePosted(Date startDate, Date endDate, boolean includePrivate);
 
     /**
      * Returns the data contained in the database.
@@ -236,7 +257,6 @@ public interface PhotogalDao {
      * 
      * @param object the persistent object to delete
      */
-    // TODO change this to delete(ImageDescriptor) ?
     public void delete(Object object);
 
     /**
@@ -252,4 +272,19 @@ public interface PhotogalDao {
      * @param entity the object to update
      */
     public void update(Object object);
+
+    /**
+     * Returns the number of image descriptors.
+     * 
+     * @param includePrivate if <code>true</code>, count private images too
+     * @return the number of image descriptors contained in the database
+     */
+    public int getImageDescriptorCount(boolean includePrivate);
+
+    /**
+     * Imports the specified data into the database.
+     * 
+     * @param data the import data
+     */
+    public void importData(PhotogalData data);
 }

@@ -82,7 +82,7 @@ public class EditGallery extends PhotogalDaoAwareFormController {
         Gallery gallery = null;
         if (form.isNewGallery()) {
             gallery = new Gallery();
-            gallery.setOrderIndex(getPhotogalDao().getGalleryCount());
+            gallery.setOrderIndex(getPhotogalDao().getGalleryCount(true));
         } else {
             gallery = ControllerUtils.getGallery(getPhotogalDao(), id);
         }

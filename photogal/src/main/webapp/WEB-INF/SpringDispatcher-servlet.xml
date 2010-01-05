@@ -5,6 +5,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
     <bean id="showGalleries" class="net.sourceforge.photogal.web.controller.ShowGalleries">
         <property name="supportedMethods" value="GET" />
         <property name="cacheSeconds" value="300" />
@@ -151,6 +153,13 @@
         </property>
         <property name="photogalDao" ref="photogalDao" />
     </bean>
+    <bean id="import" class="net.sourceforge.photogal.web.controller.ImportDatabase">
+        <property name="importer">
+            <bean class="net.sourceforge.photogal.export.XStreamPhotogalExporter"
+                factory-method="getInstance" />
+        </property>
+        <property name="photogalDao" ref="photogalDao" />
+    </bean>
     <bean id="urlMapping"
         class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
@@ -184,6 +193,7 @@
                 <prop key="/edit/xml/moveGallery.do">moveGallery</prop>
                 <prop key="/edit/xml/moveImage.do">moveImage</prop>
                 <prop key="/edit/export.do">export</prop>
+                <prop key="/edit/import.do">import</prop>
             </props>
         </property>
     </bean>

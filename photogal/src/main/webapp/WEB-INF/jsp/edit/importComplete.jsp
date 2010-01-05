@@ -1,5 +1,5 @@
 <%--
-    Copyright 2007 The Photogal Team.
+    Copyright 2010 The Photogal Team.
 
     This file is part of photogal.
 
@@ -28,21 +28,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title><fmt:message key="head.title">
-	<fmt:param value="Editing" />
+	<fmt:param value="Import Complete" />
 </fmt:message></title>
 <link href="<c:url value="/styles.css"/>" rel="stylesheet"
 	type="text/css" />
+<link href="<c:url value="/edit.css"/>" rel="stylesheet" type="text/css" />
+<pg:favicon />
 </head>
 <body>
 <pg:header />
-<div class="title">Editing</div>
-<ul>
-	<li><a href="<c:url value="/edit/editGalleries.do"/>">Edit
-	galleries</a></li>
-	<li><a href="<c:url value="/edit/import.jsp"/>">Import Database</a></li>
-	<li><a href="<c:url value="/edit/export.do"/>">Export Database</a></li>
-	<li><a href="<c:url value="/edit/logout.do"/>">Log out</a></li>
-</ul>
+<div class="title">Import Complete</div>
+<div style="margin-top: 50px">Database import completed successfully.</div>
+<div style="margin-top: 25px">Galleries imported: <c:out value="${galleryCount}" /></div>
+<div>Images imported: <c:out value="${imageCount}" /></div>
 <pg:footer />
 </body>
 </html>

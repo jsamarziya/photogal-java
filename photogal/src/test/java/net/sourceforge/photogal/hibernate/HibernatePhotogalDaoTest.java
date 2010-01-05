@@ -211,17 +211,24 @@ public class HibernatePhotogalDaoTest {
 
     @Test
     public void testGetGalleryCount() {
-        assertThat(dao.getGalleryCount(), is(0));
+        assertThat(dao.getGalleryCount(false), is(0));
+        assertThat(dao.getGalleryCount(true), is(0));
         final Gallery gallery1 = new Gallery();
+        gallery1.setPublic(false);
         dao.saveOrUpdate(gallery1);
-        assertThat(dao.getGalleryCount(), is(1));
+        assertThat(dao.getGalleryCount(false), is(0));
+        assertThat(dao.getGalleryCount(true), is(1));
         final Gallery gallery2 = new Gallery();
+        gallery2.setPublic(true);
         dao.saveOrUpdate(gallery2);
-        assertThat(dao.getGalleryCount(), is(2));
+        assertThat(dao.getGalleryCount(false), is(1));
+        assertThat(dao.getGalleryCount(true), is(2));
         dao.delete(gallery1);
-        assertThat(dao.getGalleryCount(), is(1));
+        assertThat(dao.getGalleryCount(false), is(1));
+        assertThat(dao.getGalleryCount(true), is(1));
         dao.delete(gallery2);
-        assertThat(dao.getGalleryCount(), is(0));
+        assertThat(dao.getGalleryCount(false), is(0));
+        assertThat(dao.getGalleryCount(true), is(0));
     }
 
     @Test
@@ -906,5 +913,23 @@ public class HibernatePhotogalDaoTest {
         assertThat(imageGalleries.contains(savedGallery), is(true));
 
         assertThat(savedGallery.containsImage(savedImage), is(true));
+    }
+
+    @Test
+    public void testGetImageDescriptorCount() {
+        final Gallery publicGallery = createGallery(1);
+        final Gallery privateGallery = createGallery(2);
+        publicGallery.setPublic(true);
+        privateGallery.setPublic(false);
+        final ImageDescriptor descriptor1 = createImageDescriptor();
+        final ImageDescriptor descriptor2 = createImageDescriptor();
+        final ImageDescriptor descriptor12 = createImageDescriptor();
+        publicGallery.addImage(descriptor1);
+        privateGallery.addImage(descriptor2);
+        publicGallery.addImage(descriptor12);
+        privateGallery.addImage(descriptor12);
+        dao.saveOrUpdate(descriptor1, descriptor2, descriptor12, publicGallery, privateGallery);
+        assertThat(dao.getImageDescriptorCount(false), is(2));
+        assertThat(dao.getImageDescriptorCount(true), is(3));
     }
 }
