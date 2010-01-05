@@ -28,8 +28,10 @@ import net.sourceforge.photogal.ImageDescriptor;
 import net.sourceforge.photogal.export.PhotogalData;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -50,6 +52,9 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
 
     private SessionFactory sessionFactory;
 
+    /**
+     * Constructs a new HibernatePhotogalDao.
+     */
     public HibernatePhotogalDao() {
     }
 
@@ -74,8 +79,32 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     @Override
     public void afterPropertiesSet() {
         Assert.notNull(getSessionFactory(), "a SessionFactory must be set");
+        initializeNextId(Gallery.class);
+        initializeNextId(ImageDescriptor.class);
     }
 
+    /**
+     * Initializes the HibernateIdGenerator with the correct next id value for
+     * the specified entity class.
+     * 
+     * @param clazz the class
+     */
+    private void initializeNextId(Class<?> clazz) {
+        final Session session = getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            final Query query = session.createQuery("select max(o.id) from "
+                    + clazz.getSimpleName() + " o");
+            final Long maxId = (Long) ObjectUtils.defaultIfNull(query.uniqueResult(), 0l);
+            HibernateIdGenerator.getInstance().setNextId(clazz, maxId + 1);
+        } finally {
+            session.close();
+        }
+    }
+
+    /**
+     * Returns the current hibernate session.
+     */
     private Session getCurrentSession() {
         return getSessionFactory().getCurrentSession();
     }
@@ -93,9 +122,13 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     }
 
     @Override
-    public int getGalleryCount() {
-        final Number retval = (Number) getCurrentSession().createCriteria(Gallery.class)
-                .setProjection(Projections.rowCount()).uniqueResult();
+    public int getGalleryCount(final boolean includePrivate) {
+        final Criteria criteria = getCurrentSession().createCriteria(Gallery.class).setProjection(
+                Projections.rowCount());
+        if (!includePrivate) {
+            criteria.add(Restrictions.eq("public", Boolean.TRUE));
+        }
+        final Number retval = (Number) criteria.uniqueResult();
         return retval.intValue();
     }
 
@@ -407,5 +440,69 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
         query.setMaxResults(max);
         final List<ImageDescriptor> retval = query.list(); // unchecked
         return retval;
+    }
+
+    @Override
+    public int deleteAllGalleries() {
+        // I'd prefer to execute a single "DELETE FROM Gallery" update but this
+        // causes database constraint violations to occur. Perhaps I'll figure
+        // out how to deal with that someday.
+        final List<Gallery> galleries = getGalleries(true);
+        final int retval = galleries.size();
+        try {
+            for (Gallery gallery : galleries) {
+                delete(gallery);
+            }
+        } finally {
+            initializeNextId(Gallery.class);
+        }
+        return retval;
+    }
+
+    @Override
+    public int deleteAllImageDescriptors() {
+        // I'd prefer to execute a single "DELETE FROM ImageDescriptor" update
+        // but this causes database constraint violations to occur. Perhaps I'll
+        // figure out how to deal with that someday.
+        final List<ImageDescriptor> images = getImageDescriptors();
+        final int retval = images.size();
+        try {
+            for (ImageDescriptor image : images) {
+                delete(image);
+            }
+        } finally {
+            initializeNextId(ImageDescriptor.class);
+        }
+        return retval;
+    }
+
+    @Override
+    public int getImageDescriptorCount(boolean includePrivate) {
+        final Criteria criteria = getCurrentSession().createCriteria(ImageDescriptor.class)
+                .setProjection(Projections.rowCount());
+        if (!includePrivate) {
+            criteria.add(Restrictions.eq("public", Boolean.TRUE));
+        }
+        final Number retval = (Number) criteria.uniqueResult();
+        return retval.intValue();
+    }
+
+    @Override
+    public void importData(PhotogalData data) {
+        final Session session = getCurrentSession();
+        try {
+            for (ImageDescriptor image : data.getImageDescriptors()) {
+                session.replicate(image, ReplicationMode.OVERWRITE);
+            }
+        } finally {
+            initializeNextId(ImageDescriptor.class);
+        }
+        try {
+            for (Gallery gallery : data.getGalleries()) {
+                session.replicate(gallery, ReplicationMode.OVERWRITE);
+            }
+        } finally {
+            initializeNextId(Gallery.class);
+        }
     }
 }

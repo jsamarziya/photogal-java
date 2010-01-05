@@ -27,7 +27,7 @@ public class MoveGallery extends PhotogalDaoAwareWebService {
         DefaultWebServiceResponse response = new DefaultWebServiceResponse(request);
         final int fromIndex = Integer.parseInt(request.getParameter("from"));
         final int toIndex = Integer.parseInt(request.getParameter("to"));
-        final int galleryCount = getPhotogalDao().getGalleryCount();
+        final int galleryCount = getPhotogalDao().getGalleryCount(true);
         if (fromIndex < 0 || fromIndex > galleryCount - 1) {
             response.setStatus(WebServiceResponse.STATUS_ERROR);
             response.setStatusMessage("fromIndex (" + fromIndex + ") out of range");
