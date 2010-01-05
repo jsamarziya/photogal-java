@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import net.sourceforge.photogal.hibernate.HibernateIdGenerator;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -51,7 +53,7 @@ public class ImageDescriptor {
     private int width;
     private int height;
     private CalendarDate imageCreationDate;
-    @XStreamAsAttribute()
+    @XStreamOmitField
     private boolean isPublic;
     @XStreamImplicit(itemFieldName = "keyword")
     private List<String> keywords;
@@ -68,11 +70,13 @@ public class ImageDescriptor {
      * 
      * @return the unique id
      */
-    public Long getId() {
+    public synchronized Long getId() {
+        if (id == null) {
+            setId(HibernateIdGenerator.getInstance().getNextId(ImageDescriptor.class));
+        }
         return id;
     }
 
-    @SuppressWarnings("unused")
     private void setId(final Long id) {
         this.id = id;
     }
