@@ -40,7 +40,7 @@ import com.thoughtworks.xstream.XStream;
  * serialization.
  */
 public class XStreamPhotogalExporter implements PhotogalExporter, PhotogalImporter {
-    private static final String EXPORT_VERSION_ID = "1.0";
+    private static final String EXPORT_VERSION_ID = "1.1";
     private static final Class<?>[] ANNOTATED_CLASSES = { PhotogalData.class, Gallery.class,
             ImageDescriptor.class };
     private static final XStreamPhotogalExporter INSTANCE = new XStreamPhotogalExporter();
