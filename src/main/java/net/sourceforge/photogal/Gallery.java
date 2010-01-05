@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import net.sourceforge.photogal.export.ListConverter;
+import net.sourceforge.photogal.hibernate.HibernateIdGenerator;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.Validate;
@@ -57,11 +58,13 @@ public class Gallery implements Comparable<Gallery> {
         setCreationDate(new Date());
     }
 
-    public Long getId() {
+    public synchronized Long getId() {
+        if (id == null) {
+            setId(HibernateIdGenerator.getInstance().getNextId(Gallery.class));
+        }
         return id;
     }
 
-    @SuppressWarnings("unused")
     private void setId(final Long id) {
         this.id = id;
     }
