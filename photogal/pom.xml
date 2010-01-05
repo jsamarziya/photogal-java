@@ -20,20 +20,12 @@
             </activation>
             <properties>
                 <photogal.deploymentEnvironment>dev</photogal.deploymentEnvironment>
-                <photogal.log.level>DEBUG</photogal.log.level>
-                <photogal.image.cache.dir>/tmp/pgImageCache</photogal.image.cache.dir>
-                <photogal.db.dir>/tmp/testdb</photogal.db.dir>
-                <photogal.images.dir>/tmp/pgImages</photogal.images.dir>
             </properties>
         </profile>
         <profile>
             <id>release</id>
             <properties>
                 <photogal.deploymentEnvironment></photogal.deploymentEnvironment>
-                <photogal.log.level>INFO</photogal.log.level>
-                <photogal.image.cache.dir></photogal.image.cache.dir>
-                <photogal.db.dir></photogal.db.dir>
-                <photogal.images.dir></photogal.images.dir>
             </properties>
         </profile>
     </profiles>
@@ -267,22 +259,6 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <webResources>
-                        <resource>
-                            <directory>src/main/webapp/WEB-INF</directory>
-                            <targetPath>WEB-INF</targetPath>
-                            <includes>
-                                <include>applicationContext.properties</include>
-                            </includes>
-                            <filtering>true</filtering>
-                        </resource>
-                    </webResources>
                 </configuration>
             </plugin>
         </plugins>

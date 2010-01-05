@@ -5,6 +5,21 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
+    <bean id="placeholderConfigConfig"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesMode">
+            <util:constant
+                static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean>
+
+    <bean id="placeholderConfig"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location"
+            value="file:${photogal.data.dir}/applicationContext.properties" />
+    </bean>
+
     <bean id="databaseDirectory" class="java.lang.String">
         <constructor-arg value="${db.dir}" />
     </bean>
@@ -58,15 +73,14 @@
         <property name="throttleDelay" value="${thumbnail.generation.throttle.delay}" />
     </bean>
 
-    <bean id="propertyPlaceholderConfigurer"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="/WEB-INF/applicationContext.properties" />
-    </bean>
-
     <bean id="dataSource" class="org.hsqldb.jdbc.jdbcDataSource">
         <property name="database" ref="databaseURL" />
         <property name="user" value="sa" />
         <property name="password" value="" />
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -91,16 +105,9 @@
 
     <bean id="hsqlLifecycleManager" class="net.sourceforge.photogal.db.HsqlLifecycleManager"
         init-method="startup" destroy-method="shutdown">
-        <property name="databaseScript">
-            <bean class="org.springframework.core.io.ClassPathResource">
-                <constructor-arg value="/net/sourceforge/photogal/hsql/db.script" />
-            </bean>
-        </property>
-        <property name="jdbcTemplate">
-            <bean class="org.springframework.jdbc.core.JdbcTemplate">
-                <property name="dataSource" ref="dataSource" />
-            </bean>
-        </property>
+        <property name="databaseScript"
+            value="classpath:net/sourceforge/photogal/hsql/db.script" />
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean>
 
     <bean id="photogalDao" class="net.sourceforge.photogal.hibernate.HibernatePhotogalDao"

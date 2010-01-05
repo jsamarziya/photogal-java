@@ -16,7 +16,7 @@
 		<level value="WARN" />
 	</logger>
 	<logger name="net.sourceforge">
-		<level value="${photogal.log.level}" />
+		<level value="INFO" />
 	</logger>
 	<logger name="net.sourceforge.photogal.image.ThumbnailGenerator">
 		<level value="INFO" />
