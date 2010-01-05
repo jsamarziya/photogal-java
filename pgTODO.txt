@@ -3,10 +3,6 @@ add stats page -
 	# images
 	# keywords
 	
-settings editor:
-	choices are using Preferences API, or editing prefs file in the WAR
-	I think a standalone GUI app to edit prefs in the WAR is the way to go
-	
 clean up db.script - refer to HSQL documentation
 
 put debug log statements in conditional
