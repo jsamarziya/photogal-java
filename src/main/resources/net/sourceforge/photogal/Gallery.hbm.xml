@@ -4,30 +4,30 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="net.sourceforge.photogal.Gallery" table="GALLERIES">
-		<id name="id" column="GALLERY_ID">
-			<generator class="native" />
-		</id>
-		<timestamp name="lastModified" column="LAST_MODIFIED" />
-		<property name="name" />
-		<property name="description" type="text" />
-		<property name="creationDate" column="CREATION_DATE"
-			type="timestamp" not-null="true" />
-		<property name="orderIndex" not-null="true" column="ORDER_INDEX"
-			optimistic-lock="false" />
-		<property name="public" not-null="true" />
-		<list name="images" table="GALLERY_IMAGES" access="field">
-			<key column="GALLERY_ID" not-null="true" />
-			<list-index column="IMAGE_INDEX" />
-			<many-to-many column="IMAGE_ID"
-				class="net.sourceforge.photogal.ImageDescriptor" />
-		</list>
-		<many-to-one name="galleryImage" column="GALLERY_IMAGE_ID"
-			class="net.sourceforge.photogal.ImageDescriptor" />
-	</class>
-	<sql-query name="getImageGalleryCount">
-		<return-scalar column="galleryCount" type="integer" />
-		select count(distinct GALLERY_ID) as galleryCount from GALLERY_IMAGES
-		where IMAGE_ID = :imageId
-	</sql-query>
+    <class name="net.sourceforge.photogal.Gallery" table="GALLERIES">
+        <id name="id" column="GALLERY_ID">
+            <generator class="assigned" />
+        </id>
+        <timestamp name="lastModified" column="LAST_MODIFIED" />
+        <property name="name" />
+        <property name="description" type="text" />
+        <property name="creationDate" column="CREATION_DATE" type="timestamp"
+            not-null="true" />
+        <property name="orderIndex" not-null="true" column="ORDER_INDEX"
+            optimistic-lock="false" />
+        <property name="public" not-null="true" />
+        <list name="images" table="GALLERY_IMAGES" access="field">
+            <key column="GALLERY_ID" not-null="true" />
+            <list-index column="IMAGE_INDEX" />
+            <many-to-many column="IMAGE_ID"
+                class="net.sourceforge.photogal.ImageDescriptor" />
+        </list>
+        <many-to-one name="galleryImage" column="GALLERY_IMAGE_ID"
+            class="net.sourceforge.photogal.ImageDescriptor" />
+    </class>
+    <sql-query name="getImageGalleryCount">
+        <return-scalar column="galleryCount" type="integer" />
+        select count(distinct GALLERY_ID) as galleryCount from GALLERY_IMAGES
+        where IMAGE_ID = :imageId
+    </sql-query>
 </hibernate-mapping>

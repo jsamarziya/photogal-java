@@ -6,7 +6,7 @@
 <hibernate-mapping>
     <class name="net.sourceforge.photogal.ImageDescriptor" table="IMAGES">
         <id name="id" column="IMAGE_ID">
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
         <timestamp name="lastModified" column="LAST_MODIFIED" />
         <property name="location" not-null="true" />
