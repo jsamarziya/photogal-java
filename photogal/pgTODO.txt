@@ -3,10 +3,6 @@ add stats page -
 	# images
 	# keywords
 	
-add import function
-
-update photogal-mysql at this point to use later for exporting current database
-
 settings editor:
 	choices are using Preferences API, or editing prefs file in the WAR
 	I think a standalone GUI app to edit prefs in the WAR is the way to go
