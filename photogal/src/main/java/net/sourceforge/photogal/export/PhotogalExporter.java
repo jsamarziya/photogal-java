@@ -34,4 +34,14 @@ public interface PhotogalExporter {
      * @throws IOException if an I/O error occurs
      */
     public void exportData(PhotogalData data, Writer writer) throws IOException;
+
+    /**
+     * Exports the specifed photogal data.
+     * 
+     * @param data the data to export
+     * @param writer the writer to write the exported data to
+     * @param encoding the character encoding
+     * @throws IOException if an I/O error occurs
+     */
+    public void exportData(PhotogalData data, Writer writer, String encoding) throws IOException;
 }
