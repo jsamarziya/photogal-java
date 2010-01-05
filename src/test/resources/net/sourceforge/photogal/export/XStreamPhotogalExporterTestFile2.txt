@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <photogal-data date="2009-01-28 22:47:02.882 PST" version="1.0">
   <imageDescriptors>
-    <imageDescriptor id="1" isPublic="true">
+    <imageDescriptor id="1">
       <creationDate class="sql-timestamp">2006-10-12 09:11:49.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 22:13:42.0</lastModified>
       <title>foeihj</title>
@@ -17,7 +17,7 @@
       <keyword>e</keyword>
       <keyword>b</keyword>
     </imageDescriptor>
-    <imageDescriptor id="2" isPublic="true">
+    <imageDescriptor id="2">
       <creationDate class="sql-timestamp">2006-10-12 23:33:29.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 12:23:37.0</lastModified>
       <title>Boris Kitty</title>
@@ -29,7 +29,7 @@
       <keyword>cats</keyword>
       <keyword>boris</keyword>
     </imageDescriptor>
-    <imageDescriptor id="3" isPublic="false">
+    <imageDescriptor id="3">
       <creationDate class="sql-timestamp">2006-10-14 20:02:30.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 22:09:24.0</lastModified>
       <title></title>
@@ -41,7 +41,7 @@
       <keyword>DONT.SHOW.ME.DAMMIT</keyword>
       <keyword>private</keyword>
     </imageDescriptor>
-    <imageDescriptor id="5" isPublic="false">
+    <imageDescriptor id="5">
       <creationDate class="sql-timestamp">2006-10-15 16:05:37.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-15 16:05:37.0</lastModified>
       <title>THIS IMAGE IS PRIVATE!</title>
@@ -51,7 +51,7 @@
       <height>400</height>
       <keyword>cats</keyword>
     </imageDescriptor>
-    <imageDescriptor id="6" isPublic="true">
+    <imageDescriptor id="6">
       <creationDate class="sql-timestamp">2006-10-16 11:38:24.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-03 16:27:02.0</lastModified>
       <title>Spot the fish</title>
@@ -61,7 +61,7 @@
       <height>960</height>
       <imageCreationDate>02/11/2004</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="7" isPublic="true">
+    <imageDescriptor id="7">
       <creationDate class="sql-timestamp">2006-10-16 11:38:34.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 12:22:32.0</lastModified>
       <title>Rocks</title>
@@ -71,7 +71,7 @@
       <height>960</height>
       <imageCreationDate>02/2004</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="11" isPublic="true">
+    <imageDescriptor id="11">
       <creationDate class="sql-timestamp">2006-10-19 20:51:02.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 22:09:29.0</lastModified>
       <title></title>
@@ -80,7 +80,7 @@
       <width>352</width>
       <height>288</height>
     </imageDescriptor>
-    <imageDescriptor id="21" isPublic="false">
+    <imageDescriptor id="21">
       <creationDate class="sql-timestamp">2006-10-19 20:51:31.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:51:31.0</lastModified>
       <title></title>
@@ -89,7 +89,7 @@
       <width>352</width>
       <height>288</height>
     </imageDescriptor>
-    <imageDescriptor id="23" isPublic="false">
+    <imageDescriptor id="23">
       <creationDate class="sql-timestamp">2006-10-19 20:51:36.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:51:36.0</lastModified>
       <title></title>
@@ -98,7 +98,7 @@
       <width>336</width>
       <height>276</height>
     </imageDescriptor>
-    <imageDescriptor id="24" isPublic="false">
+    <imageDescriptor id="24">
       <creationDate class="sql-timestamp">2006-10-19 20:51:38.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:51:38.0</lastModified>
       <title></title>
@@ -107,7 +107,7 @@
       <width>352</width>
       <height>288</height>
     </imageDescriptor>
-    <imageDescriptor id="25" isPublic="false">
+    <imageDescriptor id="25">
       <creationDate class="sql-timestamp">2006-10-19 20:51:42.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:51:43.0</lastModified>
       <title></title>
@@ -117,7 +117,7 @@
       <height>960</height>
       <imageCreationDate>01/07/2004</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="26" isPublic="false">
+    <imageDescriptor id="26">
       <creationDate class="sql-timestamp">2006-10-19 20:51:46.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-03 16:26:17.0</lastModified>
       <title></title>
@@ -127,7 +127,7 @@
       <height>960</height>
       <imageCreationDate>01/07/2004</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="27" isPublic="false">
+    <imageDescriptor id="27">
       <creationDate class="sql-timestamp">2006-10-19 20:51:50.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-25 17:42:44.0</lastModified>
       <title></title>
@@ -137,7 +137,7 @@
       <height>960</height>
       <imageCreationDate>2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="28" isPublic="false">
+    <imageDescriptor id="28">
       <creationDate class="sql-timestamp">2006-10-19 20:51:55.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:51:55.0</lastModified>
       <title></title>
@@ -147,7 +147,7 @@
       <height>960</height>
       <imageCreationDate>01/20/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="29" isPublic="false">
+    <imageDescriptor id="29">
       <creationDate class="sql-timestamp">2006-10-19 20:51:58.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:51:58.0</lastModified>
       <title></title>
@@ -157,7 +157,7 @@
       <height>1280</height>
       <imageCreationDate>02/16/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="31" isPublic="false">
+    <imageDescriptor id="31">
       <creationDate class="sql-timestamp">2006-10-19 20:52:12.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:52:13.0</lastModified>
       <title></title>
@@ -167,7 +167,7 @@
       <height>1280</height>
       <imageCreationDate>03/05/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="32" isPublic="false">
+    <imageDescriptor id="32">
       <creationDate class="sql-timestamp">2006-10-19 20:52:17.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:52:17.0</lastModified>
       <title></title>
@@ -177,7 +177,7 @@
       <height>1280</height>
       <imageCreationDate>03/05/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="33" isPublic="false">
+    <imageDescriptor id="33">
       <creationDate class="sql-timestamp">2006-10-19 20:52:21.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:52:21.0</lastModified>
       <title></title>
@@ -187,7 +187,7 @@
       <height>960</height>
       <imageCreationDate>03/17/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="34" isPublic="false">
+    <imageDescriptor id="34">
       <creationDate class="sql-timestamp">2006-10-19 20:52:25.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:52:25.0</lastModified>
       <title></title>
@@ -197,7 +197,7 @@
       <height>960</height>
       <imageCreationDate>04/22/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="35" isPublic="false">
+    <imageDescriptor id="35">
       <creationDate class="sql-timestamp">2006-10-19 20:52:29.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:52:29.0</lastModified>
       <title></title>
@@ -207,7 +207,7 @@
       <height>960</height>
       <imageCreationDate>05/17/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="37" isPublic="false">
+    <imageDescriptor id="37">
       <creationDate class="sql-timestamp">2006-10-19 20:52:47.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:52:47.0</lastModified>
       <title></title>
@@ -217,7 +217,7 @@
       <height>1280</height>
       <imageCreationDate>05/17/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="39" isPublic="false">
+    <imageDescriptor id="39">
       <creationDate class="sql-timestamp">2006-10-19 20:53:23.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:53:23.0</lastModified>
       <title></title>
@@ -227,7 +227,7 @@
       <height>960</height>
       <imageCreationDate>06/21/2004</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="40" isPublic="false">
+    <imageDescriptor id="40">
       <creationDate class="sql-timestamp">2006-10-19 20:53:27.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:53:27.0</lastModified>
       <title></title>
@@ -237,7 +237,7 @@
       <height>960</height>
       <imageCreationDate>06/21/2004</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="41" isPublic="false">
+    <imageDescriptor id="41">
       <creationDate class="sql-timestamp">2006-10-19 20:53:31.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:53:31.0</lastModified>
       <title></title>
@@ -247,7 +247,7 @@
       <height>960</height>
       <imageCreationDate>07/27/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="42" isPublic="false">
+    <imageDescriptor id="42">
       <creationDate class="sql-timestamp">2006-10-19 20:53:35.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:53:35.0</lastModified>
       <title></title>
@@ -257,7 +257,7 @@
       <height>960</height>
       <imageCreationDate>07/29/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="43" isPublic="false">
+    <imageDescriptor id="43">
       <creationDate class="sql-timestamp">2006-10-19 20:53:39.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:53:39.0</lastModified>
       <title></title>
@@ -267,7 +267,7 @@
       <height>960</height>
       <imageCreationDate>07/29/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="45" isPublic="false">
+    <imageDescriptor id="45">
       <creationDate class="sql-timestamp">2006-10-19 20:58:16.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:58:16.0</lastModified>
       <title></title>
@@ -277,7 +277,7 @@
       <height>960</height>
       <imageCreationDate>08/22/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="46" isPublic="false">
+    <imageDescriptor id="46">
       <creationDate class="sql-timestamp">2006-10-19 20:58:20.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 20:58:20.0</lastModified>
       <title></title>
@@ -287,7 +287,7 @@
       <height>960</height>
       <imageCreationDate>08/22/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="47" isPublic="false">
+    <imageDescriptor id="47">
       <creationDate class="sql-timestamp">2006-10-19 20:59:57.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 21:41:52.0</lastModified>
       <title></title>
@@ -296,7 +296,7 @@
       <width>352</width>
       <height>288</height>
     </imageDescriptor>
-    <imageDescriptor id="48" isPublic="false">
+    <imageDescriptor id="48">
       <creationDate class="sql-timestamp">2006-10-19 21:00:05.0</creationDate>
       <lastModified class="sql-timestamp">2006-10-19 21:00:05.0</lastModified>
       <title></title>
@@ -306,7 +306,7 @@
       <height>960</height>
       <imageCreationDate>08/22/2003</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="64" isPublic="false">
+    <imageDescriptor id="64">
       <creationDate class="sql-timestamp">2006-11-03 16:28:00.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-03 16:28:00.0</lastModified>
       <title></title>
@@ -315,7 +315,7 @@
       <width>1152</width>
       <height>864</height>
     </imageDescriptor>
-    <imageDescriptor id="65" isPublic="true">
+    <imageDescriptor id="65">
       <creationDate class="sql-timestamp">2006-11-06 16:45:18.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-06 16:45:19.0</lastModified>
       <title></title>
@@ -325,7 +325,7 @@
       <height>960</height>
       <imageCreationDate>10/08/2006</imageCreationDate>
     </imageDescriptor>
-    <imageDescriptor id="66" isPublic="true">
+    <imageDescriptor id="66">
       <creationDate class="sql-timestamp">2006-11-06 17:00:06.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-06 17:00:07.0</lastModified>
       <title></title>
@@ -334,7 +334,7 @@
       <width>352</width>
       <height>288</height>
     </imageDescriptor>
-    <imageDescriptor id="67" isPublic="false">
+    <imageDescriptor id="67">
       <creationDate class="sql-timestamp">2006-11-20 12:43:39.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 12:43:39.0</lastModified>
       <title></title>
@@ -343,7 +343,7 @@
       <width>352</width>
       <height>288</height>
     </imageDescriptor>
-    <imageDescriptor id="68" isPublic="false">
+    <imageDescriptor id="68">
       <creationDate class="sql-timestamp">2006-11-20 12:43:43.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 12:43:43.0</lastModified>
       <title></title>
@@ -352,7 +352,7 @@
       <width>352</width>
       <height>288</height>
     </imageDescriptor>
-    <imageDescriptor id="69" isPublic="false">
+    <imageDescriptor id="69">
       <creationDate class="sql-timestamp">2006-11-20 12:43:46.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 12:43:46.0</lastModified>
       <title></title>
@@ -361,7 +361,7 @@
       <width>352</width>
       <height>288</height>
     </imageDescriptor>
-    <imageDescriptor id="70" isPublic="false">
+    <imageDescriptor id="70">
       <creationDate class="sql-timestamp">2006-11-20 12:52:41.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 12:52:42.0</lastModified>
       <title></title>
@@ -370,7 +370,7 @@
       <width>352</width>
       <height>288</height>
     </imageDescriptor>
-    <imageDescriptor id="71" isPublic="true">
+    <imageDescriptor id="71">
       <creationDate class="sql-timestamp">2006-11-20 17:26:12.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:26:13.0</lastModified>
       <title>Diseased grape leaf</title>
@@ -381,7 +381,7 @@
       <imageCreationDate>06/13/2006</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="72" isPublic="true">
+    <imageDescriptor id="72">
       <creationDate class="sql-timestamp">2006-11-20 17:26:26.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:26:27.0</lastModified>
       <title>Diseased grape leaf</title>
@@ -392,7 +392,7 @@
       <imageCreationDate>06/13/2006</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="73" isPublic="true">
+    <imageDescriptor id="73">
       <creationDate class="sql-timestamp">2006-11-20 17:26:38.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:26:38.0</lastModified>
       <title>Nigella</title>
@@ -403,7 +403,7 @@
       <imageCreationDate>06/10/2006</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="74" isPublic="true">
+    <imageDescriptor id="74">
       <creationDate class="sql-timestamp">2006-11-20 17:26:50.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:26:51.0</lastModified>
       <title>Nigella</title>
@@ -414,7 +414,7 @@
       <imageCreationDate>06/10/2006</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="75" isPublic="true">
+    <imageDescriptor id="75">
       <creationDate class="sql-timestamp">2006-11-20 17:27:01.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:27:02.0</lastModified>
       <title>Nigella</title>
@@ -425,7 +425,7 @@
       <imageCreationDate>06/10/2006</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="76" isPublic="true">
+    <imageDescriptor id="76">
       <creationDate class="sql-timestamp">2006-11-20 17:27:17.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:27:18.0</lastModified>
       <title>Mock orange</title>
@@ -436,7 +436,7 @@
       <imageCreationDate>06/13/2006</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="77" isPublic="true">
+    <imageDescriptor id="77">
       <creationDate class="sql-timestamp">2006-11-20 17:31:46.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:31:46.0</lastModified>
       <title>Primrose</title>
@@ -447,7 +447,7 @@
       <imageCreationDate>02/25/2003</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="78" isPublic="true">
+    <imageDescriptor id="78">
       <creationDate class="sql-timestamp">2006-11-20 17:32:05.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:32:05.0</lastModified>
       <title>Holly bed</title>
@@ -458,7 +458,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="79" isPublic="true">
+    <imageDescriptor id="79">
       <creationDate class="sql-timestamp">2006-11-20 17:32:15.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:32:15.0</lastModified>
       <title>Lilac</title>
@@ -469,7 +469,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="80" isPublic="true">
+    <imageDescriptor id="80">
       <creationDate class="sql-timestamp">2006-11-20 17:32:33.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:32:33.0</lastModified>
       <title>Hedge</title>
@@ -480,7 +480,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="81" isPublic="true">
+    <imageDescriptor id="81">
       <creationDate class="sql-timestamp">2006-11-20 17:32:42.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:32:43.0</lastModified>
       <title>Lilac</title>
@@ -491,7 +491,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="82" isPublic="true">
+    <imageDescriptor id="82">
       <creationDate class="sql-timestamp">2006-11-20 17:32:59.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:32:59.0</lastModified>
       <title>Honeysuckle</title>
@@ -502,7 +502,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="83" isPublic="true">
+    <imageDescriptor id="83">
       <creationDate class="sql-timestamp">2006-11-20 17:33:09.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:33:10.0</lastModified>
       <title>South bed</title>
@@ -513,7 +513,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="84" isPublic="true">
+    <imageDescriptor id="84">
       <creationDate class="sql-timestamp">2006-11-20 17:33:22.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:33:23.0</lastModified>
       <title>Lilac</title>
@@ -524,7 +524,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="85" isPublic="true">
+    <imageDescriptor id="85">
       <creationDate class="sql-timestamp">2006-11-20 17:33:31.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:33:31.0</lastModified>
       <title>South bed</title>
@@ -535,7 +535,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="86" isPublic="true">
+    <imageDescriptor id="86">
       <creationDate class="sql-timestamp">2006-11-20 17:33:46.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:33:47.0</lastModified>
       <title>Money plant</title>
@@ -546,7 +546,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="87" isPublic="true">
+    <imageDescriptor id="87">
       <creationDate class="sql-timestamp">2006-11-20 17:33:59.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:33:59.0</lastModified>
       <title>Lamp bed</title>
@@ -557,7 +557,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="88" isPublic="true">
+    <imageDescriptor id="88">
       <creationDate class="sql-timestamp">2006-11-20 17:34:10.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:34:10.0</lastModified>
       <title>Rhodies</title>
@@ -568,7 +568,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="89" isPublic="true">
+    <imageDescriptor id="89">
       <creationDate class="sql-timestamp">2006-11-20 17:34:16.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:34:17.0</lastModified>
       <title></title>
@@ -579,7 +579,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="90" isPublic="true">
+    <imageDescriptor id="90">
       <creationDate class="sql-timestamp">2006-11-20 17:34:23.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:34:24.0</lastModified>
       <title></title>
@@ -590,7 +590,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="91" isPublic="true">
+    <imageDescriptor id="91">
       <creationDate class="sql-timestamp">2006-11-20 17:34:28.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:34:28.0</lastModified>
       <title></title>
@@ -601,7 +601,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="92" isPublic="true">
+    <imageDescriptor id="92">
       <creationDate class="sql-timestamp">2006-11-20 17:34:33.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:34:33.0</lastModified>
       <title></title>
@@ -612,7 +612,7 @@
       <imageCreationDate>05/25/2003</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="93" isPublic="true">
+    <imageDescriptor id="93">
       <creationDate class="sql-timestamp">2006-11-20 17:34:37.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:34:37.0</lastModified>
       <title></title>
@@ -623,7 +623,7 @@
       <imageCreationDate>05/25/2003</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="94" isPublic="true">
+    <imageDescriptor id="94">
       <creationDate class="sql-timestamp">2006-11-20 17:47:58.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:47:59.0</lastModified>
       <title></title>
@@ -634,7 +634,7 @@
       <imageCreationDate>05/25/2003</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="95" isPublic="true">
+    <imageDescriptor id="95">
       <creationDate class="sql-timestamp">2006-11-20 17:48:24.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:48:25.0</lastModified>
       <title></title>
@@ -645,7 +645,7 @@
       <imageCreationDate>06/10/2006</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="96" isPublic="true">
+    <imageDescriptor id="96">
       <creationDate class="sql-timestamp">2006-11-20 17:48:31.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:48:32.0</lastModified>
       <title></title>
@@ -656,7 +656,7 @@
       <imageCreationDate>06/10/2006</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="97" isPublic="true">
+    <imageDescriptor id="97">
       <creationDate class="sql-timestamp">2006-11-20 17:48:41.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:48:42.0</lastModified>
       <title></title>
@@ -667,7 +667,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="98" isPublic="true">
+    <imageDescriptor id="98">
       <creationDate class="sql-timestamp">2006-11-20 17:48:46.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:48:46.0</lastModified>
       <title></title>
@@ -678,7 +678,7 @@
       <imageCreationDate>04/23/2004</imageCreationDate>
       <keyword>garden</keyword>
     </imageDescriptor>
-    <imageDescriptor id="99" isPublic="true">
+    <imageDescriptor id="99">
       <creationDate class="sql-timestamp">2006-11-20 17:48:51.0</creationDate>
       <lastModified class="sql-timestamp">2006-11-20 17:48:52.0</lastModified>
       <title></title>
