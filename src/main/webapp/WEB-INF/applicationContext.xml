@@ -89,7 +89,22 @@
         </property>
     </bean>
 
-    <bean id="photogalDao" class="net.sourceforge.photogal.hibernate.HibernatePhotogalDao">
+    <bean id="hsqlLifecycleManager" class="net.sourceforge.photogal.db.HsqlLifecycleManager"
+        init-method="startup" destroy-method="shutdown">
+        <property name="databaseScript">
+            <bean class="org.springframework.core.io.ClassPathResource">
+                <constructor-arg value="/net/sourceforge/photogal/hsql/db.script" />
+            </bean>
+        </property>
+        <property name="jdbcTemplate">
+            <bean class="org.springframework.jdbc.core.JdbcTemplate">
+                <property name="dataSource" ref="dataSource" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="photogalDao" class="net.sourceforge.photogal.hibernate.HibernatePhotogalDao"
+        depends-on="hsqlLifecycleManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
