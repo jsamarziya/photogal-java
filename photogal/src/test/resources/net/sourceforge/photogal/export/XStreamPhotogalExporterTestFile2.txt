@@ -1,5 +1,5 @@
 <?xml version='1.0'?>
-<photogal-data date="2009-01-28 22:47:02.882 PST" version="1.0">
+<photogal-data date="2009-01-28 22:47:02.882 PST" version="1.1">
   <imageDescriptors>
     <imageDescriptor id="1">
       <creationDate class="sql-timestamp">2006-10-12 09:11:49.0</creationDate>
