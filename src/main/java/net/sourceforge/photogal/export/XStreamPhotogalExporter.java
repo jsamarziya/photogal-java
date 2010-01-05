@@ -29,6 +29,7 @@ import java.util.Set;
 import net.sourceforge.photogal.Gallery;
 import net.sourceforge.photogal.ImageDescriptor;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.collection.PersistentList;
 import org.hibernate.collection.PersistentSet;
 
@@ -58,6 +59,11 @@ public class XStreamPhotogalExporter implements PhotogalExporter, PhotogalImport
 
     @Override
     public void exportData(PhotogalData data, Writer writer) throws IOException {
+        exportData(data, writer, null);
+    }
+
+    @Override
+    public void exportData(PhotogalData data, Writer writer, String encoding) throws IOException {
         if (data.getExportDate() == null) {
             data.setExportDate(new Date());
         }
@@ -65,7 +71,11 @@ public class XStreamPhotogalExporter implements PhotogalExporter, PhotogalImport
         final XStream xstream = createXStream();
         xstream.addDefaultImplementation(PersistentList.class, List.class);
         xstream.addDefaultImplementation(PersistentSet.class, Set.class);
-        writer.write("<?xml version='1.0'?>\n");
+        writer.write("<?xml version='1.0'");
+        if (!StringUtils.isBlank(encoding)) {
+            writer.write(" encoding='" + encoding + "'");
+        }
+        writer.write("?>\n");
         xstream.toXML(data, writer);
     }
 

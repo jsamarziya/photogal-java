@@ -50,6 +50,16 @@ public class XStreamPhotogalExporterTest {
     }
 
     @Test
+    public void testExportData2() throws IOException {
+        final PhotogalData data = new PhotogalData();
+        data.setExportDate(new Date(0));
+        final CharArrayWriter writer = new CharArrayWriter();
+        XStreamPhotogalExporter.getInstance().exportData(data, writer, "foo");
+        final String expectedValue = readFile("XStreamPhotogalExporterTestFile3.txt", "UTF-8");
+        assertEquals(expectedValue, writer.toString());
+    }
+
+    @Test
     public void testImportData() throws IOException {
         final String xml = readFile("XStreamPhotogalExporterTestFile2.txt", "UTF-8");
         final Reader reader = new StringReader(xml);
