@@ -192,6 +192,7 @@ public class ThumbnailGenerator implements Runnable {
                 log.info("Thumbnail generator stopped");
                 break;
             }
+            Thread.yield();
             try {
                 getScaledImageCache().getScaledImage(file, "t");
                 ++thumbnailsGenerated;
