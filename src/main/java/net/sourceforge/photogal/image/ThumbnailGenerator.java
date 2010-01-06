@@ -40,6 +40,7 @@ public class ThumbnailGenerator implements Runnable {
     private ScaledImageCache cache;
     private FileAccessManager fileAccessManager;
     private long throttleDelay;
+    private boolean isStopped;
 
     /**
      * A file filter that accepts image files for which a thumbnail have not
@@ -159,10 +160,18 @@ public class ThumbnailGenerator implements Runnable {
     }
 
     /**
+     * Notifies this generator to stop executing.
+     */
+    public void stop() {
+        isStopped = true;
+    }
+
+    /**
      * Generates thumbnails.
      */
     @SuppressWarnings("unchecked")
     private void generate() {
+        isStopped = false;
         final File imageDirectory = new File(getFileAccessManager().getBaseDirectory());
         if (!imageDirectory.exists()) {
             log.warn("Image directory " + imageDirectory + " does not exist");
@@ -179,6 +188,10 @@ public class ThumbnailGenerator implements Runnable {
             log.info("Waiting " + getThrottleDelay() + "ms between each");
         }
         for (File file : images) {
+            if (isStopped) {
+                log.info("Thumbnail generator stopped");
+                break;
+            }
             try {
                 getScaledImageCache().getScaledImage(file, "t");
                 ++thumbnailsGenerated;
