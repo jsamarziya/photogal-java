@@ -67,7 +67,8 @@
         </property>
     </bean>
 
-    <bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator">
+    <bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator"
+        destroy-method="stop">
         <property name="fileAccessManager" ref="imageFileAccessManager" />
         <property name="scaledImageCache" ref="scaledImageCache" />
         <property name="throttleDelay" value="${thumbnail.generation.throttle.delay}" />
