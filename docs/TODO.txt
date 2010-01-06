@@ -1,5 +1,9 @@
 FUTURE
 ------------------
+add mail gateway
+	http://james.apache.org
+	use port 465 or 587?
+	
 add scrolling to gallery selector when reordering photos
 
 add total image count to showImagesByDate page
@@ -21,9 +25,6 @@ set onmouseover status messages for links
 
 javascript unit testing (crosscheck looks promising)
 
-mark unused images somehow? (to keep them from showing up in the file listings)
-	maybe a special keyword?
-	
 do string length checking in input forms to prevent db errors (form validation I think)
 
 replace navbar with quick link popup menu
