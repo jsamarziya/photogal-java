@@ -146,7 +146,10 @@ public class ScaledImageCache implements InitializingBean {
      * @param originalImageFile the image file
      * @throws IOException if an I/O error occurs
      */
-    private void createScaledImages(File originalImageFile) throws IOException {
+    // Note: this method is synchronized to ensure that only one scaling
+    // operation is performed at a given time, which is to address
+    // OutOfMemoryError concerns
+    private synchronized void createScaledImages(File originalImageFile) throws IOException {
         final BufferedImage originalImage = ImageUtils.readImage(originalImageFile);
         if (originalImage == null) {
             throw new IOException("unable to read original image file "
