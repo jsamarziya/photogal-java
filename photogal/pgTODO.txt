@@ -1,3 +1,10 @@
+update all dependencies again
+	including tomcat
+
+check web descriptor version against tomcat spec version
+
+make application properties file an xml file (?)
+	
 add stats page - 
 	# galleries (private/public/total)
 	# images
@@ -9,7 +16,8 @@ put debug log statements in conditional
 
 finish unit tests
 
-authentication via spring-security
+set up authentication 
+	via spring-security?
 
 add elements to POMs
     see http://maven.apache.org/pom.html
@@ -24,12 +32,6 @@ GWT use?
 
 RSS feed
  
-save as PNGs?
-	PNG files appear to be too big
-
 ImageIO.setUseCache(false)??
 
 unsharpen mask?
-        
-fix web application resource filtering in Eclipse
-	I think this is just a problem in the m2eclipse plugin
