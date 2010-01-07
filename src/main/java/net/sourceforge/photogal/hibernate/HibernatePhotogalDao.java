@@ -79,8 +79,13 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
     @Override
     public void afterPropertiesSet() {
         Assert.notNull(getSessionFactory(), "a SessionFactory must be set");
-        initializeNextId(Gallery.class);
-        initializeNextId(ImageDescriptor.class);
+        getCurrentSession().beginTransaction();
+        try {
+            initializeNextId(Gallery.class);
+            initializeNextId(ImageDescriptor.class);
+        } finally {
+            getCurrentSession().getTransaction().commit();
+        }
     }
 
     /**
@@ -90,16 +95,10 @@ public class HibernatePhotogalDao implements PhotogalDao, InitializingBean {
      * @param clazz the class
      */
     private void initializeNextId(Class<?> clazz) {
-        final Session session = getSessionFactory().openSession();
-        try {
-            session.beginTransaction();
-            final Query query = session.createQuery("select max(o.id) from "
-                    + clazz.getSimpleName() + " o");
-            final Long maxId = (Long) ObjectUtils.defaultIfNull(query.uniqueResult(), 0l);
-            HibernateIdGenerator.getInstance().setNextId(clazz, maxId + 1);
-        } finally {
-            session.close();
-        }
+        final Query query = getCurrentSession().createQuery(
+                "select max(o.id) from " + clazz.getSimpleName() + " o");
+        final Long maxId = (Long) ObjectUtils.defaultIfNull(query.uniqueResult(), 0l);
+        HibernateIdGenerator.getInstance().setNextId(clazz, maxId + 1);
     }
 
     /**
