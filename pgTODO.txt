@@ -10,8 +10,6 @@ add stats page -
 	# images
 	# keywords
 	
-clean up db.script - refer to HSQL documentation
-
 put debug log statements in conditional
 
 finish unit tests
