@@ -33,12 +33,16 @@
             <id>photogal-thirdparty</id>
             <url>http://photogal.sourceforge.net/maven/thirdparty</url>
         </repository>
+        <repository>
+            <id>java-image-scaling</id>
+            <url>http://java-image-scaling.googlecode.com/svn/repo/released</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>com.mortennobel</groupId>
-            <artifactId>imagescaling</artifactId>
-            <version>0.8.0</version>
+            <artifactId>java-image-scaling</artifactId>
+            <version>0.8.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.sanselan</groupId>
