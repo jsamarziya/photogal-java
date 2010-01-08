@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -61,13 +62,15 @@ public abstract class AbstractShowImageController extends AbstractController {
     }
 
     protected void renderImage(final String filename, final String size,
-            final HttpServletResponse response) throws IOException {
+            final HttpServletResponse response) throws IOException, ServletException {
         File imageFile = getFileAccessManager().getFile(filename);
+        if (!imageFile.exists()) {
+            logger.warn("File " + imageFile.getPath() + " does not exist");
+            throw new ServletException("Requested file does not exist");
+        }
         if (!ImageUtils.isJPEG(imageFile)) {
-            logger.warn("File " + imageFile.getPath()
-                + " is not a supported image file");
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
-                               "Requested file is not a supported image file");
+            logger.warn("File " + imageFile.getPath() + " is not a supported image file");
+            throw new ServletException("Requested file is not a supported image file");
         }
         if (!size.equals("o")) {
             imageFile = getImageCache().getScaledImage(imageFile, size);
