@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * A Runnable that is used to generate thumbnails for images.
  */
 public class ThumbnailGenerator implements Runnable {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ThumbnailGenerator.class);
 
     private ScaledImageCache cache;
     private FileAccessManager fileAccessManager;
@@ -50,35 +50,32 @@ public class ThumbnailGenerator implements Runnable {
         public boolean accept(File file) {
             try {
                 if (!file.isFile()) {
-                    // if (log.isDebugEnabled()) {
-                    // log.debug(file + " is not a file");
-                    // }
                     return false;
                 } else if (!file.canRead()) {
-                    if (log.isDebugEnabled()) {
-                        log.debug(file + " is not readable");
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug(file + " is not readable");
                     }
                     return false;
                 } else if (!getFileAccessManager().isValidFile(file)) {
-                    if (log.isDebugEnabled()) {
-                        log.debug(file + " is not valid");
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug(file + " is not valid");
                     }
                     return false;
                 } else if (!ImageUtils.isImage(file)) {
-                    if (log.isDebugEnabled()) {
-                        log.debug(file + " is not an image file");
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug(file + " is not an image file");
                     }
                     return false;
                 } else if (getScaledImageCache().hasScaledImage(file, "t")) {
-                    if (log.isDebugEnabled()) {
-                        log.debug("thumbnail for " + file + " already created");
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("thumbnail for " + file + " already created");
                     }
                     return false;
                 } else {
                     return true;
                 }
             } catch (IOException ex) {
-                log.warn("Unable to check " + file, ex);
+                LOGGER.warn("Unable to check " + file, ex);
                 return false;
             }
         }
@@ -150,12 +147,16 @@ public class ThumbnailGenerator implements Runnable {
 
     @Override
     public void run() {
-        log.info("Starting thumbnail generation run");
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Starting thumbnail generation run");
+        }
         try {
             generate();
-            log.info("Thumbnail generation run done");
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Thumbnail generation run done");
+            }
         } catch (Exception ex) {
-            log.error("Error occured while generating thumbnails, aborting", ex);
+            LOGGER.error("Error occured while generating thumbnails, aborting", ex);
         }
     }
 
@@ -174,38 +175,39 @@ public class ThumbnailGenerator implements Runnable {
         isStopped = false;
         final File imageDirectory = new File(getFileAccessManager().getBaseDirectory());
         if (!imageDirectory.exists()) {
-            log.warn("Image directory " + imageDirectory + " does not exist");
+            LOGGER.warn("Image directory " + imageDirectory + " does not exist");
             return;
         }
-        int thumbnailsGenerated = 0;
-        Collection<File> images = FileUtils.listFiles(imageDirectory,
+        final Collection<File> images = FileUtils.listFiles(imageDirectory,
                 imageWithoutThumbnailFileFilter, TrueFileFilter.INSTANCE);
-        log.info("found " + images.size() + " images to create thumbnails for");
         if (images.size() == 0) {
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("found no images to create thumbnails for");
+            }
             return;
         }
-        if (getThrottleDelay() > 0) {
-            log.info("Waiting " + getThrottleDelay() + "ms between each");
-        }
+        LOGGER.info("found " + images.size() + " images to create thumbnails for");
+        final long throttleDelay = getThrottleDelay();
+        int thumbnailsGenerated = 0;
         for (File file : images) {
             if (isStopped) {
-                log.info("Thumbnail generator stopped");
+                LOGGER.info("Thumbnail generator stopped");
                 break;
             }
             Thread.yield();
             try {
                 getScaledImageCache().getScaledImage(file, "t");
                 ++thumbnailsGenerated;
-                if (log.isDebugEnabled()) {
-                    log.debug("Created thumbnail for " + file);
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("Created thumbnail for " + file);
                 }
-                if (getThrottleDelay() > 0) {
-                    Thread.sleep(getThrottleDelay());
+                if (throttleDelay > 0) {
+                    Thread.sleep(throttleDelay);
                 }
             } catch (Exception ex) {
-                log.warn("error occured while creating thumbnail for " + file, ex);
+                LOGGER.warn("error occured while creating thumbnail for " + file, ex);
             }
         }
-        log.info(thumbnailsGenerated + " thumbnails generated");
+        LOGGER.info(thumbnailsGenerated + " thumbnails generated");
     }
 }
