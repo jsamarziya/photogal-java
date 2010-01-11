@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import org.sixcats.utils.image.ImageMetadataUtils;
 import org.sixcats.utils.image.ImageScaler;
 import org.sixcats.utils.image.ImageUtils;
 import org.slf4j.Logger;
@@ -39,6 +40,7 @@ public class ScaledImageCache implements InitializingBean {
     private File cacheDirectory;
     private ScaledImageCalculator scaledImageCalculator;
     private ImageScaler imageScaler;
+    private boolean reorientImages;
 
     /**
      * Returns the cache directory.
@@ -83,6 +85,28 @@ public class ScaledImageCache implements InitializingBean {
      */
     public ImageScaler getImageScaler() {
         return imageScaler;
+    }
+
+    /**
+     * Returns <code>true</code> if scaled images should be rotated as necessary
+     * to ensure correct orientation.
+     * 
+     * @return <code>true</code> if scaled images are to be reoriented,
+     *         <code>false</code> otherwise
+     */
+    public boolean isReorientImages() {
+        return reorientImages;
+    }
+
+    /**
+     * Sets whether scaled images should be rotated as necessary to ensure
+     * correct orientation.
+     * 
+     * @param if <code>true</code>, scaled images will be reoriented; if
+     *        <code>false</code>, they won't
+     */
+    public void setReorientImages(boolean reorientImages) {
+        this.reorientImages = reorientImages;
     }
 
     /**
@@ -150,11 +174,7 @@ public class ScaledImageCache implements InitializingBean {
     // operation is performed at a given time, which is to address
     // OutOfMemoryError concerns
     private synchronized void createScaledImages(File originalImageFile) throws IOException {
-        final BufferedImage originalImage = ImageUtils.readImage(originalImageFile);
-        if (originalImage == null) {
-            throw new IOException("unable to read original image file "
-                    + originalImageFile.getPath());
-        }
+        final BufferedImage originalImage = readImage(originalImageFile);
         final Dimension originalSize = new Dimension(originalImage.getWidth(), originalImage
                 .getHeight());
         final Map<String, Integer> sizes = getScaledImageCalculator().getMaxSizes();
@@ -178,6 +198,25 @@ public class ScaledImageCache implements InitializingBean {
                 }
             }
         }
+    }
+
+    /**
+     * Reads an image file, reorienting it if necessary.
+     * 
+     * @param imageFile the image file
+     * @return the image
+     * @throws IOException if an I/O error occurs
+     */
+    private BufferedImage readImage(File imageFile) throws IOException {
+        final BufferedImage image = ImageUtils.readImage(imageFile);
+        if (image == null) {
+            throw new IOException("unable to read image file " + imageFile.getPath());
+        }
+        if (isReorientImages() && ImageUtils.isJPEG(imageFile)) {
+            final int orientation = ImageMetadataUtils.getOrientation(imageFile);
+            return ImageUtils.reorientImage(image, orientation);
+        }
+        return image;
     }
 
     @Override
