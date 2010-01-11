@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:util="http://www.springframework.org/schema/util"
-    xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation="
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-    <bean id="placeholderConfigConfig"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="placeholderConfigConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="systemPropertiesMode">
-            <util:constant
-                static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+            <util:constant static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE" />
         </property>
         <property name="ignoreUnresolvablePlaceholders" value="true" />
     </bean>
 
-    <bean id="placeholderConfig"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location"
-            value="file:${photogal.data.dir}/applicationContext.properties" />
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="file:${photogal.data.dir}/applicationContext.properties" />
     </bean>
 
     <bean id="databaseDirectory" class="java.lang.String">
@@ -65,10 +59,10 @@
         <property name="imageScaler">
             <bean class="org.sixcats.utils.image.NobelImageScaler" />
         </property>
+        <property name="reorientImages" value="${reorient.scaled.images}" />
     </bean>
 
-    <bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator"
-        destroy-method="stop">
+    <bean id="thumbnailGenerator" class="net.sourceforge.photogal.image.ThumbnailGenerator" destroy-method="stop">
         <property name="fileAccessManager" ref="imageFileAccessManager" />
         <property name="scaledImageCache" ref="scaledImageCache" />
         <property name="throttleDelay" value="${thumbnail.generation.throttle.delay}" />
@@ -104,15 +98,12 @@
         </property>
     </bean>
 
-    <bean id="hsqlLifecycleManager" class="net.sourceforge.photogal.db.HsqlLifecycleManager"
-        init-method="startup" destroy-method="shutdown">
-        <property name="databaseScript"
-            value="classpath:net/sourceforge/photogal/hsql/db.script" />
+    <bean id="hsqlLifecycleManager" class="net.sourceforge.photogal.db.HsqlLifecycleManager" init-method="startup" destroy-method="shutdown">
+        <property name="databaseScript" value="classpath:net/sourceforge/photogal/hsql/db.script" />
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean>
 
-    <bean id="photogalDao" class="net.sourceforge.photogal.hibernate.HibernatePhotogalDao"
-        depends-on="hsqlLifecycleManager">
+    <bean id="photogalDao" class="net.sourceforge.photogal.hibernate.HibernatePhotogalDao" depends-on="hsqlLifecycleManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
