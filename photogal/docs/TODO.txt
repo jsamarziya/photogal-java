@@ -1,8 +1,21 @@
 FUTURE
 ------------------
+
+investigate image URL escaping when path contains single quote character
+
+use GWT to implement UI?
+
+add RSS feed?
+ 
+ImageIO.setUseCache(false)??
+
+unsharpen mask?
+
 add mail gateway
 	http://james.apache.org
 	use port 465 or 587?
+
+fix gallery layout on edit galleries page
 	
 add scrolling to gallery selector when reordering photos
 
