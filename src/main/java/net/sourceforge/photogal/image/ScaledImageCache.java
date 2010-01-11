@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.sixcats.utils.image.ImageMetadataUtils;
 import org.sixcats.utils.image.ImageScaler;
 import org.sixcats.utils.image.ImageUtils;
@@ -159,8 +160,10 @@ public class ScaledImageCache implements InitializingBean {
      * @return the file containing the scaled image
      */
     private File getScaledImageFile(final File imageFile, final String sizeId) {
-        final File cacheDir = new File(getCacheDirectory(), sizeId);
-        final File scaledImage = new File(cacheDir, imageFile.getPath());
+        final File cacheDir = new File(getCacheDirectory(), StringUtils.defaultString(imageFile
+                .getParent()));
+        final File scaledImageDir = new File(cacheDir, sizeId);
+        final File scaledImage = new File(scaledImageDir, imageFile.getName());
         return scaledImage;
     }
 
