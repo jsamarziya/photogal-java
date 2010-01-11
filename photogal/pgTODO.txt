@@ -1,15 +1,17 @@
-update all dependencies again
-	including tomcat
+regenerate scaled images button
 
-check web descriptor version against tomcat spec version
+add servlet or bean to check that photogal.data.dir is set, fail if not
 
-make application properties file an xml file (?)
-	
 add stats page - 
 	# galleries (private/public/total)
 	# images
 	# keywords
-	
+
+add elements to POMs
+    see http://maven.apache.org/pom.html
+
+make application properties file an xml file (?)
+
 put debug log statements in conditional
 
 finish unit tests
@@ -17,19 +19,14 @@ finish unit tests
 set up authentication 
 	via spring-security?
 
-add elements to POMs
-    see http://maven.apache.org/pom.html
-
 checkstyle
     check copyright header on files
     or Jalopy?
 
-investigate image URL escaping when path contains single quote character
+add install instructions to dist package
 
-GWT use?
+release 1.0!
 
-RSS feed
- 
-ImageIO.setUseCache(false)??
+update project metadata on sourceforge
 
-unsharpen mask?
+create project web page
