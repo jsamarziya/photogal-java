@@ -100,7 +100,7 @@ public class EditImage extends PhotogalDaoAwareFormController {
             if (imageCreationDate != null) {
                 form.setImageCreationDate(new CalendarDate(imageCreationDate));
             }
-            Dimension d = ImageMetadataUtils.getSize(imageFile);
+            Dimension d = ImageMetadataUtils.getNormalizedSize(imageFile);
             form.setWidth(d.width);
             form.setHeight(d.height);
             form.setGalleryImage(false);
@@ -152,7 +152,7 @@ public class EditImage extends PhotogalDaoAwareFormController {
             descriptor = new ImageDescriptor();
             descriptor.setLocation(form.getLocation());
             File imageFile = getFileAccessManager().getFile(form.getLocation());
-            Dimension d = ImageMetadataUtils.getSize(imageFile);
+            Dimension d = ImageMetadataUtils.getNormalizedSize(imageFile);
             descriptor.setWidth(d.width);
             descriptor.setHeight(d.height);
         } else {
