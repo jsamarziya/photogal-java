@@ -1,6 +1,8 @@
 FUTURE
 ------------------
 
+JSP precompile?
+
 investigate image URL escaping when path contains single quote character
 
 use GWT to implement UI?
