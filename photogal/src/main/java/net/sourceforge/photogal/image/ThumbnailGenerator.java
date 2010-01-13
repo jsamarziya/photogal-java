@@ -26,6 +26,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.time.DurationFormatUtils;
 import org.sixcats.utils.FileAccessManager;
 import org.sixcats.utils.image.ImageUtils;
 import org.slf4j.Logger;
@@ -189,6 +190,7 @@ public class ThumbnailGenerator implements Runnable {
         LOGGER.info("found " + images.size() + " images to create thumbnails for");
         final long throttleDelay = getThrottleDelay();
         int thumbnailsGenerated = 0;
+        final long startTime = System.currentTimeMillis();
         for (File file : images) {
             if (isStopped) {
                 LOGGER.info("Thumbnail generator stopped");
@@ -208,6 +210,8 @@ public class ThumbnailGenerator implements Runnable {
                 LOGGER.warn("error occured while creating thumbnail for " + file, ex);
             }
         }
-        LOGGER.info(thumbnailsGenerated + " thumbnails generated");
+        final long endTime = System.currentTimeMillis();
+        LOGGER.info(thumbnailsGenerated + " thumbnails generated, in "
+                + DurationFormatUtils.formatDurationWords(endTime - startTime, true, true));
     }
 }
