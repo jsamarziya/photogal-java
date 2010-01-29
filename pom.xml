@@ -8,6 +8,25 @@
     <packaging>war</packaging>
     <name>photogal</name>
     <description>photogal</description>
+    <url>http://photogal.sourceforge.net/</url>
+    <inceptionYear>2006</inceptionYear>
+    <licenses>
+        <license>
+            <name>GNU General Public License (GPL)</name>
+            <url>http://www.gnu.org/licenses/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <issueManagement>
+        <system>Tracker</system>
+        <url>http://sourceforge.net/tracker/?group_id=182981</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:https://photogal.svn.sourceforge.net/svnroot/photogal/photogal/</connection>
+        <developerConnection>scm:https://photogal.svn.sourceforge.net/svnroot/photogal/photogal/</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://photogal.svn.sourceforge.net/svnroot/photogal/photogal/</url>
+    </scm>
     <properties>
         <photogal.version>${project.version}</photogal.version>
     </properties>
