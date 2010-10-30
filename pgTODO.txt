@@ -1,27 +1,5 @@
-regenerate scaled images button
-
-add servlet or bean to check that photogal.data.dir is set, fail if not
-
-add stats page - 
-	# galleries (private/public/total)
-	# images
-	# keywords
-
-add elements to POMs
-    see http://maven.apache.org/pom.html
-
-make application properties file an xml file (?)
-
-put debug log statements in conditional
-
-finish unit tests
-
-set up authentication 
-	via spring-security?
-
-checkstyle
-    check copyright header on files
-    or Jalopy?
+set up bundled distribution
+	set up authentication 
 
 add install instructions to dist package
 
