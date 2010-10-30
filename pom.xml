@@ -276,6 +276,46 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <header>src/etc/header.txt</header>
+                    <validHeaders>
+                        <validHeader>src/etc/header2008.txt</validHeader>
+                        <validHeader>src/etc/header2009.txt</validHeader>
+                        <validHeader>src/etc/header2010.txt</validHeader>
+                    </validHeaders>
+                    <strictCheck>false</strictCheck>
+                    <includes>
+                        <include>src/main/**</include>
+                        <include>src/test/**</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*.css</exclude>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>**/*.tld</exclude>
+                        <exclude>**/*.txt</exclude>
+                        <exclude>**/*.xml</exclude>
+                        <exclude>**/blank.html</exclude>
+                        <exclude>**/db.script</exclude>
+                        <exclude>**/wz_dragdrop.js</exclude>
+                    </excludes>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                        <tag>DYNASCRIPT_STYLE</tag>
+                        <js>DOUBLESLASH_STYLE</js>
+                    </mapping>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemProperties>
