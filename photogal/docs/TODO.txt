@@ -1,6 +1,19 @@
 FUTURE
 ------------------
 
+edit jsps to not use sessions if not needed
+
+regenerate scaled images button
+
+add stats page - 
+	# galleries (private/public/total)
+	# images
+	# keywords
+
+put debug log statements in conditional
+
+finish unit tests
+
 JSP precompile?
 
 investigate image URL escaping when path contains single quote character
