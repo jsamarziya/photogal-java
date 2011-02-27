@@ -130,4 +130,14 @@
 			int pageCount(int, int)
 		</function-signature>
 	</function>
+    <function>
+        <name>escapeId</name>
+        <function-class>org.sixcats.utils.web.HtmlUtils</function-class>
+        <function-signature>java.lang.String escapeId(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <name>escapeJavaScript</name>
+        <function-class>org.apache.commons.lang.StringEscapeUtils</function-class>
+        <function-signature>java.lang.String escapeJavaScript(java.lang.String)</function-signature>
+    </function>
 </taglib>
