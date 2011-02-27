@@ -292,6 +292,7 @@
                         <validHeader>src/etc/header2008.txt</validHeader>
                         <validHeader>src/etc/header2009.txt</validHeader>
                         <validHeader>src/etc/header2010.txt</validHeader>
+                        <validHeader>src/etc/header2011.txt</validHeader>
                     </validHeaders>
                     <strictCheck>false</strictCheck>
                     <includes>
