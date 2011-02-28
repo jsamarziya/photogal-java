@@ -74,7 +74,7 @@ function uninit() {
 <script type="text/javascript">
 var popup = new ZoomPopup();
 popup.setImage(document.getElementById("thumbnail"));
-popup.setImageURL('${imageURL}');
+popup.setImageURL('${pg:escapeJavaScript(imageURL)}');
 <c:forEach items="${command.availableSizes}" var="size">
 popup.setSizeEnabled('${size.key}', ${size.value}); 
 </c:forEach>
