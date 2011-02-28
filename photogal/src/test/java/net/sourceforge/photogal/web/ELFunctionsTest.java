@@ -18,28 +18,37 @@
  */
 package net.sourceforge.photogal.web;
 
-import junit.framework.TestCase;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
-public class ELFunctionsTest extends TestCase {
+import org.junit.Test;
+
+public class ELFunctionsTest {
+    @Test
     public void testPageCountZeroItems() {
         assertEquals(0, ELFunctions.pageCount(0, 10));
     }
 
+    @Test
     public void testPageCountOneItem() {
         for (int itemsPerPage = 1; itemsPerPage < 20; itemsPerPage++) {
-            assertEquals("for itemsPerPage=" + itemsPerPage, 1, ELFunctions
-                    .pageCount(1, itemsPerPage));
+            assertEquals("for itemsPerPage=" + itemsPerPage, 1, ELFunctions.pageCount(1,
+                    itemsPerPage));
         }
     }
 
+    @Test
     public void testPageCountTwoItems() {
         assertEquals(2, ELFunctions.pageCount(2, 1));
         for (int itemsPerPage = 2; itemsPerPage < 20; itemsPerPage++) {
-            assertEquals("for itemsPerPage=" + itemsPerPage, 1, ELFunctions
-                    .pageCount(2, itemsPerPage));
+            assertEquals("for itemsPerPage=" + itemsPerPage, 1, ELFunctions.pageCount(2,
+                    itemsPerPage));
         }
     }
 
+    @Test
     public void testPageCountNineItems() {
         assertEquals(9, ELFunctions.pageCount(9, 1));
         assertEquals(5, ELFunctions.pageCount(9, 2));
@@ -50,8 +59,19 @@ public class ELFunctionsTest extends TestCase {
         assertEquals(2, ELFunctions.pageCount(9, 7));
         assertEquals(2, ELFunctions.pageCount(9, 8));
         for (int itemsPerPage = 9; itemsPerPage < 20; itemsPerPage++) {
-            assertEquals("for itemsPerPage=" + itemsPerPage, 1, ELFunctions
-                    .pageCount(9, itemsPerPage));
+            assertEquals("for itemsPerPage=" + itemsPerPage, 1, ELFunctions.pageCount(9,
+                    itemsPerPage));
         }
+    }
+
+    @Test
+    public void testNormalizedPath() {
+        assertThat(ELFunctions.normalizedPath(null), is(nullValue()));
+        assertThat(ELFunctions.normalizedPath(""), is(""));
+        assertThat(ELFunctions.normalizedPath("/"), is("/"));
+        assertThat(ELFunctions.normalizedPath("\\"), is("/"));
+        assertThat(ELFunctions.normalizedPath("foo"), is("foo"));
+        assertThat(ELFunctions.normalizedPath("foo/bar.xml"), is("foo/bar.xml"));
+        assertThat(ELFunctions.normalizedPath("foo\\bar.xml"), is("foo/bar.xml"));
     }
 }

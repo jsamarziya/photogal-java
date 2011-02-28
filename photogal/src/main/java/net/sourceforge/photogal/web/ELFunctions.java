@@ -30,15 +30,14 @@ public class ELFunctions {
     private ELFunctions() {
     }
 
-    public static Dimension getScaledSize(ScaledImageCalculator calculator,
-            Dimension originalSize, String size) {
+    public static Dimension getScaledSize(ScaledImageCalculator calculator, Dimension originalSize,
+            String size) {
         return calculator.getScaledSize(originalSize, size);
     }
 
     public static boolean isAvailableSize(ScaledImageCalculator calculator,
             ImageDescriptor descriptor, String size) {
-        return calculator.isAvailableSize(size, descriptor.getWidth(),
-                                          descriptor.getHeight());
+        return calculator.isAvailableSize(size, descriptor.getWidth(), descriptor.getHeight());
     }
 
     public static boolean canEdit(HttpServletRequest request) {
@@ -53,7 +52,20 @@ public class ELFunctions {
      * @return the number of pages in the set
      */
     public static int pageCount(int itemCount, int itemsPerPage) {
-        return itemCount / itemsPerPage
-            + (itemCount % itemsPerPage == 0 ? 0 : 1);
+        return itemCount / itemsPerPage + (itemCount % itemsPerPage == 0 ? 0 : 1);
+    }
+
+    /**
+     * Returns a normalized file expression. Replaces all backslash file
+     * seperator characters with forward slash characters.
+     * 
+     * @param path the path to normalize
+     * @return the normalized path
+     */
+    public static String normalizedPath(String path) {
+        if (path == null) {
+            return null;
+        }
+        return path.replace('\\', '/');
     }
 }
