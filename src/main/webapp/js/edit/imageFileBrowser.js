@@ -33,7 +33,8 @@ function imageAdded(location, galleryId) {
  * a gallery.
  */
 function imageRemoved(location, galleryId) {
-    delete imageGalleries[location][galleryId];
+    var galleryList = getGalleryList(location);
+    delete galleryList[galleryId];
     updateCellDisplay(location);
 }
 
@@ -155,7 +156,7 @@ function getThumbnailCell(imageLocation) {
 }
 
 function getThumbnailCellId(imageLocation) {
-    return "tn:" + imageLocation;
+	return escapeId("tn:" + imageLocation);
 }
 
 function getThumbnailImage(imageLocation) {
@@ -163,7 +164,7 @@ function getThumbnailImage(imageLocation) {
 }
 
 function getThumbnailImageId(imageLocation) {
-    return "img:" + imageLocation;
+    return escapeId("img:" + imageLocation);
 }
 
 function getGalleryList(location) {
