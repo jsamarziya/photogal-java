@@ -96,10 +96,10 @@ SET_DHTML();
       <c:set var="imageLocation" value="null"/>
     </c:when>
     <c:otherwise>
-      <c:set var="imageLocation" value="'${fn:escapeXml(gallery.galleryImageOrDefault.location)}'"/>
+      <c:set var="imageLocation" value="'${pg:escapeJavaScript(gallery.galleryImageOrDefault.location)}'"/>
     </c:otherwise>
   </c:choose>
-    addGallery(${gallery.id}, '${fn:escapeXml(gallery.name)}', ${imageLocation}, ${gallery.public});
+    addGallery(${gallery.id}, '${pg:escapeJavaScript(fn:escapeXml(gallery.name))}', ${imageLocation}, ${gallery.public});
 </c:forEach>
 </script>
 <pg:footer />

@@ -19,7 +19,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="/WEB-INF/photogal.tld" prefix="pg"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -28,7 +28,7 @@
 <script type="text/javascript">
 function updateFrames() {
     var id = ${imageId};
-    var location = '${fn:escapeXml(imageLocation)}';
+    var location = '${pg:escapeJavaScript(imageLocation)}';
     var selectorWindow = top.gallerySelector;
     var fileBrowserWindow = top.fileSelector;
     selectorWindow.removeImage(id);
