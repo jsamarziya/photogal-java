@@ -69,7 +69,7 @@ SET_DHTML();
 </script>
 <script type="text/javascript">
 <c:forEach items="${gallery.images}" var="image">
-  addImage(${image.id}, '${fn:replace(image.title, "'", "\\'")}', '${fn:escapeXml(image.location)}');
+  addImage(${image.id}, '${pg:escapeJavaScript(image.title)}', '${pg:escapeJavaScript(image.location)}');
 </c:forEach>
 </script>
 </body>
