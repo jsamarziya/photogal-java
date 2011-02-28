@@ -46,7 +46,7 @@ var galleryId = ${gallery.id};
 function initializeFileBrowserTable() {
 <c:forEach var="entry" items="${imageDescriptors}">
   <c:forEach var="gallery" items="${entry.value.galleries}">
-    imageAdded("${fn:escapeXml(fn:replace(entry.key.path, '\\', '/'))}", ${gallery.id});
+    imageAdded("${pg:escapeJavaScript(pg:normalizedPath(entry.key.path))}", ${gallery.id});
   </c:forEach>
 </c:forEach>
 }
@@ -54,7 +54,7 @@ function initializeFileBrowserTable() {
 </head>
 <body onload="initializeFileBrowserTable()">
 <div class="smallText" style="position: fixed;">Contents of <c:out
-	value="${fn:replace(currentDirectory.path, '\\\\', '/')}" /><a
+	value="${pg:normalizedPath(currentDirectory.path)}" /><a
 	href="javascript:showOptions();" style="margin-left: 4em;"
 	class="plain">[Options]</a></div>
 <table class="thumbnail" id="fileBrowserTable" style="margin-top: 10px">
@@ -65,8 +65,7 @@ function initializeFileBrowserTable() {
 				<c:param name="galleryId" value="${gallery.id}" />
 			</c:url>
 			<td class="fileBrowser">
-			<div class="thumbnail"><a
-				href="${parentDirectoryURL}"><img
+			<div class="thumbnail"><a href="${parentDirectoryURL}"><img
 				src="<c:url value="/images/folderUp50x42.png"/>" class="folderIcon" /></a></div>
 			<div class="thumbnailLabel"><a href="${parentDirectoryURL}"
 				class="smallText plain">(Up to parent directory)</a></div>
@@ -78,29 +77,31 @@ function initializeFileBrowserTable() {
 				<c:param name="galleryId" value="${gallery.id}" />
 			</c:url>
 			<td class="fileBrowser">
-			<div class="thumbnail"><a
-				href="${subdirectoryURL}"><img
+			<div class="thumbnail"><a href="${subdirectoryURL}"><img
 				src="<c:url value="/images/folder50x42.png"/>" class="folderIcon" /></a></div>
 			<div class="thumbnailLabel"><a href="${subdirectoryURL}"
 				class="smallText plain"><c:out value="${dir.name}" /></a></div>
 			</td>
 		</c:forEach>
 		<c:forEach var="imageFile" items="${imageFiles}">
-			<c:url value="/edit/editImage.do" var="imageFileURL">
-				<c:param name="location" value="${imageFile.path}" />
+			<c:set var="imageFilePath" value="${pg:normalizedPath(imageFile.path) }"/>
+			<c:url var="imageFileURL" value="/edit/editImage.do">
+				<c:param name="location" value="${imageFilePath}" />
 				<c:param name="galleryId" value="${gallery.id}" />
 				<c:param name="returnTo" value="/edit/editImageDone" />
 				<c:param name="cancelTo" value="redirect:/blank.html" />
 			</c:url>
-			<c:set var="imageFilePath"
-				value="${fn:escapeXml(fn:replace(imageFile.path, '\\\\', '/'))}" />
-			<td class="fileBrowser" id="tn:${imageFilePath}">
-			<div class="thumbnail"><img
-				id="img:${imageFilePath}"
-				src="<c:url value="/edit/showImageFile.do" ><c:param name="file" value="${imageFile.path}"/><c:param name="size" value="t"/></c:url>"
-				class="thumbnail" style="visibility: hidden;"
+			<c:url var="imgSrc" value="/edit/showImageFile.do">
+				<c:param name="file" value="${imageFilePath}" />
+				<c:param name="size" value="t" />
+			</c:url>
+			<c:set var="tdId" value="tn:${imageFilePath}" />
+			<c:set var="imgId" value="img:${imageFilePath}" />
+			<td class="fileBrowser" id="${pg:escapeId(tdId)}">
+			<div class="thumbnail"><img id="${pg:escapeId(imgId)}"
+				src="${imgSrc}" class="thumbnail" style="visibility: hidden;"
 				onload="verticallyCenterImageOnload(this)"
-				onclick="top.galleryEditor.location='${imageFileURL}'" /></div>
+				onclick="top.galleryEditor.location='${pg:escapeJavaScript(imageFileURL)}'" /></div>
 			<div class="thumbnailLabel"><a href="${imageFileURL}"
 				target="galleryEditor" class="smallText plain"><c:out
 				value="${imageFile.name}" /></a></div>
