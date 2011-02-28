@@ -140,4 +140,9 @@
         <function-class>org.apache.commons.lang.StringEscapeUtils</function-class>
         <function-signature>java.lang.String escapeJavaScript(java.lang.String)</function-signature>
     </function>
+    <function>
+        <name>normalizedPath</name>
+        <function-class>net.sourceforge.photogal.web.ELFunctions</function-class>
+        <function-signature>java.lang.String normalizedPath(java.lang.String)</function-signature>
+    </function>
 </taglib>
