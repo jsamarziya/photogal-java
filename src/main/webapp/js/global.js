@@ -62,8 +62,9 @@ function hitTest(x, y, obj) {
 }
 
 /*
- * An onload handler function used for vertically centering images.  This function
- * sets a half-second timeout, after which the image is centered and made visible.
+ * An onload handler function used for vertically centering images. This
+ * function sets a half-second timeout, after which the image is centered and
+ * made visible.
  */
 function verticallyCenterImageOnload(image) {
     window.setTimeout("var img = document.getElementById('" + image.id + "'); verticallyCenterElement(img); img.style.visibility = 'visible';", 500);
@@ -107,4 +108,37 @@ function allNodes(node) {
         retval = retval.concat(allNodes(child));
     }
     return retval;
+}
+
+/*
+ * Escapes a string to ensure that it conforms to the rules for HTML ID tokens.
+ */
+function escapeId(string) {
+    var retval = "";
+    if (string.length == 0 || string.charAt(0) == 'z' || !isLetter(string.charAt(0))){
+    	retval += "z";
+    }
+    for (var i = 0; i < string.length; i++) {
+    	var c = string.charAt(i);
+    	if (isLetter(c) || isDigit(c) || c == '-' || c == '_' || c == ':') {
+    		retval += c;
+    	} else {
+    		retval += '.' + c.charCodeAt(0);
+    	}
+    }   	
+	return retval;
+}
+
+/*
+ * Returns true if the specified character is a letter.
+ */
+function isLetter(c) {
+	return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';  
+}
+
+/*
+ * Returns true if the specified character is a digit.
+ */
+function isDigit(c) {
+	return c >= '0' && c <= '9';
 }
