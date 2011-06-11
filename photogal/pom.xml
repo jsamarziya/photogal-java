@@ -53,6 +53,10 @@
             <url>http://photogal.sourceforge.net/maven/thirdparty</url>
         </repository>
         <repository>
+            <id>photogal-releases</id>
+            <url>http://photogal.sourceforge.net/maven/releases</url>
+        </repository>
+        <repository>
             <id>java-image-scaling</id>
             <url>http://java-image-scaling.googlecode.com/svn/repo/released</url>
         </repository>
@@ -202,7 +206,7 @@
         <dependency>
             <groupId>org.sixcats</groupId>
             <artifactId>sixcats-utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
